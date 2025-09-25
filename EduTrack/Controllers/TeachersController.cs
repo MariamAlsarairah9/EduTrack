@@ -12,9 +12,9 @@ namespace EduTrack.Controllers
     [ApiController]
     public class TeachersController : ControllerBase
     {
-        private HrDbContext _dbContext;
+        private ETDbContext _dbContext;
 
-        public TeachersController(HrDbContext dbContext) //Constructor
+        public TeachersController(ETDbContext dbContext) //Constructor
         {
             _dbContext = dbContext;
         }

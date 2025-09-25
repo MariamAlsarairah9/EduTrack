@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EduTrack.Migrations
 {
-    [DbContext(typeof(HrDbContext))]
+    [DbContext(typeof(ETDbContext))]
     partial class HrDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

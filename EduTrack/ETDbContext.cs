@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EduTrack
 {
-    public class HrDbContext : DbContext
+    public class ETDbContext : DbContext
     {
-        public HrDbContext(DbContextOptions<HrDbContext> options) : base(options)
+        public ETDbContext(DbContextOptions<ETDbContext> options) : base(options)
         { 
         
         }

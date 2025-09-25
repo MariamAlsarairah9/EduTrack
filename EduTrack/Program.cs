@@ -10,8 +10,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<HrDbContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("HrContext"))
+builder.Services.AddDbContext<ETDbContext>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("ETContext"))
 );
 
 var app = builder.Build();

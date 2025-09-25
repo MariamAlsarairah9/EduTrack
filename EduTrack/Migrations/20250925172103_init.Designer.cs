@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EduTrack.Migrations
 {
-    [DbContext(typeof(HrDbContext))]
+    [DbContext(typeof(ETDbContext))]
     [Migration("20250925172103_init")]
     partial class init
     {
