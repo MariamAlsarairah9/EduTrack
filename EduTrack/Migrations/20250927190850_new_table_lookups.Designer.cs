@@ -4,6 +4,7 @@ using EduTrack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EduTrack.Migrations
 {
     [DbContext(typeof(ETDbContext))]
-    partial class HrDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250927190850_new_table_lookups")]
+    partial class new_table_lookups
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,29 +46,6 @@ namespace EduTrack.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Lookups");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            MajorCode = 0,
-                            MinorCode = 0,
-                            Name = "Users"
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            MajorCode = 0,
-                            MinorCode = 1,
-                            Name = "Teacher"
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            MajorCode = 0,
-                            MinorCode = 2,
-                            Name = "Parent"
-                        });
                 });
 
             modelBuilder.Entity("EduTrack.Model.Teacher", b =>
