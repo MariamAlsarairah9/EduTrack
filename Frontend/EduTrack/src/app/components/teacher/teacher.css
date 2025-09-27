@@ -8,15 +8,11 @@
 }
 
 .teacher-header {
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
     width: 70%;
     border-radius: 30px;
     box-shadow: 3px 3px 6px #888888;
-    background-color: #e7e7e7;
-
+    background-color: #ffffff;
+padding: 0 0 0 25px;
 }
 
 .profile-img {
@@ -49,50 +45,64 @@
 
 }
 
-/* .info {
-    color: gray;
-    width: 100%;
-    font-weight: 400;
-
-} */
-
-.cards {
-    background-color: #e8e3e3e6;
-    width: 25%;
-    height: 140px;
-    margin: 20px;
-    border-radius: 10px;
-    box-shadow: 3px 3px 6px #888888;
-}
-
-.cards:hover {
-    transform: scale(1.1);
-    background-color: #5d6b6ba1;
-}
 
 .teacher-body {
     width: 100%;
     display: flex;
     justify-content: center;
-
-    margin: 10px;
+    flex-wrap: wrap;
+    margin: 40px;
 }
 
 .btn {
 
     width: 100%;
-    height: 100%;
-    background-color: #5D6B6B;
-    color: #FFFF;
+    background-color: rgb(179, 179, 179);
+    border-radius: 0;
+    height: 70%;
+    align-content: center;
+    border-radius: 0 0 15px 15px ;
 }
 
-.bi {
-    width: 100%;
+.card-title {
 
-
+    height: 30%;
+    align-content: center;
 }
 
-@media screen and (max-width: 800px) {
+
+.card {
+
+    margin: 15px 15px;
+    padding: 0;
+border-radius: 15px
+;}
+
+.img-card {
+    height: 50%;
+    border-radius: 15px 15px 0 0 ;
+}
+
+.card-body {
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px 0 0 0;
+}
+
+.navbar {
+
+    height: 7.5REM;
+    background-color: #ffffff !important;
+}
+.logo{
+    height: 100px;
+width: auto;
+
+}
+/* @media screen and (max-width: 800px) {
     .teacher-header {
         flex-direction: column;
     }
@@ -119,8 +129,11 @@
         align-items: center;
     }
 
-    .cards {
-        width: 80%;
+    .card {
+
+
+        margin: 10px 15px;
+        width: 60% !important;
     }
 
-}
+} */
