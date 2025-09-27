@@ -25,7 +25,7 @@ namespace EduTrack.Controllers
             try
             {
                 var data = from teacher in _dbContext.Teachers
-                           where (filterDto.Id == null || teacher.Id == filterDto.Id) && 
+                           where (filterDto.Id == null || teacher.Id == filterDto.Id) &&
                                  (filterDto.Name == null || teacher.Name.ToUpper().Contains(filterDto.Name.ToUpper()))
                            orderby teacher.Id 
                            select new TeacherDto
