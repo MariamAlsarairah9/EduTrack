@@ -25,7 +25,7 @@ namespace EduTrack.Controllers
             try
             {
                 var data = from teacher in _dbContext.Teachers
-                           where (filterDto.Id == null || teacher.Id == filterDto.Id) && 
+                           where (filterDto.Id == null || teacher.Id == filterDto.Id) &&
                                  (filterDto.Name == null || teacher.Name.ToUpper().Contains(filterDto.Name.ToUpper()))
                            orderby teacher.Id 
                            select new TeacherDto
@@ -108,7 +108,7 @@ namespace EduTrack.Controllers
                 var teacher = _dbContext.Teachers.FirstOrDefault(x => x.Id == teacherDto.Id); 
                 if (teacher == null)
                 {
-                    return BadRequest("Teachers Not Found!"); 
+                    return BadRequest("Teacher Not Found!"); 
                 }
                 teacher.Name = teacherDto.Name;
                 teacher.Phone = teacherDto.Phone;
@@ -134,7 +134,7 @@ namespace EduTrack.Controllers
                 var teacher = _dbContext.Teachers.FirstOrDefault(x => x.Id == Id);
                 if (teacher == null)
                 {
-                    return BadRequest("Teachers Does Not Exist"); 
+                    return BadRequest("Teacher Does Not Exist"); 
 
                 }             
                 _dbContext.Teachers.Remove(teacher);
