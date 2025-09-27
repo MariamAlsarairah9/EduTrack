@@ -28,6 +28,8 @@ namespace EduTrack
         //Teachers Table
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Lookup> Lookups { get; set; }
+        public DbSet<Student> Students { get; set; }
+
     }
 }
 
