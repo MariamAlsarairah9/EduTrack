@@ -108,7 +108,7 @@ namespace EduTrack.Controllers
                 var teacher = _dbContext.Teachers.FirstOrDefault(x => x.Id == teacherDto.Id); 
                 if (teacher == null)
                 {
-                    return BadRequest("Employee Not Found!"); 
+                    return BadRequest("Teacher Not Found!"); 
                 }
                 teacher.Name = teacherDto.Name;
                 teacher.Phone = teacherDto.Phone;
@@ -134,7 +134,7 @@ namespace EduTrack.Controllers
                 var teacher = _dbContext.Teachers.FirstOrDefault(x => x.Id == Id);
                 if (teacher == null)
                 {
-                    return BadRequest("Employee Does Not Exist"); 
+                    return BadRequest("Teacher Does Not Exist"); 
 
                 }             
                 _dbContext.Teachers.Remove(teacher);
