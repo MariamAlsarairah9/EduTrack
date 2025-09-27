@@ -58,6 +58,7 @@ namespace EduTrack.Controllers
                 {
                     Id = teacher.Id,
                     Name = teacher.Name,
+                    Email = teacher.Email,
                     StartDate = teacher.StartDate,
                     Phone = teacher.Phone,
                 }).FirstOrDefault(x => x.Id == Id);
