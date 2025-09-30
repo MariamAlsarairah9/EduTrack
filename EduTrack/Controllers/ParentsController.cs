@@ -81,10 +81,10 @@ namespace EduTrack.Controllers
                 var parent = new Parent()
                 {
                     Id = 0,
-                    Name = ParentDto.Name,
-                    Email = ParentDto.Email,
-                    Phone = ParentDto.Phone,
-                    StudentId = ParentDto.StudentId
+                    Name = parentDto.Name,
+                    Email = parentDto.Email,
+                    Phone = parentDto.Phone,
+                    StudentId = parentDto.StudentId
 
                 };
                 _dbContext.Parents.Add(parent);
