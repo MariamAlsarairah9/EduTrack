@@ -107,7 +107,6 @@ namespace EduTrack.Controllers
             {
                 var teacher = _dbContext.Teachers.FirstOrDefault(x => x.Id == teacherDto.Id); 
                 if (teacher == null)
-                {
                     return BadRequest("Teacher Not Found!"); 
                 }
                 teacher.Name = teacherDto.Name;
