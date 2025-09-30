@@ -18,7 +18,6 @@ namespace EduTrack
                 new Lookup { Id = 1, MajorCode = 0, MinorCode = 0, Name = "Users" }, 
                 new Lookup { Id = 2, MajorCode = 0, MinorCode = 1, Name = "Teacher" },
                 new Lookup { Id = 3, MajorCode = 0, MinorCode = 2, Name = "Parent" }
-             
                 );
         }
         

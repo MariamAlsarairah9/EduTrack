@@ -1,7 +1,6 @@
 import { Component, signal } from '@angular/core';
-import { bootstrapApplication } from '@angular/platform-browser';
 // import { RouterOutlet } from '@angular/router';
-import { RouterOutlet, RouterLink, RouterLinkActive, Route, Router } from '@angular/router';
+import { RouterOutlet, RouterLink, RouterLinkActive} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +13,6 @@ import { RouterOutlet, RouterLink, RouterLinkActive, Route, Router } from '@angu
 export class App {
   protected readonly title = signal('EduTrack');
   
-
 
 
 }
