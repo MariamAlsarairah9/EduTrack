@@ -15,7 +15,5 @@ namespace EduTrack.Model
             public string Class { get; set; }    
 
 
-
-
     }
 }

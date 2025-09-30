@@ -1,4 +1,6 @@
-﻿namespace EduTrack.Model
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace EduTrack.Model
 {
     public class Lookup
     {
