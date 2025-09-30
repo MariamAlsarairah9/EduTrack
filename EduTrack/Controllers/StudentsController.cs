@@ -32,8 +32,8 @@ namespace EduTrack.Controllers
                            {
                                Id = student.Id,
                                Name = student.Name,
-                               Class = student.Class,
-                               GradeLevel = student.GradeLevel
+                               GradeLevel = student.GradeLevel,
+                               Class = student.Class
 
                            };
 
@@ -57,8 +57,8 @@ namespace EduTrack.Controllers
                 {
                     Id = student.Id,
                     Name = student.Name,
-                    Class = student.Class,
-                    GradeLevel = student.GradeLevel
+                    GradeLevel = student.GradeLevel,
+                    Class = student.Class
 
                 }).FirstOrDefault(x => x.Id == Id);
 
@@ -82,8 +82,8 @@ namespace EduTrack.Controllers
                 {
                     Id = 0,
                     Name = studentDto.Name,
-                    GradeLevel = studentDto.GradeLevel,
-                    Class = studentDto.Class
+                    Class = studentDto.Class,
+                    GradeLevel = studentDto.GradeLevel
 
 
                 };
@@ -109,8 +109,8 @@ namespace EduTrack.Controllers
                     return BadRequest("Student Not Found!");
                 }
                 student.Name = studentDto.Name;
-                student.GradeLevel = studentDto.GradeLevel;
                 student.Class = studentDto.Class;
+                student.GradeLevel = studentDto.GradeLevel;
 
 
 

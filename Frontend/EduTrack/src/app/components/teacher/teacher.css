@@ -57,7 +57,7 @@ padding: 0 0 0 25px;
 .btn {
 
     width: 100%;
-    background-color: rgb(179, 179, 179);
+    background-color: rgb(171 213 255);
     border-radius: 0;
     height: 70%;
     align-content: center;
@@ -92,7 +92,7 @@ border-radius: 15px
     padding: 10px 0 0 0;
 }
 
-.navbar {
+/* .navbar {
 
     height: 7.5REM;
     background-color: #ffffff !important;
@@ -101,7 +101,7 @@ border-radius: 15px
     height: 100px;
 width: auto;
 
-}
+} */
 /* @media screen and (max-width: 800px) {
     .teacher-header {
         flex-direction: column;
