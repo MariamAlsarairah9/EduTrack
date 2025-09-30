@@ -1,0 +1,149 @@
+﻿using EduTrack.DTOs.Grrade;
+using EduTrack.DTOs.Grrades;
+using EduTrack.DTOs.Parent;
+using EduTrack.Model;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+namespace EduTrack.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class GradesController : ControllerBase
+    {
+        private ETDbContext _dbContext;
+        public GradesController(ETDbContext dbContext) //Constructor
+        {
+            _dbContext = dbContext;
+        }
+
+        [HttpGet("GetAll")]
+        public IActionResult GetAll([FromQuery] FilterGradesDto filterDto)
+        {
+            try
+            {
+                var data = from grade in _dbContext.Grades
+                           where (filterDto.Id == null || grade.Id == filterDto.Id) &&
+                                 (filterDto.SubjectName == null || grade.SubjectName.ToUpper().Contains(filterDto.SubjectName.ToUpper()))
+                           orderby grade.Id
+                           select new GradeDto
+                           {
+                               Id = grade.Id,
+                               SubjectName = grade.SubjectName,
+                               score = grade.score,
+                               StudentId = grade.StudentId
+
+                           };
+
+
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
+
+        [HttpGet("GetById")]
+        public IActionResult GetById([FromQuery] long Id)
+        {
+            try
+            {
+                var grade = _dbContext.Grades.Select(grade => new GradeDto
+                {
+                    Id = grade.Id,
+                    SubjectName = grade.SubjectName,
+                    score = grade.score,
+                    StudentId = grade.StudentId
+
+                }).FirstOrDefault(x => x.Id == Id);
+
+
+                return Ok(grade);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("Add")]
+
+        public IActionResult Add([FromBody] SaveGradeDto gradeDto)
+        {
+            try
+            {
+
+                var garde = new Grades()
+                {
+                    Id = gradeDto.Id,   
+                    SubjectName = gradeDto.SubjectName,
+                    score = gradeDto.score,
+                    StudentId = gradeDto.StudentId
+
+                };
+                _dbContext.Grades.Add(grade);
+                _dbContext.SaveChanges();
+                return Ok();
+
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPut("Update")]
+        public IActionResult Update(SaveGradeDto gradeDto)
+        {
+            try
+            {
+                var grade = _dbContext.Grades.FirstOrDefault(x => x.Id == gradeDto.Id);
+                if (grade == null)
+                {
+                    return BadRequest("Grade Not Found!");
+                }
+                grade.Id = gardeDto.Id;
+                grade.score = gardeDto.score;
+                grade.SubjectName = gardeDto.SubjectName;
+                grade.StudentId = gardeDto.StudentId;
+
+
+
+
+                _dbContext.SaveChanges();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
+        [HttpDelete("Delete")]
+        public IActionResult Delete(long Id)
+        {
+            try
+            {
+                var grade = _dbContext.Grades.FirstOrDefault(x => x.Id == Id);
+                if (grade == null)
+                {
+                    return BadRequest("Grade Does Not Exist");
+
+                }
+                _dbContext.grades.Remove(grade);
+                _dbContext.SaveChanges();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+    }
+}

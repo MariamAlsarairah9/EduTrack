@@ -31,9 +31,12 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
             ]
+  
+    
+            
           },
           "configurations": {
-            "production": {
+            "production": { 
               "budgets": [
                 {
                   "type": "initial",
