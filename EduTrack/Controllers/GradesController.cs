@@ -76,7 +76,7 @@ namespace EduTrack.Controllers
             try
             {
 
-                var garde = new Grades()
+                var grade = new Grade()
                 {
                     Id = gradeDto.Id,   
                     SubjectName = gradeDto.SubjectName,
@@ -105,10 +105,10 @@ namespace EduTrack.Controllers
                 {
                     return BadRequest("Grade Not Found!");
                 }
-                grade.Id = gardeDto.Id;
-                grade.score = gardeDto.score;
-                grade.SubjectName = gardeDto.SubjectName;
-                grade.StudentId = gardeDto.StudentId;
+                grade.Id = gradeDto.Id;
+                grade.score = gradeDto.score;
+                grade.SubjectName = gradeDto.SubjectName;
+                grade.StudentId = gradeDto.StudentId;
 
 
 
@@ -134,7 +134,7 @@ namespace EduTrack.Controllers
                     return BadRequest("Grade Does Not Exist");
 
                 }
-                _dbContext.grades.Remove(grade);
+                _dbContext.Grades.Remove(grade);
                 _dbContext.SaveChanges();
                 return Ok();
             }

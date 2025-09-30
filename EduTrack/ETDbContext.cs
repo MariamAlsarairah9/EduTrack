@@ -30,7 +30,11 @@ namespace EduTrack
         public DbSet<Lookup> Lookups { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<Assignment> Assignments { get; set; }
-        public DbSet<Attendance> Attendances { get; set;}
+        public DbSet<Attendance> Attendances { get; set; }
+        public DbSet<Parent> Parents { get; set; }
+        public DbSet<Grade> Grades { get; set; }
+
+
 
 
     }

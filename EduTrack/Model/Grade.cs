@@ -2,7 +2,7 @@
 
 namespace EduTrack.Model
 {
-    public class Grades
+    public class Grade
     {
         [Key]
         public long Id { get; set; }
