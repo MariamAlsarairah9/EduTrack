@@ -19,6 +19,7 @@ namespace EduTrack.Model
         [ForeignKey("Parent")]
         public long ParentId { get; set; }
         public Parent? Parent { get; set; }
+        public long AssignmentId { get; set; }
 
 
 

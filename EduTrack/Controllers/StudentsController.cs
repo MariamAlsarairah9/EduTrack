@@ -1,6 +1,7 @@
 ﻿using EduTrack.DTOs.Student;
 using EduTrack.DTOs.Teacher;
 using EduTrack.DTOs.TeacherDto;
+using EduTrack.Migrations;
 using EduTrack.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -27,6 +28,7 @@ namespace EduTrack.Controllers
                 var data = from student in _dbContext.Students
                            from teacher in _dbContext.Teachers.Where(x => x.Id == student.TeacherId).DefaultIfEmpty() // Left Join
                            from parent in _dbContext.Parents.Where(x => x.Id == student.ParentId) //Join
+                           from studentSassignments in _dbContext.StudentSAssignments.Where(x => x.StudentId == student.Id ) //Join
                            where (filterDto.Id == null || student.Id == filterDto.Id) &&
                                  (filterDto.Name == null || student.Name.ToUpper().Contains(filterDto.Name.ToUpper()))
                            orderby student.Id
@@ -38,6 +40,7 @@ namespace EduTrack.Controllers
                                Class = student.Class,
                                TeacherId = student.TeacherId,
                                ParentId = student.ParentId,
+                               AssignmentId = studentSassignments.AssignmentId
 
                            };
 

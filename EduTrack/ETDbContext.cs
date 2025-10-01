@@ -33,6 +33,7 @@ namespace EduTrack
         public DbSet<Attendance> Attendances { get; set; }
         public DbSet<Parent> Parents { get; set; }
         public DbSet<Grade> Grades { get; set; }
+        public DbSet<StudentSAssignments> StudentSAssignments { get; set; }
 
 
 
