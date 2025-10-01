@@ -68,21 +68,33 @@ namespace EduTrack.Controllers
 
         [HttpPost("Add")]
 
-        public IActionResult Add([FromBody] SaveAttendanceDto attendanceDto)
+        public IActionResult Add([FromBody] SaveAttendanceDto attendancesDto)
         {
             try
             {
-
-                var attendance = new Attendance()
+                if (attendancesDto.AttendanceDto == null || !attendancesDto.AttendanceDto.Any())
                 {
-                    Id = 0,
-                    DayAbsent = attendanceDto.DayAbsent,
-                    StudentId = attendanceDto.StudentId,
-                };
-                _dbContext.Attendances.Add(attendance);
+                    return BadRequest("attendanceDto list is required.");
+                }
+
+                foreach (var attendanceDto in attendancesDto.AttendanceDto)
+                {
+                    // ⚠️ إضافة check على StudentId للتأكد أن الطالب موجود
+                    var studentExists = _dbContext.Students.Any(s => s.Id == attendanceDto.StudentId);
+                    if (!studentExists)
+                        return BadRequest($"StudentId {attendanceDto.StudentId} does not exist.");
+
+                    var attendance = new Attendance()
+                    {
+                        Id = 0, // ⚠️ Id = 0 لأن EF سيولّد Identity تلقائياً
+                        DayAbsent = attendanceDto.DayAbsent,
+                        StudentId = attendanceDto.StudentId,
+                    };
+                    _dbContext.Attendances.Add(attendance);
+                }
+
                 _dbContext.SaveChanges();
                 return Ok();
-
 
             }
             catch (Exception ex)

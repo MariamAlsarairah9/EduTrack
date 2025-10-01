@@ -3,4 +3,7 @@ export interface StudentInterface {
     name: string;
     gradeLevel: number,
     class: string
+
+    isAbsent?: boolean;
+
 }

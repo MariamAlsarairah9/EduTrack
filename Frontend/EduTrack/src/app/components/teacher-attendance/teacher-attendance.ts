@@ -3,6 +3,8 @@ import { ListInterface } from '../../interfaces/list-interface';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StudentInterface } from '../../interfaces/student-interface';
 import { StudentService } from '../../services/student.service';
+import { AttendanceService } from '../../services/attendance.service';
+import { AttendanceInterface } from '../../interfaces/attendance-interface';
 @Component({
   selector: 'app-teacher-attendance',
   imports: [FormsModule, ReactiveFormsModule],
@@ -12,9 +14,10 @@ import { StudentService } from '../../services/student.service';
 export class TeacherAttendance {
 
 
-  constructor(private _studentSrvice: StudentService) { }
+  constructor(private _studentSrvice: StudentService,
+    private _attendanceServices: AttendanceService) { }
 
-  students: StudentInterface[] = [  ]
+  students: StudentInterface[] = []
 
 
   searchFilterForm: FormGroup = new FormGroup({
@@ -38,8 +41,15 @@ export class TeacherAttendance {
     'Name',
     'grade level',
     'class',
-    'check',
+    'check'
   ];
+
+  ngOnInit() {
+
+    this.loadstudent();
+
+  }
+
 
 
   loadstudent() {
@@ -57,9 +67,9 @@ export class TeacherAttendance {
             let student: StudentInterface = {
               id: x.id,
               name: x.name,
-              class:x.class,
-              gradeLevel:x.gradeLevel
-             
+              class: x.class,
+              gradeLevel: x.gradeLevel
+
             };
             this.students.push(student);
 
@@ -79,11 +89,39 @@ export class TeacherAttendance {
 
   }
 
-ngOnInit() {
+  addAttendance() {
+    let absents: AttendanceInterface[] = this.students.filter(stu => stu.isAbsent) // رجع بس الغايبين
+      .map(stu => ({
+        id: 0,
+        studentId: stu.id,
+        dayAbsent: new Date()
+      }));
 
-    this.loadstudent();
+    const payload = { attendanceDto: absents };
+
+
+
+    this._attendanceServices.add(payload).subscribe({
+
+      next: (res: any) => {
+        this.students.forEach(stu => stu.isAbsent = false)
+        alert('Attendance saved')
+      },
+
+      error: err => {// failed request | 400 , 500
+        
+          console.log(err.error.message ?? err.error ?? "Unexpected Error")
+
+          alert('something is wrong')
+        
+      }
+
+    })
+
+
 
   }
+
 
 
 }
