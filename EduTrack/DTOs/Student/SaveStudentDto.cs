@@ -8,6 +8,8 @@ namespace EduTrack.DTOs.Student
         public string Name { get; set; }
         public long GradeLevel { get; set; }
         public string Class { get; set; }
+        public long? TeacherId { get; set; }
+        public long ParentId { get; set; }
 
     }
 }

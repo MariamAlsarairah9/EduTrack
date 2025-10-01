@@ -2,6 +2,7 @@
 using EduTrack.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace EduTrack.Controllers
 {
@@ -23,6 +24,7 @@ namespace EduTrack.Controllers
             try
             {
                 var data = from attendance in _dbContext.Attendances
+                           from student in _dbContext.Students.Where(x => x.Id == attendance.StudentId) //Join
                            where (filterDto.Id == null || attendance.Id == filterDto.Id)
                            orderby attendance.Id
                            select new AttendanceDto

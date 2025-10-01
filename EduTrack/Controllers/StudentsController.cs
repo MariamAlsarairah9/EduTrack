@@ -25,6 +25,8 @@ namespace EduTrack.Controllers
             try
             {
                 var data = from student in _dbContext.Students
+                           from teacher in _dbContext.Teachers.Where(x => x.Id == student.TeacherId).DefaultIfEmpty() // Left Join
+                           from parent in _dbContext.Parents.Where(x => x.Id == student.ParentId) //Join
                            where (filterDto.Id == null || student.Id == filterDto.Id) &&
                                  (filterDto.Name == null || student.Name.ToUpper().Contains(filterDto.Name.ToUpper()))
                            orderby student.Id
@@ -33,7 +35,9 @@ namespace EduTrack.Controllers
                                Id = student.Id,
                                Name = student.Name,
                                GradeLevel = student.GradeLevel,
-                               Class = student.Class
+                               Class = student.Class,
+                               TeacherId = student.TeacherId,
+                               ParentId = student.ParentId,
 
                            };
 
@@ -58,7 +62,9 @@ namespace EduTrack.Controllers
                     Id = student.Id,
                     Name = student.Name,
                     GradeLevel = student.GradeLevel,
-                    Class = student.Class
+                    Class = student.Class,
+                    TeacherId = student.TeacherId,
+                    ParentId = student.ParentId
 
                 }).FirstOrDefault(x => x.Id == Id);
 
@@ -83,7 +89,9 @@ namespace EduTrack.Controllers
                     Id = 0,
                     Name = studentDto.Name,
                     Class = studentDto.Class,
-                    GradeLevel = studentDto.GradeLevel
+                    GradeLevel = studentDto.GradeLevel,
+                    TeacherId = studentDto.TeacherId,
+                    ParentId = studentDto.ParentId
 
 
                 };
@@ -111,6 +119,8 @@ namespace EduTrack.Controllers
                 student.Name = studentDto.Name;
                 student.Class = studentDto.Class;
                 student.GradeLevel = studentDto.GradeLevel;
+                student.TeacherId = studentDto.TeacherId;
+                student.ParentId = studentDto.ParentId;
 
 
 

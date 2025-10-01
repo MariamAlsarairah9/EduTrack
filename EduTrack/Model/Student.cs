@@ -7,12 +7,22 @@ namespace EduTrack.Model
     public class Student
     {
         
-            [Key]
-            public long Id { get; set; }
-            [MaxLength(50)]
-            public string Name { get; set; }
-            public long  GradeLevel { get; set; }
-            public string Class { get; set; }    
+        [Key]
+        public long Id { get; set; }
+        [MaxLength(50)]
+        public string Name { get; set; }
+        public long  GradeLevel { get; set; }
+        public string Class { get; set; }
+        [ForeignKey ("Teacher")]
+        public long? TeacherId { get; set; }
+        public Teacher? Teacher { get; set; }
+        [ForeignKey("Parent")]
+        public long ParentId { get; set; }
+        public Parent? Parent { get; set; }
+
+
+
+
 
 
     }

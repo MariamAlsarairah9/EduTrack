@@ -4,6 +4,7 @@ using EduTrack.DTOs.Parent;
 using EduTrack.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace EduTrack.Controllers
 {
@@ -23,6 +24,7 @@ namespace EduTrack.Controllers
             try
             {
                 var data = from grade in _dbContext.Grades
+                           from student in _dbContext.Students.Where(x => x.Id == grade.StudentId) //Join
                            where (filterDto.Id == null || grade.Id == filterDto.Id) &&
                                  (filterDto.SubjectName == null || grade.SubjectName.ToUpper().Contains(filterDto.SubjectName.ToUpper()))
                            orderby grade.Id
@@ -31,7 +33,7 @@ namespace EduTrack.Controllers
                                Id = grade.Id,
                                SubjectName = grade.SubjectName,
                                score = grade.score,
-                               StudentId = grade.StudentId
+                               StudentId = grade.StudentId // Or student.Id
 
                            };
 
