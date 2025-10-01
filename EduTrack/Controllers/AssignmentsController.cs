@@ -23,12 +23,13 @@ namespace EduTrack.Controllers
             {
                 var data = from assignment in _dbContext.Assignments
                            where (filterDto.Id == null || assignment.Id == filterDto.Id) &&
-                                 (filterDto.Title == null || assignment.Title.ToUpper().Contains(filterDto.Title.ToUpper()))
+                                 (filterDto.Subject == null || assignment.Subject.ToUpper().Contains(filterDto.Subject.ToUpper()))
                            orderby assignment.Id
                            select new AssignmentDto
                            {
                                Id = assignment.Id,
-                               Title = assignment.Title,
+                               Subject = assignment.Subject,
+                               Description = assignment.Description,
                                DueDateSub = assignment.DueDateSub,
                                StudentId = assignment.StudentId
                            };
@@ -52,7 +53,8 @@ namespace EduTrack.Controllers
                 var assignment = _dbContext.Assignments.Select(assignment => new AssignmentDto
                 {
                     Id = assignment.Id,
-                    Title = assignment.Title,
+                    Subject = assignment.Subject,
+                    Description = assignment.Description,
                     DueDateSub = assignment.DueDateSub,
                     StudentId = assignment.StudentId
 
@@ -77,7 +79,8 @@ namespace EduTrack.Controllers
                 var assignment = new Assignment()
                 {
                     Id = 0,
-                    Title = assignmentDto.Title,
+                    Subject = assignmentDto.Subject,
+                    Description = assignmentDto.Description,
                     DueDateSub = assignmentDto.DueDateSub,
                     StudentId = assignmentDto.StudentId
                 };
@@ -102,7 +105,8 @@ namespace EduTrack.Controllers
                 {
                     return BadRequest("Assignment Not Found!");
                 }
-                assignment.Title = assignmentDto.Title;
+                assignment.Subject = assignmentDto.Subject;
+                assignment.Description = assignmentDto.Description;
                 assignment.DueDateSub = assignmentDto.DueDateSub;
                 assignment.StudentId = assignmentDto.StudentId;
 

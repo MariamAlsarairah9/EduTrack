@@ -7,7 +7,9 @@ namespace EduTrack.Model
         [Key]
         public long Id { get; set; }
         [MaxLength(50)]
-        public string Title { get; set; }
+        public string Subject { get; set; }
+        [MaxLength(50)]
+        public string Description { get; set; }
         public DateTime DueDateSub { get; set; }
         public long StudentId { get; set; }
     }
