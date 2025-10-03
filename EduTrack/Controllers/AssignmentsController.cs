@@ -1,5 +1,6 @@
 ﻿using EduTrack.DTOs.Assignment;
 using EduTrack.DTOs.Student;
+using EduTrack.Migrations;
 using EduTrack.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +23,7 @@ namespace EduTrack.Controllers
             try
             {
                 var data = from assignment in _dbContext.Assignments
+                           from studentSassignments in _dbContext.StudentSAssignments.Where(x => x.AssignmentId == assignment.Id) //Join
                            where (filterDto.Id == null || assignment.Id == filterDto.Id) &&
                                  (filterDto.Subject == null || assignment.Subject.ToUpper().Contains(filterDto.Subject.ToUpper()))
                            orderby assignment.Id
@@ -31,7 +33,7 @@ namespace EduTrack.Controllers
                                Subject = assignment.Subject,
                                Description = assignment.Description,
                                DueDateSub = assignment.DueDateSub,
-                               StudentId = assignment.StudentId
+                               StudentId = studentSassignments.StudentId
                            };
 
 
@@ -55,8 +57,8 @@ namespace EduTrack.Controllers
                     Id = assignment.Id,
                     Subject = assignment.Subject,
                     Description = assignment.Description,
-                    DueDateSub = assignment.DueDateSub,
-                    StudentId = assignment.StudentId
+                    DueDateSub = assignment.DueDateSub
+
 
                 }).FirstOrDefault(x => x.Id == Id);
 
@@ -81,8 +83,8 @@ namespace EduTrack.Controllers
                     Id = 0,
                     Subject = assignmentDto.Subject,
                     Description = assignmentDto.Description,
-                    DueDateSub = assignmentDto.DueDateSub,
-                    StudentId = assignmentDto.StudentId
+                    DueDateSub = assignmentDto.DueDateSub
+
                 };
                 _dbContext.Assignments.Add(assignment);
                 _dbContext.SaveChanges();
@@ -108,7 +110,6 @@ namespace EduTrack.Controllers
                 assignment.Subject = assignmentDto.Subject;
                 assignment.Description = assignmentDto.Description;
                 assignment.DueDateSub = assignmentDto.DueDateSub;
-                assignment.StudentId = assignmentDto.StudentId;
 
 
 

@@ -4,6 +4,7 @@ using EduTrack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EduTrack.Migrations
 {
     [DbContext(typeof(ETDbContext))]
-    partial class HrDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251001194249_StudentSAssignments")]
+    partial class StudentSAssignments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -141,167 +144,6 @@ namespace EduTrack.Migrations
                             MajorCode = 0,
                             MinorCode = 2,
                             Name = "Parent"
-                        },
-                        new
-                        {
-                            Id = 4L,
-                            MajorCode = 1,
-                            MinorCode = 0,
-                            Name = "Subjects"
-                        },
-                        new
-                        {
-                            Id = 5L,
-                            MajorCode = 1,
-                            MinorCode = 1,
-                            Name = "Mathematics"
-                        },
-                        new
-                        {
-                            Id = 6L,
-                            MajorCode = 1,
-                            MinorCode = 2,
-                            Name = "English"
-                        },
-                        new
-                        {
-                            Id = 7L,
-                            MajorCode = 1,
-                            MinorCode = 3,
-                            Name = "Arabic"
-                        },
-                        new
-                        {
-                            Id = 8L,
-                            MajorCode = 1,
-                            MinorCode = 4,
-                            Name = "Science"
-                        },
-                        new
-                        {
-                            Id = 9L,
-                            MajorCode = 1,
-                            MinorCode = 5,
-                            Name = "Biology"
-                        },
-                        new
-                        {
-                            Id = 10L,
-                            MajorCode = 1,
-                            MinorCode = 6,
-                            Name = "Chemistry"
-                        },
-                        new
-                        {
-                            Id = 11L,
-                            MajorCode = 1,
-                            MinorCode = 7,
-                            Name = "Physics"
-                        },
-                        new
-                        {
-                            Id = 12L,
-                            MajorCode = 1,
-                            MinorCode = 8,
-                            Name = "History"
-                        },
-                        new
-                        {
-                            Id = 13L,
-                            MajorCode = 1,
-                            MinorCode = 9,
-                            Name = "Geography"
-                        },
-                        new
-                        {
-                            Id = 14L,
-                            MajorCode = 1,
-                            MinorCode = 10,
-                            Name = "Computer Science"
-                        },
-                        new
-                        {
-                            Id = 15L,
-                            MajorCode = 1,
-                            MinorCode = 11,
-                            Name = "Religion"
-                        },
-                        new
-                        {
-                            Id = 16L,
-                            MajorCode = 2,
-                            MinorCode = 0,
-                            Name = "class"
-                        },
-                        new
-                        {
-                            Id = 17L,
-                            MajorCode = 2,
-                            MinorCode = 1,
-                            Name = "A"
-                        },
-                        new
-                        {
-                            Id = 18L,
-                            MajorCode = 2,
-                            MinorCode = 2,
-                            Name = "B"
-                        },
-                        new
-                        {
-                            Id = 19L,
-                            MajorCode = 2,
-                            MinorCode = 3,
-                            Name = "C"
-                        },
-                        new
-                        {
-                            Id = 20L,
-                            MajorCode = 3,
-                            MinorCode = 0,
-                            Name = "GradeLevel"
-                        },
-                        new
-                        {
-                            Id = 21L,
-                            MajorCode = 3,
-                            MinorCode = 1,
-                            Name = "1"
-                        },
-                        new
-                        {
-                            Id = 22L,
-                            MajorCode = 3,
-                            MinorCode = 2,
-                            Name = "2"
-                        },
-                        new
-                        {
-                            Id = 23L,
-                            MajorCode = 3,
-                            MinorCode = 3,
-                            Name = "3"
-                        },
-                        new
-                        {
-                            Id = 24L,
-                            MajorCode = 3,
-                            MinorCode = 4,
-                            Name = "4"
-                        },
-                        new
-                        {
-                            Id = 25L,
-                            MajorCode = 3,
-                            MinorCode = 5,
-                            Name = "5"
-                        },
-                        new
-                        {
-                            Id = 26L,
-                            MajorCode = 3,
-                            MinorCode = 6,
-                            Name = "6"
                         });
                 });
 
@@ -341,9 +183,6 @@ namespace EduTrack.Migrations
                         .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<long>("AssignmentId")
-                        .HasColumnType("bigint");
 
                     b.Property<string>("Class")
                         .IsRequired()
