@@ -5,9 +5,10 @@ import { StudentInterface } from '../../interfaces/student-interface';
 import { StudentService } from '../../services/student.service';
 import { AttendanceService } from '../../services/attendance.service';
 import { AttendanceInterface } from '../../interfaces/attendance-interface';
+import { NgxPaginationModule } from 'ngx-pagination';
 @Component({
   selector: 'app-teacher-attendance',
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule ,NgxPaginationModule],
   templateUrl: './teacher-attendance.html',
   styleUrl: './teacher-attendance.css'
 })
@@ -121,6 +122,12 @@ export class TeacherAttendance {
 
 
   }
+  
+   paginationconfig = { itemsPerPage: 7, currentPage: 1 };
+  changePage(pageNumber: number) {
+    this.paginationconfig.currentPage = pageNumber;
+  }
+
 
 
 
