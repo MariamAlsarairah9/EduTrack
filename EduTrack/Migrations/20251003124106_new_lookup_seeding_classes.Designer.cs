@@ -4,6 +4,7 @@ using EduTrack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EduTrack.Migrations
 {
     [DbContext(typeof(ETDbContext))]
-    partial class HrDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251003124106_new_lookup_seeding_classes")]
+    partial class new_lookup_seeding_classes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -253,55 +256,6 @@ namespace EduTrack.Migrations
                             MajorCode = 2,
                             MinorCode = 3,
                             Name = "C"
-                        },
-                        new
-                        {
-                            Id = 20L,
-                            MajorCode = 3,
-                            MinorCode = 0,
-                            Name = "GradeLevel"
-                        },
-                        new
-                        {
-                            Id = 21L,
-                            MajorCode = 3,
-                            MinorCode = 1,
-                            Name = "1"
-                        },
-                        new
-                        {
-                            Id = 22L,
-                            MajorCode = 3,
-                            MinorCode = 2,
-                            Name = "2"
-                        },
-                        new
-                        {
-                            Id = 23L,
-                            MajorCode = 3,
-                            MinorCode = 3,
-                            Name = "3"
-                        },
-                        new
-                        {
-                            Id = 24L,
-                            MajorCode = 3,
-                            MinorCode = 4,
-                            Name = "4"
-                        },
-                        new
-                        {
-                            Id = 25L,
-                            MajorCode = 3,
-                            MinorCode = 5,
-                            Name = "5"
-                        },
-                        new
-                        {
-                            Id = 26L,
-                            MajorCode = 3,
-                            MinorCode = 6,
-                            Name = "6"
                         });
                 });
 
