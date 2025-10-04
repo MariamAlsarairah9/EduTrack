@@ -29,18 +29,24 @@ namespace EduTrack.Controllers
                            from teacher in _dbContext.Teachers.Where(x => x.Id == student.TeacherId).DefaultIfEmpty() // Left Join
                            from parent in _dbContext.Parents.Where(x => x.Id == student.ParentId) //Join
                            //from studentSassignments in _dbContext.StudentSAssignments.Where(x => x.StudentId == student.Id ) //Join
+                           from lookup in _dbContext.Lookups.Where(x => x.Id == student.GradeLevelId).DefaultIfEmpty() // Left Join
+                           from lookup1 in _dbContext.Lookups.Where(x => x.Id == student.ClassId).DefaultIfEmpty() // Left Join
                            where (filterDto.Id == null || student.Id == filterDto.Id) &&
-                                 (filterDto.Name == null || student.Name.ToUpper().Contains(filterDto.Name.ToUpper()))
+                                 (filterDto.Name == null || student.Name.ToUpper().Contains(filterDto.Name.ToUpper())) &&
+                                 (filterDto.GradeLevelId == null || student.GradeLevelId == filterDto.GradeLevelId) &&
+                                 (filterDto.ClassId == null || student.ClassId == filterDto.ClassId)
                            orderby student.Id
                            select new StudentDto
                            {
                                Id = student.Id,
                                Name = student.Name,
-                               GradeLevel = student.GradeLevel,
-                               Class = student.Class,
+                               GradeLevel = lookup.Name,
+                               Class = lookup1.Name,
                                TeacherId = student.TeacherId,
                                ParentId = student.ParentId,
                                //AssignmentId = studentSassignments.AssignmentId
+                               GradeLevelId = student.GradeLevelId,
+                               ClassId = student.ClassId,
 
                            };
 
@@ -64,10 +70,12 @@ namespace EduTrack.Controllers
                 {
                     Id = student.Id,
                     Name = student.Name,
-                    GradeLevel = student.GradeLevel,
-                    Class = student.Class,
+                    GradeLevel = student.Lookup.Name,
+                    Class = student.Lookup2.Name,
                     TeacherId = student.TeacherId,
-                    ParentId = student.ParentId
+                    ParentId = student.ParentId,
+                    GradeLevelId = student.GradeLevelId,
+                    ClassId = student.ClassId,
 
                 }).FirstOrDefault(x => x.Id == Id);
 
@@ -91,10 +99,10 @@ namespace EduTrack.Controllers
                 {
                     Id = 0,
                     Name = studentDto.Name,
-                    Class = studentDto.Class,
-                    GradeLevel = studentDto.GradeLevel,
                     TeacherId = studentDto.TeacherId,
-                    ParentId = studentDto.ParentId
+                    ParentId = studentDto.ParentId,
+                    GradeLevelId= studentDto.GradeLevelId,
+                    ClassId = studentDto.ClassId,
 
 
                 };
@@ -120,10 +128,10 @@ namespace EduTrack.Controllers
                     return BadRequest("Student Not Found!");
                 }
                 student.Name = studentDto.Name;
-                student.Class = studentDto.Class;
-                student.GradeLevel = studentDto.GradeLevel;
                 student.TeacherId = studentDto.TeacherId;
                 student.ParentId = studentDto.ParentId;
+                student.GradeLevelId = studentDto.GradeLevelId;
+                student.ClassId = studentDto.ClassId;
 
 
 
