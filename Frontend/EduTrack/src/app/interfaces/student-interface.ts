@@ -4,7 +4,10 @@ export interface StudentInterface {
     name: string;
     gradeLevel: number,
     class: string
+    gradeLevelId: number,
+    classId: string
 
+    
     isAbsent?: boolean;
     // grades: GradeInterface[]; // 👈 كل طالب عنده لستة علامات
 

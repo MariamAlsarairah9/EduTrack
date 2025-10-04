@@ -5,21 +5,30 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { GradeInterface } from '../../interfaces/grade-interface';
 import { GradeService } from '../../services/grade.service';
-import { FormsModule ,ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ListInterface } from '../../interfaces/list-interface';
+import { LookupService } from '../../services/lookup.service';
+import { LookupsMajorCodes } from '../../enums/lookups-major-codes';
 @Component({
   selector: 'app-teacher-grade',
-  imports: [NgxPaginationModule, FormsModule ,ReactiveFormsModule],
+  imports: [NgxPaginationModule, FormsModule, ReactiveFormsModule],
   templateUrl: './teacher-grade.html',
   styleUrl: './teacher-grade.css'
 })
 export class TeacherGrade {
 
   constructor(private _studentSrvice: StudentService,
-    private _gradeSrvice: GradeService
-  ) {
+    private _gradeSrvice: GradeService,
+    private _lookupService: LookupService) { }
 
-  }
   students: StudentInterface[] = []
+
+  gradeLevel: ListInterface[] = []
+
+  class: ListInterface[] = []
+
+  subject: ListInterface[] = []
+
   StudentTableColumns: string[] = [
     '#',
     'Name',
@@ -31,21 +40,28 @@ export class TeacherGrade {
   // gradesMap: { [studentId: number]: GradeInterface[] } = {};
 
   searchFilterForm: FormGroup = new FormGroup({
-    GradeLevel: new FormControl(null),
-    Class: new FormControl(null),
+    GradeLevelId: new FormControl(null),
+    ClassId: new FormControl(null),
+    subjectId: new FormControl(null),
+
   })
 
 
   ngOnInit() {
 
     this.loadstudent();
+    this.loadGradeLevel()
+    this.loadClass()
+    this.loadSubject()
 
   }
   loadstudent() {
     this.students = [];
     let searchObj = {
-      GradeLevel: this.searchFilterForm.value.GradeLevel,
-      Class: this.searchFilterForm.value.Class,
+      GradeLevelId: this.searchFilterForm.value.GradeLevelId,
+      ClassId: this.searchFilterForm.value.classId,
+      subjectId: this.searchFilterForm.value.subjectId,
+
     }
     this._studentSrvice.getAll(searchObj).subscribe({
 
@@ -58,6 +74,9 @@ export class TeacherGrade {
               name: x.name,
               class: x.class,
               gradeLevel: x.gradeLevel,
+              gradeLevelId: x.gradeLevelId,
+              classId: x.classId
+
 
             };
             this.students.push(student);
@@ -78,15 +97,73 @@ export class TeacherGrade {
 
   }
 
+
+
+
   paginationconfig = { itemsPerPage: 7, currentPage: 1 };
   changePage(pageNumber: number) {
     this.paginationconfig.currentPage = pageNumber;
   }
 
 
+  loadGradeLevel() {
+    this.gradeLevel = [{ Id: null, Name: "Select GradeLevel" }]
+    this._lookupService.getByMajorCode(LookupsMajorCodes.gradeLevels).subscribe({
+      next: (res: any) => { // succesful request 
+        if (res?.length > 0) {
+          this.gradeLevel = this.gradeLevel.concat(res.map((x: any) => ({ Id: x.id, Name: x.name } as ListInterface))
+          )
 
 
+        }
+      },
+      error: err => {// failed request | 400 , 500
+        console.log(err.error.message ?? err.error ?? "Unexpected Error");
+      }
 
+
+    })
+
+  }
+  loadClass() {
+    this.class = [{ Id: null, Name: "Select class" }]
+    this._lookupService.getByMajorCode(LookupsMajorCodes.classes).subscribe({
+      next: (res: any) => { // succesful request 
+        if (res?.length > 0) {
+          this.class = this.class.concat(res.map((x: any) => ({ Id: x.id, Name: x.name } as ListInterface))
+          )
+
+
+        }
+      },
+      error: err => {// failed request | 400 , 500
+        console.log(err.error.message ?? err.error ?? "Unexpected Error");
+      }
+
+
+    })
+
+  }
+
+  loadSubject() {
+    this.subject = [{ Id: null, Name: "Select subject" }]
+    this._lookupService.getByMajorCode(LookupsMajorCodes.subjects).subscribe({
+      next: (res: any) => { // succesful request 
+        if (res?.length > 0) {
+          this.subject = this.subject.concat(res.map((x: any) => ({ Id: x.id, Name: x.name } as ListInterface))
+          )
+
+
+        }
+      },
+      error: err => {// failed request | 400 , 500
+        console.log(err.error.message ?? err.error ?? "Unexpected Error");
+      }
+
+
+    })
+
+  }
 
 
   // addGrades() {
@@ -95,7 +172,7 @@ export class TeacherGrade {
   //     .map(stu => ({
   //       id: 0,
   //       studentId: stu.id,
-  //       subjectName: 'math', // 👈 تختار المادة من DropDown أو TextBox
+  //       subjectName: 'Arabic', // 👈 تختار المادة من DropDown أو TextBox
   //       score: Number(stu.grade)
   //     }));
 

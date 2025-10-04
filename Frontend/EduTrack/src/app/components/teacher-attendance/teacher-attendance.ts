@@ -6,9 +6,11 @@ import { StudentService } from '../../services/student.service';
 import { AttendanceService } from '../../services/attendance.service';
 import { AttendanceInterface } from '../../interfaces/attendance-interface';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { LookupsMajorCodes } from '../../enums/lookups-major-codes';
+import { LookupService } from '../../services/lookup.service';
 @Component({
   selector: 'app-teacher-attendance',
-  imports: [FormsModule, ReactiveFormsModule ,NgxPaginationModule],
+  imports: [FormsModule, ReactiveFormsModule, NgxPaginationModule],
   templateUrl: './teacher-attendance.html',
   styleUrl: './teacher-attendance.css'
 })
@@ -16,27 +18,21 @@ export class TeacherAttendance {
 
 
   constructor(private _studentSrvice: StudentService,
-    private _attendanceServices: AttendanceService) { }
+    private _attendanceServices: AttendanceService,
+    private _lookupService: LookupService) { }
 
   students: StudentInterface[] = []
 
+  gradeLevel: ListInterface[] = []
+  class: ListInterface[] = []
 
   searchFilterForm: FormGroup = new FormGroup({
-    GradeLevel: new FormControl(null),
-    Class: new FormControl(null),
+    GradeLevelId: new FormControl(null),
+    ClassId: new FormControl(null),
   })
 
 
-  Level: ListInterface[] = [
-    { Id: null, Name: "Select level " },
-    { Id: 1, Name: "1" },
-    { Id: 2, Name: "2" },
-  ]
-  class: ListInterface[] = [
-    { Id: null, Name: "Select class" },
-    { Id: 1, Name: "A" },
-    { Id: 2, Name: "B" },
-  ]
+
   StudentTableColumns: string[] = [
     '#',
     'Name',
@@ -48,6 +44,8 @@ export class TeacherAttendance {
   ngOnInit() {
 
     this.loadstudent();
+    this.loadClass();
+    this.loadGradeLevel();
 
   }
 
@@ -56,8 +54,8 @@ export class TeacherAttendance {
   loadstudent() {
     this.students = [];
     let searchObj = {
-      GradeLevel: this.searchFilterForm.value.GradeLevel,
-      Class: this.searchFilterForm.value.Class,
+      GradeLevelId: this.searchFilterForm.value.GradeLevelId,
+      ClassId: this.searchFilterForm.value.ClassId,
     }
     this._studentSrvice.getAll(searchObj).subscribe({
 
@@ -69,7 +67,9 @@ export class TeacherAttendance {
               id: x.id,
               name: x.name,
               class: x.class,
-              gradeLevel: x.gradeLevel
+              gradeLevel: x.gradeLevel,
+              gradeLevelId: x.gradeLevelId,
+              classId: x.classId
 
             };
             this.students.push(student);
@@ -89,6 +89,50 @@ export class TeacherAttendance {
 
 
   }
+
+
+
+
+  loadGradeLevel() {
+    this.gradeLevel = [{ Id: null, Name: "Select GradeLevel" }]
+    this._lookupService.getByMajorCode(LookupsMajorCodes.gradeLevels).subscribe({
+      next: (res: any) => { // succesful request 
+        if (res?.length > 0) {
+          this.gradeLevel = this.gradeLevel.concat(res.map((x: any) => ({ Id: x.id, Name: x.name } as ListInterface))
+          )
+
+
+        }
+      },
+      error: err => {// failed request | 400 , 500
+        console.log(err.error.message ?? err.error ?? "Unexpected Error");
+      }
+
+
+    })
+
+  }
+  loadClass() {
+    this.class = [{ Id: null, Name: "Select class" }]
+    this._lookupService.getByMajorCode(LookupsMajorCodes.classes).subscribe({
+      next: (res: any) => { // succesful request 
+        if (res?.length > 0) {
+          this.class = this.class.concat(res.map((x: any) => ({ Id: x.id, Name: x.name } as ListInterface))
+          )
+
+
+        }
+      },
+      error: err => {// failed request | 400 , 500
+        console.log(err.error.message ?? err.error ?? "Unexpected Error");
+      }
+
+
+    })
+
+  }
+
+
 
   addAttendance() {
     let absents: AttendanceInterface[] = this.students.filter(stu => stu.isAbsent) // رجع بس الغايبين
@@ -110,11 +154,11 @@ export class TeacherAttendance {
       },
 
       error: err => {// failed request | 400 , 500
-        
-          console.log(err.error.message ?? err.error ?? "Unexpected Error")
 
-          alert('something is wrong')
-        
+        console.log(err.error.message ?? err.error ?? "Unexpected Error")
+
+        alert('something is wrong')
+
       }
 
     })
@@ -122,8 +166,8 @@ export class TeacherAttendance {
 
 
   }
-  
-   paginationconfig = { itemsPerPage: 7, currentPage: 1 };
+
+  paginationconfig = { itemsPerPage: 7, currentPage: 1 };
   changePage(pageNumber: number) {
     this.paginationconfig.currentPage = pageNumber;
   }

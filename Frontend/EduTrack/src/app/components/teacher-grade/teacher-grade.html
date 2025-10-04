@@ -8,13 +8,17 @@
             </h5>
         </div>
         <div class="card-body">
-            <div>
+            <div [formGroup]="searchFilterForm">
                 <div class="row">
                     <div class="col-lg-4  col-sm-12">
                         <label for="Grade Level" class="form-label">Grade Level</label>
                         <select class="form-select" aria-label="Default select example" id="Grade Level"
                             formControlName="GradeLevel">
+                            @for (item of gradeLevel; track item) {
 
+                            <option [ngValue]="item.Id">{{ item.Name }}</option>
+
+                            }
 
 
 
@@ -26,6 +30,11 @@
                         <select class="form-select" aria-label="Default select example" id="Class"
                             formControlName="Class">
 
+                            @for (item of class; track item) {
+
+                            <option [ngValue]="item.Id">{{ item.Name }}</option>
+
+                            }
 
 
 
@@ -35,8 +44,12 @@
                     <div class="col-lg-4  col-sm-12">
                         <label for="Class" class="form-label">subject</label>
                         <select class="form-select" aria-label="Default select example" id="Class"
-                            formControlName="Class">
+                            formControlName="subject">
+                            @for (item of subject; track item) {
 
+                            <option [ngValue]="item.Id">{{ item.Name }}</option>
+
+                            }
 
 
 
@@ -83,7 +96,7 @@
                             <td>{{stu.name}}</td>
                             <td>{{stu.gradeLevel}}</td>
                             <td>{{stu.class}}</td>
-                            <td> <input type="number"   class="form-control score-input" [(ngModel)]="stu.grade"></td>
+                            <td> <input type="number" class="form-control score-input" [(ngModel)]="stu.grade"></td>
 
 
                         </tr>
@@ -95,11 +108,11 @@
                 </table>
 
                 <div class="text-end">
-                    <!-- <button type="button" class="btn  mt-4" (click)="addGrades()" >
+                    <button type="button" class="btn  mt-4" >
                         <span> submit</span>
-                    </button> -->
+                    </button>
                 </div>
-                
+
                 <pagination-controls class="text-center" (pageChange)="changePage($event)"></pagination-controls>
 
             </div>
