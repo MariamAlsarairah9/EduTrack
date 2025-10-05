@@ -25,6 +25,7 @@ namespace EduTrack.Controllers
             {
                 var data = from grade in _dbContext.Grades
                            from student in _dbContext.Students.Where(x => x.Id == grade.StudentId) //Join
+                           from lookup in _dbContext.Lookups.Where(x => x.Id == grade.SubjectId)// Join
                            where (filterDto.Id == null || grade.Id == filterDto.Id) &&
                                  (filterDto.SubjectName == null || grade.SubjectName.ToUpper().Contains(filterDto.SubjectName.ToUpper()))
                            orderby grade.Id
@@ -33,7 +34,8 @@ namespace EduTrack.Controllers
                                Id = grade.Id,
                                SubjectName = grade.SubjectName,
                                score = grade.score,
-                               StudentId = grade.StudentId // Or student.Id
+                               StudentId = grade.StudentId, // Or student.Id
+                               SubjectId = grade.SubjectId,
 
                            };
 
@@ -58,7 +60,9 @@ namespace EduTrack.Controllers
                     Id = grade.Id,
                     SubjectName = grade.SubjectName,
                     score = grade.score,
-                    StudentId = grade.StudentId
+                    StudentId = grade.StudentId,
+                    SubjectId = grade.SubjectId,
+
 
                 }).FirstOrDefault(x => x.Id == Id);
 
@@ -83,7 +87,8 @@ namespace EduTrack.Controllers
                     Id = gradeDto.Id,   
                     SubjectName = gradeDto.SubjectName,
                     score = gradeDto.score,
-                    StudentId = gradeDto.StudentId
+                    StudentId = gradeDto.StudentId,
+                    SubjectId = gradeDto.SubjectId,
 
                 };
                 _dbContext.Grades.Add(grade);
@@ -111,6 +116,7 @@ namespace EduTrack.Controllers
                 grade.score = gradeDto.score;
                 grade.SubjectName = gradeDto.SubjectName;
                 grade.StudentId = gradeDto.StudentId;
+                grade.SubjectId = gradeDto.SubjectId;
 
 
 

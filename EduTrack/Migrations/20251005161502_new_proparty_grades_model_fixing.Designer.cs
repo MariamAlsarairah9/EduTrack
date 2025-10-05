@@ -4,6 +4,7 @@ using EduTrack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EduTrack.Migrations
 {
     [DbContext(typeof(ETDbContext))]
-    partial class HrDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251005161502_new_proparty_grades_model_fixing")]
+    partial class new_proparty_grades_model_fixing
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -83,7 +86,7 @@ namespace EduTrack.Migrations
                     b.Property<long>("StudentId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("SubjectId")
+                    b.Property<long?>("SubjectId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("SubjectName")
@@ -458,9 +461,7 @@ namespace EduTrack.Migrations
 
                     b.HasOne("EduTrack.Model.Lookup", "Lookup")
                         .WithMany()
-                        .HasForeignKey("SubjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SubjectId");
 
                     b.Navigation("Lookup");
 
