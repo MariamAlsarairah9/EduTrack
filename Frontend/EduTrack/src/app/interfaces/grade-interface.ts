@@ -1,8 +1,9 @@
 export interface GradeInterface {
     id: number
-    subjectName: string
+    subjectName?: string
     score: number
     studentId: number;
+    subjectId: number
 
 
 }

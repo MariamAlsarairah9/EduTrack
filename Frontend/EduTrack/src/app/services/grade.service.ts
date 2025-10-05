@@ -14,10 +14,7 @@ export class GradeService {
 
  add(payload: any) {
 
-    // let formData = new FormData();
-    // formData.set("Id", student.id.toString());
-    // formData.set("DayAbsent", student.dayAbsent.toString());
-    // formData.set("StudentId", student.studentId.toString());
+  
 
     return this._http.post(this.apiUrl + "/Add",payload);
 
