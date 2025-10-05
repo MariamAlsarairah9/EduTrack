@@ -10,12 +10,13 @@ export class StudentService {
       constructor(private _http : HttpClient) { }
 
       
+ 
   getAll(searchObj: any) {
-    let params = new HttpParams();
-    params = params.set("GradeLevel", searchObj.GradeLevel ?? "");
-    params = params.set("Class", searchObj.Class ?? "");
+  let params = new HttpParams();
+  params = params.set("GradeLevelId", searchObj.GradeLevelId ?? "");
+  params = params.set("ClassId", searchObj.ClassId ?? "");
 
-    return this._http.get(this.apiUrl + "/GetAll", { params});
-  }
+  return this._http.get(this.apiUrl + "/GetAll", { params });
+}
 
 }

@@ -23,3 +23,16 @@ width: auto;
 
 
 }
+.card-header{
+    display: flex;
+    justify-content: space-between;
+}
+@media screen and (max-width: 800px) {
+.btn {
+        width: 100%;
+
+}
+
+
+}
+

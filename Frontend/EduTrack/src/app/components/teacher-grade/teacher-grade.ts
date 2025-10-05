@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { StudentInterface } from '../../interfaces/student-interface';
 import { StudentService } from '../../services/student.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { GradeInterface } from '../../interfaces/grade-interface';
 import { GradeService } from '../../services/grade.service';
@@ -42,10 +42,14 @@ export class TeacherGrade {
   searchFilterForm: FormGroup = new FormGroup({
     GradeLevelId: new FormControl(null),
     ClassId: new FormControl(null),
-    subjectId: new FormControl(null),
 
   })
 
+  subform: FormGroup = new FormGroup({
+
+    subjectId: new FormControl(null, [Validators.required]),
+
+  })
 
   ngOnInit() {
 
@@ -55,14 +59,15 @@ export class TeacherGrade {
     this.loadSubject()
 
   }
+
   loadstudent() {
     this.students = [];
     let searchObj = {
       GradeLevelId: this.searchFilterForm.value.GradeLevelId,
-      ClassId: this.searchFilterForm.value.classId,
-      subjectId: this.searchFilterForm.value.subjectId,
-
+      ClassId: this.searchFilterForm.value.ClassId,
     }
+    console.log('searchObj:', searchObj);
+
     this._studentSrvice.getAll(searchObj).subscribe({
 
       next: (res: any) => { // succesful request 
@@ -76,7 +81,6 @@ export class TeacherGrade {
               gradeLevel: x.gradeLevel,
               gradeLevelId: x.gradeLevelId,
               classId: x.classId
-
 
             };
             this.students.push(student);
@@ -96,7 +100,6 @@ export class TeacherGrade {
 
 
   }
-
 
 
 
@@ -167,24 +170,32 @@ export class TeacherGrade {
 
 
   // addGrades() {
+  //   let subjectId = this.subform?.value?.subjectId; // 👈 قيمة المادة من الـ DropDown
+  //   if (!subjectId) {
+  //     alert('Please select a subject');
+  //     return;
+  //   }
   //   let grades: GradeInterface[] = this.students
   //     .filter(stu => stu.grade != null)
   //     .map(stu => ({
   //       id: 0,
   //       studentId: stu.id,
-  //       subjectName: 'Arabic', // 👈 تختار المادة من DropDown أو TextBox
+  //       subjectId: subjectId,
   //       score: Number(stu.grade)
   //     }));
 
   //   let payload = { gradesDto: grades };
-
+  //   if (!grades.length) {
+  //     alert('No grades to submit');
+  //     return;
+  //   }
   //   this._gradeSrvice.add(payload).subscribe({
   //     next: () => {
   //       this.students.forEach(stu => stu.grade = undefined);
   //       alert('Grades saved');
   //     },
   //     error: err => {
-  //       console.log(err.error.message ?? err.error ?? "Unexpected Error");
+  //       console.log(err.error?.message ?? err.error ?? "Unexpected Error");
   //       alert('Something went wrong');
   //     }
   //   });

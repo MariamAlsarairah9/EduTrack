@@ -57,6 +57,8 @@ export class TeacherAttendance {
       GradeLevelId: this.searchFilterForm.value.GradeLevelId,
       ClassId: this.searchFilterForm.value.ClassId,
     }
+    console.log('searchObj:', searchObj);
+
     this._studentSrvice.getAll(searchObj).subscribe({
 
       next: (res: any) => { // succesful request 
