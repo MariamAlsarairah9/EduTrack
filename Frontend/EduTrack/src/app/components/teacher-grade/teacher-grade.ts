@@ -169,37 +169,37 @@ export class TeacherGrade {
   }
 
 
-  // addGrades() {
-  //   let subjectId = this.subform?.value?.subjectId; // 👈 قيمة المادة من الـ DropDown
-  //   if (!subjectId) {
-  //     alert('Please select a subject');
-  //     return;
-  //   }
-  //   let grades: GradeInterface[] = this.students
-  //     .filter(stu => stu.grade != null)
-  //     .map(stu => ({
-  //       id: 0,
-  //       studentId: stu.id,
-  //       subjectId: subjectId,
-  //       score: Number(stu.grade)
-  //     }));
+  addGrades() {
+    let subjectId = this.subform?.value?.subjectId; // 👈 قيمة المادة من الـ DropDown
+    if (!subjectId) {
+      alert('Please select a subject');
+      return;
+    }
+    let grades: GradeInterface[] = this.students
+      .filter(stu => stu.grade != null)
+      .map(stu => ({
+        id: 0,
+        studentId: stu.id,
+        subjectId: subjectId,
+        score: Number(stu.grade)
+      }));
 
-  //   let payload = { gradesDto: grades };
-  //   if (!grades.length) {
-  //     alert('No grades to submit');
-  //     return;
-  //   }
-  //   this._gradeSrvice.add(payload).subscribe({
-  //     next: () => {
-  //       this.students.forEach(stu => stu.grade = undefined);
-  //       alert('Grades saved');
-  //     },
-  //     error: err => {
-  //       console.log(err.error?.message ?? err.error ?? "Unexpected Error");
-  //       alert('Something went wrong');
-  //     }
-  //   });
-  // }
+    let payload = { gradesDto: grades };
+    if (!grades.length) {
+      alert('No grades to submit');
+      return;
+    }
+    this._gradeSrvice.add(payload).subscribe({
+      next: () => {
+        this.students.forEach(stu => stu.grade = undefined);
+        alert('Grades saved');
+      },
+      error: err => {
+        console.log(err.error?.message ?? err.error ?? "Unexpected Error");
+        alert('Something went wrong');
+      }
+    });
+  }
 
 
 
