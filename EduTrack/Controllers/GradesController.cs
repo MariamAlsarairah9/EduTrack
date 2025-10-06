@@ -1,4 +1,5 @@
-﻿using EduTrack.DTOs.Grrade;
+﻿using EduTrack.DTOs.Attendance;
+using EduTrack.DTOs.Grrade;
 using EduTrack.DTOs.Grrades;
 using EduTrack.DTOs.Parent;
 using EduTrack.Model;
@@ -32,10 +33,11 @@ namespace EduTrack.Controllers
                            select new GradeDto
                            {
                                Id = grade.Id,
-                               SubjectName = grade.SubjectName,
+                               SubjectName = lookup.Name,
                                score = grade.score,
                                StudentId = grade.StudentId, // Or student.Id
                                SubjectId = grade.SubjectId,
+                               StudentName = student.Name
 
                            };
 
@@ -77,24 +79,34 @@ namespace EduTrack.Controllers
 
         [HttpPost("Add")]
 
-        public IActionResult Add([FromBody] SaveGradeDto gradeDto)
+        public IActionResult Add([FromBody] SaveGradeDto gradesDto)
         {
             try
             {
 
-                var grade = new Grade()
+                if (gradesDto.GradeDto == null || !gradesDto.GradeDto.Any())
                 {
-                    Id = gradeDto.Id,   
-                    SubjectName = gradeDto.SubjectName,
-                    score = gradeDto.score,
-                    StudentId = gradeDto.StudentId,
-                    SubjectId = gradeDto.SubjectId,
+                    return BadRequest("grad list is required.");
+                }
+                foreach (var gradedto in gradesDto.GradeDto)
+                {
+                    // ⚠️ إضافة check على StudentId للتأكد أن الطالب موجود
+                    var studentExists = _dbContext.Students.Any(s => s.Id == gradedto.StudentId);
+                    if (!studentExists)
+                        return BadRequest($"StudentId {gradedto.StudentId} does not exist.");
 
-                };
-                _dbContext.Grades.Add(grade);
+                    var grade = new Grade()
+                    {
+                        Id = 0, // ⚠️ Id = 0 لأن EF سيولّد Identity تلقائياً
+                      score= gradedto.score,
+                      SubjectId=gradedto.SubjectId,
+                      StudentId=gradedto.StudentId
+                    };
+                    _dbContext.Grades.Add(grade);
+                }
                 _dbContext.SaveChanges();
                 return Ok();
-
+             
 
             }
             catch (Exception ex)

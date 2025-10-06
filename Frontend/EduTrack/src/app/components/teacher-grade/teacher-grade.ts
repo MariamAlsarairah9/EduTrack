@@ -184,7 +184,7 @@ export class TeacherGrade {
         score: Number(stu.grade)
       }));
 
-    let payload = { gradesDto: grades };
+    let payload = { gradeDto: grades };
     if (!grades.length) {
       alert('No grades to submit');
       return;
