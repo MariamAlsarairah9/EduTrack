@@ -17,7 +17,37 @@ namespace EduTrack
                 // Users (Major Code =0 )
                 new Lookup { Id = 1, MajorCode = 0, MinorCode = 0, Name = "Users" },
                 new Lookup { Id = 2, MajorCode = 0, MinorCode = 1, Name = "Teacher" },
-                new Lookup { Id = 3, MajorCode = 0, MinorCode = 2, Name = "Parent" }
+                new Lookup { Id = 3, MajorCode = 0, MinorCode = 2, Name = "Parent" },
+
+                // Subjects (Major Code =1 )
+                new Lookup { Id = 4, MajorCode = 1, MinorCode = 0, Name = "Subjects" },
+                new Lookup { Id = 5, MajorCode = 1, MinorCode = 1, Name = "Mathematics" },
+                new Lookup { Id = 6, MajorCode = 1, MinorCode = 2, Name = "English" },
+                new Lookup { Id = 7, MajorCode = 1, MinorCode = 3, Name = "Arabic" },
+                new Lookup { Id = 8, MajorCode = 1, MinorCode = 4, Name = "Science" },
+                new Lookup { Id = 9, MajorCode = 1, MinorCode = 5, Name = "Biology" },
+                new Lookup { Id = 10, MajorCode = 1, MinorCode = 6, Name = "Chemistry" },
+                new Lookup { Id = 11, MajorCode = 1, MinorCode = 7, Name = "Physics" },
+                new Lookup { Id = 12, MajorCode = 1, MinorCode = 8, Name = "History" },
+                new Lookup { Id = 13, MajorCode = 1, MinorCode = 9, Name = "Geography" },
+                new Lookup { Id = 14, MajorCode = 1, MinorCode = 10, Name = "Computer Science" },
+                new Lookup { Id = 15, MajorCode = 1, MinorCode = 11, Name = "Religion" },
+
+                // class (Major Code =2 )
+                new Lookup { Id = 16, MajorCode = 2, MinorCode = 0, Name = "class" },
+                new Lookup { Id = 17, MajorCode = 2, MinorCode = 1, Name = "A" },
+                new Lookup { Id = 18, MajorCode = 2, MinorCode = 2, Name = "B" },
+                new Lookup { Id = 19, MajorCode = 2, MinorCode = 3, Name = "C" },
+
+                // GradeLevel (Major Code =3 )
+                new Lookup { Id = 20, MajorCode = 3, MinorCode = 0, Name = "GradeLevel" },
+                new Lookup { Id = 21, MajorCode = 3, MinorCode = 1, Name = "1" },
+                new Lookup { Id = 22, MajorCode = 3, MinorCode = 2, Name = "2" },
+                new Lookup { Id = 23, MajorCode = 3, MinorCode = 3, Name = "3" },
+                new Lookup { Id = 24, MajorCode = 3, MinorCode = 4, Name = "4" },
+                new Lookup { Id = 25, MajorCode = 3, MinorCode = 5, Name = "5" },
+                new Lookup { Id = 26, MajorCode = 3, MinorCode = 6, Name = "6" }
+
 
                 );
         }
@@ -33,6 +63,7 @@ namespace EduTrack
         public DbSet<Attendance> Attendances { get; set; }
         public DbSet<Parent> Parents { get; set; }
         public DbSet<Grade> Grades { get; set; }
+        public DbSet<StudentSAssignments> StudentSAssignments { get; set; }
 
 
 

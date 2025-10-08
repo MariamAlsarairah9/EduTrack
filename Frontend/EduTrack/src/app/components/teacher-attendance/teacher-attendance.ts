@@ -3,51 +3,62 @@ import { ListInterface } from '../../interfaces/list-interface';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StudentInterface } from '../../interfaces/student-interface';
 import { StudentService } from '../../services/student.service';
+import { AttendanceService } from '../../services/attendance.service';
+import { AttendanceInterface } from '../../interfaces/attendance-interface';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { LookupsMajorCodes } from '../../enums/lookups-major-codes';
+import { LookupService } from '../../services/lookup.service';
 @Component({
   selector: 'app-teacher-attendance',
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, NgxPaginationModule],
   templateUrl: './teacher-attendance.html',
   styleUrl: './teacher-attendance.css'
 })
 export class TeacherAttendance {
 
 
-  constructor(private _studentSrvice: StudentService) { }
+  constructor(private _studentSrvice: StudentService,
+    private _attendanceServices: AttendanceService,
+    private _lookupService: LookupService) { }
 
-  students: StudentInterface[] = [  ]
+  students: StudentInterface[] = []
 
+  gradeLevel: ListInterface[] = []
+  class: ListInterface[] = []
 
   searchFilterForm: FormGroup = new FormGroup({
-    GradeLevel: new FormControl(null),
-    Class: new FormControl(null),
+    GradeLevelId: new FormControl(null),
+    ClassId: new FormControl(null),
   })
 
 
-  Level: ListInterface[] = [
-    { Id: null, Name: "Select level " },
-    { Id: 1, Name: "1" },
-    { Id: 2, Name: "2" },
-  ]
-  class: ListInterface[] = [
-    { Id: null, Name: "Select class" },
-    { Id: 1, Name: "A" },
-    { Id: 2, Name: "B" },
-  ]
+
   StudentTableColumns: string[] = [
     '#',
     'Name',
     'grade level',
     'class',
-    'check',
+    'check'
   ];
+
+  ngOnInit() {
+
+    this.loadstudent();
+    this.loadClass();
+    this.loadGradeLevel();
+
+  }
+
 
 
   loadstudent() {
     this.students = [];
     let searchObj = {
-      GradeLevel: this.searchFilterForm.value.GradeLevel,
-      Class: this.searchFilterForm.value.Class,
+      GradeLevelId: this.searchFilterForm.value.GradeLevelId,
+      ClassId: this.searchFilterForm.value.ClassId,
     }
+    console.log('searchObj:', searchObj);
+
     this._studentSrvice.getAll(searchObj).subscribe({
 
       next: (res: any) => { // succesful request 
@@ -57,9 +68,11 @@ export class TeacherAttendance {
             let student: StudentInterface = {
               id: x.id,
               name: x.name,
-              class:x.class,
-              gradeLevel:x.gradeLevel
-             
+              class: x.class,
+              gradeLevel: x.gradeLevel,
+              gradeLevelId: x.gradeLevelId,
+              classId: x.classId
+
             };
             this.students.push(student);
 
@@ -79,11 +92,89 @@ export class TeacherAttendance {
 
   }
 
-ngOnInit() {
 
-    this.loadstudent();
+
+
+  loadGradeLevel() {
+    this.gradeLevel = [{ Id: null, Name: "Select GradeLevel" }]
+    this._lookupService.getByMajorCode(LookupsMajorCodes.gradeLevels).subscribe({
+      next: (res: any) => { // succesful request 
+        if (res?.length > 0) {
+          this.gradeLevel = this.gradeLevel.concat(res.map((x: any) => ({ Id: x.id, Name: x.name } as ListInterface))
+          )
+
+
+        }
+      },
+      error: err => {// failed request | 400 , 500
+        console.log(err.error.message ?? err.error ?? "Unexpected Error");
+      }
+
+
+    })
 
   }
+  loadClass() {
+    this.class = [{ Id: null, Name: "Select class" }]
+    this._lookupService.getByMajorCode(LookupsMajorCodes.classes).subscribe({
+      next: (res: any) => { // succesful request 
+        if (res?.length > 0) {
+          this.class = this.class.concat(res.map((x: any) => ({ Id: x.id, Name: x.name } as ListInterface))
+          )
+
+
+        }
+      },
+      error: err => {// failed request | 400 , 500
+        console.log(err.error.message ?? err.error ?? "Unexpected Error");
+      }
+
+
+    })
+
+  }
+
+
+
+  addAttendance() {
+    let absents: AttendanceInterface[] = this.students.filter(stu => stu.isAbsent) // رجع بس الغايبين
+      .map(stu => ({
+        id: 0,
+        studentId: stu.id,
+        dayAbsent: new Date()
+      }));
+
+    const payload = { attendanceDto: absents };
+
+
+
+    this._attendanceServices.add(payload).subscribe({
+
+      next: (res: any) => {
+        this.students.forEach(stu => stu.isAbsent = false)
+        alert('Attendance saved')
+      },
+
+      error: err => {// failed request | 400 , 500
+
+        console.log(err.error.message ?? err.error ?? "Unexpected Error")
+
+        alert('something is wrong')
+
+      }
+
+    })
+
+
+
+  }
+
+  paginationconfig = { itemsPerPage: 7, currentPage: 1 };
+  changePage(pageNumber: number) {
+    this.paginationconfig.currentPage = pageNumber;
+  }
+
+
 
 
 }

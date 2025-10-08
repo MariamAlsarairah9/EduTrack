@@ -1,4 +1,7 @@
 
+import { RouterOutlet } from '@angular/router';
+import { FormsModule } from "@angular/forms";
+
 
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -9,13 +12,21 @@ import { AssignmentService } from '../../services/assignment.service';
 
 @Component({
   selector: 'app-teacher-assignment',
+  imports: [RouterOutlet, FormsModule,ReactiveFormsModule, CommonModule],
   templateUrl: './teacher-assignment.html',
   styleUrls: ['./teacher-assignment.css'],
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
   providers: [DatePipe],
 })
 export class TeacherAssignment {
+
+
+
+
+
+
+
+
 
   @ViewChild('closeButton') closeButton?: ElementRef<HTMLButtonElement>;// Quickfix or eng
 

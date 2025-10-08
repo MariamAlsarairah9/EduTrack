@@ -15,6 +15,10 @@ namespace EduTrack.Model
         [ForeignKey("Student")]
         public long StudentId { get; set; }
         public Student Student { get; set; } //Navigation Propertey
+        [ForeignKey("Lookup")]
+        public long SubjectId { get; set; }
+        public Lookup Lookup { get; set; }  //Navigation Propertey
+
 
     }
 }

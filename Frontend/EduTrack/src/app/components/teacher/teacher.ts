@@ -18,7 +18,7 @@ export class Teacher {
 
   ngOnInit() {
 
-    this.techerinfo(3);
+    this.techerinfo(5);
 
   }
 
@@ -26,18 +26,19 @@ export class Teacher {
 
     this._TeacherService.GetTeacher(id).subscribe({
       next: (res: any) => {
-        console.log('Teacher Data:', res); // اختبر هل البيانات وصلت
+        
         this.teacher = res;
       },
-      error: (err) => {
-        console.error('Error fetching teacher:', err);
+       error: err => {// failed request | 400 , 500
+        console.log(err.error.message ?? err.error ?? "Unexpected Error");
       }
+
 
 
     })
   }
 
-
+  
 
 
 

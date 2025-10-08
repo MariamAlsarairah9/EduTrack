@@ -30,13 +30,18 @@ namespace EduTrack.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<DateTime>("DueDateSub")
                         .HasColumnType("datetime2");
 
                     b.Property<long>("StudentId")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("Title")
+                    b.Property<string>("Subject")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -78,6 +83,9 @@ namespace EduTrack.Migrations
                     b.Property<long>("StudentId")
                         .HasColumnType("bigint");
 
+                    b.Property<long>("SubjectId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("SubjectName")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -89,6 +97,8 @@ namespace EduTrack.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("StudentId");
+
+                    b.HasIndex("SubjectId");
 
                     b.ToTable("Grades");
                 });
@@ -136,6 +146,167 @@ namespace EduTrack.Migrations
                             MajorCode = 0,
                             MinorCode = 2,
                             Name = "Parent"
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            MajorCode = 1,
+                            MinorCode = 0,
+                            Name = "Subjects"
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            MajorCode = 1,
+                            MinorCode = 1,
+                            Name = "Mathematics"
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            MajorCode = 1,
+                            MinorCode = 2,
+                            Name = "English"
+                        },
+                        new
+                        {
+                            Id = 7L,
+                            MajorCode = 1,
+                            MinorCode = 3,
+                            Name = "Arabic"
+                        },
+                        new
+                        {
+                            Id = 8L,
+                            MajorCode = 1,
+                            MinorCode = 4,
+                            Name = "Science"
+                        },
+                        new
+                        {
+                            Id = 9L,
+                            MajorCode = 1,
+                            MinorCode = 5,
+                            Name = "Biology"
+                        },
+                        new
+                        {
+                            Id = 10L,
+                            MajorCode = 1,
+                            MinorCode = 6,
+                            Name = "Chemistry"
+                        },
+                        new
+                        {
+                            Id = 11L,
+                            MajorCode = 1,
+                            MinorCode = 7,
+                            Name = "Physics"
+                        },
+                        new
+                        {
+                            Id = 12L,
+                            MajorCode = 1,
+                            MinorCode = 8,
+                            Name = "History"
+                        },
+                        new
+                        {
+                            Id = 13L,
+                            MajorCode = 1,
+                            MinorCode = 9,
+                            Name = "Geography"
+                        },
+                        new
+                        {
+                            Id = 14L,
+                            MajorCode = 1,
+                            MinorCode = 10,
+                            Name = "Computer Science"
+                        },
+                        new
+                        {
+                            Id = 15L,
+                            MajorCode = 1,
+                            MinorCode = 11,
+                            Name = "Religion"
+                        },
+                        new
+                        {
+                            Id = 16L,
+                            MajorCode = 2,
+                            MinorCode = 0,
+                            Name = "class"
+                        },
+                        new
+                        {
+                            Id = 17L,
+                            MajorCode = 2,
+                            MinorCode = 1,
+                            Name = "A"
+                        },
+                        new
+                        {
+                            Id = 18L,
+                            MajorCode = 2,
+                            MinorCode = 2,
+                            Name = "B"
+                        },
+                        new
+                        {
+                            Id = 19L,
+                            MajorCode = 2,
+                            MinorCode = 3,
+                            Name = "C"
+                        },
+                        new
+                        {
+                            Id = 20L,
+                            MajorCode = 3,
+                            MinorCode = 0,
+                            Name = "GradeLevel"
+                        },
+                        new
+                        {
+                            Id = 21L,
+                            MajorCode = 3,
+                            MinorCode = 1,
+                            Name = "1"
+                        },
+                        new
+                        {
+                            Id = 22L,
+                            MajorCode = 3,
+                            MinorCode = 2,
+                            Name = "2"
+                        },
+                        new
+                        {
+                            Id = 23L,
+                            MajorCode = 3,
+                            MinorCode = 3,
+                            Name = "3"
+                        },
+                        new
+                        {
+                            Id = 24L,
+                            MajorCode = 3,
+                            MinorCode = 4,
+                            Name = "4"
+                        },
+                        new
+                        {
+                            Id = 25L,
+                            MajorCode = 3,
+                            MinorCode = 5,
+                            Name = "5"
+                        },
+                        new
+                        {
+                            Id = 26L,
+                            MajorCode = 3,
+                            MinorCode = 6,
+                            Name = "6"
                         });
                 });
 
@@ -177,10 +348,15 @@ namespace EduTrack.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Class")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("GradeLevel")
+                    b.Property<long?>("ClassId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("GradeLevel")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("GradeLevelId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Name")
@@ -196,11 +372,38 @@ namespace EduTrack.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ClassId");
+
+                    b.HasIndex("GradeLevelId");
+
                     b.HasIndex("ParentId");
 
                     b.HasIndex("TeacherId");
 
                     b.ToTable("Students");
+                });
+
+            modelBuilder.Entity("EduTrack.Model.StudentSAssignments", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("AssignmentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("StudentId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AssignmentId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("StudentSAssignments");
                 });
 
             modelBuilder.Entity("EduTrack.Model.Teacher", b =>
@@ -253,11 +456,27 @@ namespace EduTrack.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("EduTrack.Model.Lookup", "Lookup")
+                        .WithMany()
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Lookup");
+
                     b.Navigation("Student");
                 });
 
             modelBuilder.Entity("EduTrack.Model.Student", b =>
                 {
+                    b.HasOne("EduTrack.Model.Lookup", "Lookup2")
+                        .WithMany()
+                        .HasForeignKey("ClassId");
+
+                    b.HasOne("EduTrack.Model.Lookup", "Lookup")
+                        .WithMany()
+                        .HasForeignKey("GradeLevelId");
+
                     b.HasOne("EduTrack.Model.Parent", "Parent")
                         .WithMany()
                         .HasForeignKey("ParentId")
@@ -268,9 +487,32 @@ namespace EduTrack.Migrations
                         .WithMany()
                         .HasForeignKey("TeacherId");
 
+                    b.Navigation("Lookup");
+
+                    b.Navigation("Lookup2");
+
                     b.Navigation("Parent");
 
                     b.Navigation("Teacher");
+                });
+
+            modelBuilder.Entity("EduTrack.Model.StudentSAssignments", b =>
+                {
+                    b.HasOne("EduTrack.Model.Assignment", "Assignment")
+                        .WithMany()
+                        .HasForeignKey("AssignmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EduTrack.Model.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Assignment");
+
+                    b.Navigation("Student");
                 });
 #pragma warning restore 612, 618
         }

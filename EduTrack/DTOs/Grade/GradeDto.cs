@@ -7,7 +7,9 @@ namespace EduTrack.DTOs.Grrades
         public long Id { get; set; }
         public long StudentId { get; set; }
         public string SubjectName { get; set; }
+        public string StudentName { get; set; }
         public long score { get; set; }
+        public long SubjectId { get; set; }
 
     }
 }
