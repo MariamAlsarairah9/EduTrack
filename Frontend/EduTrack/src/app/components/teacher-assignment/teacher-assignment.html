@@ -1,73 +1,95 @@
-
-<div class="container mt-5">
-  <div class="card">
-    <div class="card-header d-flex justify-content-between align-items-center">
-      <span>Assignment</span>
-      <button class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#addAssignmentModal">
-        Add
-      </button>
+<div class="container-fluid">
+  <div class="card mt-2">
+    <div class="card-header table-header">
+      <div class="table-title">
+        <h5>Assignment</h5>
+      </div>
+      <div>
+        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addAssignmentModal">Add</button>
+      </div>
     </div>
-    <div class="card-body p-0">
-      <table class="table table-hover mb-0">
-        <thead class="table-light">
+
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
           <tr>
-            <th>Subject </th>
-            <th>due date</th>
-            <th>description</th>
+            @for (col of assighnmentTableColumns; track col) {
+              <th>{{ col }}</th>
+            }
           </tr>
         </thead>
         <tbody>
-          <tr>
-          
-            <td>math</td>
-            <td>12-4-2026</td>
-            <td>exe page 30</td>
-          </tr>
-          <tr>
-            
-            <td>Arabic</td>
-            <td>2-4-2026</td>
-            <td>exe page 30</td>
-          </tr>
-          <tr>
-            <td>English</td>
-            <td>2-4-2026</td>
-            <td>exe page 30</td>
-          </tr>
+          @for (item of teacherassignment; track item; let i = $index) {
+            <tr>
+              <td>{{ i + 1 }}</td>
+              <td>{{ item.subject }}</td>
+              <td>{{ item.description }}</td>
+              <td>{{ item.dueDateSub | date: 'EEE MMM d yyyy' }}</td>
+             <td>{{ item.classId }}</td>
+               <td>{{ item.gradeLevelId }}</td>
+
+              
+            </tr>
+          }
         </tbody>
       </table>
     </div>
   </div>
-</div>
 
+  <div class="modal modal-lg fade" id="addAssignmentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Save Assignment</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="Assignmentform">
+            <div class="row">
+              <div class="col-lg-4 col-md-4 col-sm-12 mb-2">
+                <label for="subject" class="form-label">Subject</label>
+                <select id="subject" class="form-control" formControlName="Subject">
+                  @for (item of Subjectlist; track item ){
+                         <option [value]="item.Id">{{ item.name }}</option>
+                  }
+                </select>
 
-<div class="modal fade" id="addAssignmentModal" aria-labelledby="addassignmentLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addassignmentLabel">Add Assignment</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="row g-3">
-            <div class="col-md-6">
-              <label for="Subject" class="form-label">Subject</label>
-              <input type="text" class="form-control" id="subject" placeholder="Enter subject">
-             </div>
-            <div class="col-md-6">
-            <label for="dueDate" class="form-label">Due Date</label>
-            <input type="date" class="form-control" id="dueDate" placeholder="Enter due date">
+              </div>
+
+              <div class="col-lg-4 col-md-4 col-sm-12 mb-2">
+                <label for="dueDate" class="form-label">Due Date</label>
+                <input type="date" id="dueDate" class="form-control" formControlName="DueDateSub">
+              </div>
+
+              <div class="col-lg-4 col-md-4 col-sm-12 mb-2">
+                <label for="class" class="form-label">Class</label>
+                <select id="class" class="form-select" formControlName="classId">
+                  @for (item of classList; track item) {
+                    <option [value]="item.Id">{{ item.name }}</option>
+                  }
+                </select>
+              </div>
+
+              <div class="col-lg-4 col-md-4 col-sm-12 mb-2">
+                <label for="gradeLevel" class="form-label">Grade Level</label>
+                <select id="gradeLevel" class="form-select" formControlName="gradeLevelId">
+                  @for (item of gradeLevelList; track item) {
+                    <option [value]="item.Id">{{ item.name }}</option>
+                  }
+                </select>
+              </div>
+
+              <div class="col-12">
+                <label for="description" class="form-label">Description</label>
+                <textarea id="description" rows="1" class="form-control" formControlName="Description" placeholder="Enter description"></textarea>
+              </div>
             </div>
-            <div class="col-12">
-      <label for="description" class="form-label">description</label>
-      <textarea class="form-control" id="description" placeholder="Enter description" rows="1"></textarea>
-    </div>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button #closeButton type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
       </div>
     </div>
   </div>
