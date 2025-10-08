@@ -45,7 +45,7 @@ namespace EduTrack.Controllers
             }
 
         }
-
+         
 
         [HttpGet("GetById")]
         public IActionResult GetById([FromQuery] long Id)
@@ -56,9 +56,9 @@ namespace EduTrack.Controllers
                 {
                     Id = assignment.Id,
                     Subject = assignment.Subject,
-                    Description = assignment.Description,
-                    DueDateSub = assignment.DueDateSub
-
+                    Description = assignment.Description,   
+                    DueDateSub = assignment.DueDateSub,
+                   
 
                 }).FirstOrDefault(x => x.Id == Id);
 
