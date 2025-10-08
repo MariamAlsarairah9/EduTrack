@@ -45,26 +45,32 @@ namespace EduTrack.Controllers
         }
 
 
-        [HttpGet("GetById")]
-        public IActionResult GetById([FromQuery] long Id)
+        [HttpGet("GetByStudentId")]
+        public IActionResult GetByStudentId([FromQuery] long studentId)
         {
             try
             {
-                var attendance = _dbContext.Attendances.Select(attendance => new AttendanceDto
-                {
-                    Id = attendance.Id,
-                    DayAbsent = attendance.DayAbsent,
-                    StudentId = attendance.StudentId,
-                }).FirstOrDefault(x => x.Id == Id);
+                var attendances = _dbContext.Attendances
+                    .Where(x => x.StudentId == studentId)
+                    .Select(x => new AttendanceDto
+                    {
+                        Id = x.Id,
+                        DayAbsent = x.DayAbsent,
+                        StudentId = x.StudentId
+                    })
+                    .ToList();
 
+                if (!attendances.Any())
+                    return NotFound($"No attendance records found for StudentId {studentId}");
 
-                return Ok(attendance);
+                return Ok(attendances);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
+
 
         [HttpPost("Add")]
 

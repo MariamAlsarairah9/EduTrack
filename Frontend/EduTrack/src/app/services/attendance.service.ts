@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AttendanceInterface } from '../interfaces/attendance-interface';
 
@@ -14,7 +14,11 @@ export class AttendanceService {
 
 
 
-
+  GetByStudentId(studentId: number) {
+    let params = new HttpParams();
+    params = params.set("studentId", studentId.toString());
+    return this._http.get(this.apiUrl + "/GetByStudentId", {params});
+  }
   add(Attendance: any) {
 
     // let formData = new FormData();
@@ -22,7 +26,7 @@ export class AttendanceService {
     // formData.set("DayAbsent", student.dayAbsent.toString());
     // formData.set("StudentId", student.studentId.toString());
 
-    return this._http.post(this.apiUrl + "/Add",Attendance);
+    return this._http.post(this.apiUrl + "/Add", Attendance);
 
   }
 

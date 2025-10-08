@@ -100,7 +100,8 @@ namespace EduTrack.Controllers
                         Id = 0, // ⚠️ Id = 0 لأن EF سيولّد Identity تلقائياً
                       score= gradedto.score,
                       SubjectId=gradedto.SubjectId,
-                      StudentId=gradedto.StudentId
+                      StudentId=gradedto.StudentId,
+                      
                     };
                     _dbContext.Grades.Add(grade);
                 }
