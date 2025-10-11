@@ -5,18 +5,25 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class StudentService {
-    apiUrl: string = "https://localhost:44303/api/Students"
+  apiUrl: string = "https://localhost:44303/api/Students"
 
-      constructor(private _http : HttpClient) { }
+  constructor(private _http: HttpClient) { }
 
-      
- 
+
+
   getAll(searchObj: any) {
-  let params = new HttpParams();
-  params = params.set("GradeLevelId", searchObj.GradeLevelId ?? "");
-  params = params.set("ClassId", searchObj.ClassId ?? "");
+    let params = new HttpParams();
+    params = params.set("GradeLevelId", searchObj.GradeLevelId ?? "");
+    params = params.set("ClassId", searchObj.ClassId ?? "");
 
-  return this._http.get(this.apiUrl + "/GetAll", { params });
-}
+    return this._http.get(this.apiUrl + "/GetAll", { params });
+  }
+
+  GetById(Id: number) {
+    let params = new HttpParams();
+    params = params.set("Id", Id.toString());
+    return this._http.get(this.apiUrl + "/GetById", { params });
+  }
+
 
 }

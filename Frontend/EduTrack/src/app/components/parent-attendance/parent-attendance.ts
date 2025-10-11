@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { AttendanceService } from '../../services/attendance.service';
 import { AttendanceInterface } from '../../interfaces/attendance-interface';
-
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-parent-attendance',
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './parent-attendance.html',
   styleUrl: './parent-attendance.css'
 })

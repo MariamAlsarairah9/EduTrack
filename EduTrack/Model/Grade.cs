@@ -9,15 +9,15 @@ namespace EduTrack.Model
         public long Id { get; set; }
 
         [MaxLength(50)]
-        public string SubjectName { get; set; }
-        public long score { get; set; }
+        public string? SubjectName { get; set; }
+        public long? score { get; set; }
 
         [ForeignKey("Student")]
         public long StudentId { get; set; }
-        public Student Student { get; set; } //Navigation Propertey
+        public Student? Student { get; set; } //Navigation Propertey
         [ForeignKey("Lookup")]
-        public long SubjectId { get; set; }
-        public Lookup Lookup { get; set; }  //Navigation Propertey
+        public long? SubjectId { get; set; }
+        public Lookup? Lookup { get; set; }  //Navigation Propertey
 
 
     }
