@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EduTrack.Model
 {
@@ -10,8 +11,13 @@ namespace EduTrack.Model
         public string Name { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
-        public long StudentId { get; set; }
-        
+
+        //public long StudentId { get; set; } //No Need!!!!!!!!
+
+        [ForeignKey("User")]
+        public long? UserId { get; set; }
+        public User? User { get; set; } //Navigation Propertey
+
 
     }
 }

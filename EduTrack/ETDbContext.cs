@@ -48,8 +48,13 @@ namespace EduTrack
                 new Lookup { Id = 25, MajorCode = 3, MinorCode = 5, Name = "5" },
                 new Lookup { Id = 26, MajorCode = 3, MinorCode = 6, Name = "6" }
 
-
                 );
+
+            //BCrypt.Net.BCrypt.HashPassword("Admin@123") ==> $2a$11$sKaR6ftORxHrM1mQCeg2LOyZCYf5y0mxnp119IcJplnwbGWHBNspO
+            modelBuilder.Entity<User>().HasData(
+                new User { Id = 1, UserName = "Admin", HashedPassword = "$2a$11$sKaR6ftORxHrM1mQCeg2LOyZCYf5y0mxnp119IcJplnwbGWHBNspO", IsAdmin = true }
+                 );
+                
         }
 
 
@@ -64,6 +69,8 @@ namespace EduTrack
         public DbSet<Parent> Parents { get; set; }
         public DbSet<Grade> Grades { get; set; }
         public DbSet<StudentSAssignments> StudentSAssignments { get; set; }
+        public DbSet<User> Users { get; set; }
+
 
 
 

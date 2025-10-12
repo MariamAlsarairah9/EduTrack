@@ -3,12 +3,14 @@ using EduTrack.DTOs.Grrade;
 using EduTrack.DTOs.Grrades;
 using EduTrack.DTOs.Parent;
 using EduTrack.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
 namespace EduTrack.Controllers
 {
+    [Authorize(Roles = "Teacher")]
     [Route("api/[controller]")]
     [ApiController]
     public class GradesController : ControllerBase
@@ -33,7 +35,6 @@ namespace EduTrack.Controllers
                            select new GradeDto
                            {
                                Id = grade.Id,
-                               SubjectName = lookup.Name,
                                score = grade.score,
                                StudentId = grade.StudentId, // Or student.Id
                                SubjectId = grade.SubjectId,
