@@ -1,26 +1,32 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GradeService {
-   apiUrl: string = "https://localhost:44303/api/Grades"
+  apiUrl: string = "https://localhost:44303/api/Grades"
 
 
-  constructor(private _http : HttpClient) { }
+  constructor(private _http: HttpClient) { }
 
 
 
- add(payload: any) {
-
-  
-
-    return this._http.post(this.apiUrl + "/Add",payload);
+  add(payload: any) {
+    return this._http.post(this.apiUrl + "/Add", payload);
 
   }
 
 
+
+  GetByStudentId(studentId: number) {
+
+    let params = new HttpParams();
+    params = params.set("studentId", studentId.toString());
+    return this._http.get(this.apiUrl + "/GetByStudentId", { params });
+
+
+  }
 
 
 
