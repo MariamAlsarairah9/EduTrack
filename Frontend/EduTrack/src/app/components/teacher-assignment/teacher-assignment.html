@@ -50,7 +50,7 @@
                 <label for="subject" class="form-label">Subject</label>
                 <select id="subject" class="form-control" formControlName="Subject">
                   @for (item of Subjectlist; track item ){
-                         <option [value]="item.Id">{{ item.name }}</option>
+                   <option [value]="item.name">{{ item.name }}</option>
                   }
                 </select>
 
@@ -74,7 +74,7 @@
                 <label for="gradeLevel" class="form-label">Grade Level</label>
                 <select id="gradeLevel" class="form-select" formControlName="gradeLevelId">
                   @for (item of gradeLevelList; track item) {
-                    <option [value]="item.Id">{{ item.name }}</option>
+                      <option [value]="item.Id">{{ item.name }}</option>
                   }
                 </select>
               </div>
@@ -88,7 +88,7 @@
         </div>
         <div class="modal-footer">
           <button #closeButton type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-primary" (click)="saveassignment()" >Save changes</button>
         </div>
       </div>
     </div>
