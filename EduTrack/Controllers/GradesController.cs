@@ -1,6 +1,6 @@
 ﻿using EduTrack.DTOs.Attendance;
 using EduTrack.DTOs.Grrade;
-using EduTrack.DTOs.Grrades;
+using EduTrack.DTOs.Grade;
 using EduTrack.DTOs.Parent;
 using EduTrack.Model;
 using Microsoft.AspNetCore.Authorization;
@@ -53,30 +53,59 @@ namespace EduTrack.Controllers
         }
 
 
-        [HttpGet("GetById")]
-        public IActionResult GetById([FromQuery] long Id)
+        //[HttpGet("GetById")]
+        //public IActionResult GetById([FromQuery] long Id)
+        //{
+        //    try
+        //    {
+        //        var grade = _dbContext.Grades.Select(grade => new GradeDto
+        //        {
+        //            Id = grade.Id,
+        //            SubjectName = grade.SubjectName,
+        //            score = grade.score,
+        //            StudentId = grade.StudentId,
+        //            SubjectId = grade.SubjectId,
+
+
+        //        }).FirstOrDefault(x => x.Id == Id);
+
+
+        //        return Ok(grade);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
+        [HttpGet("GetByStudentId")]
+        public IActionResult GetByStudentId([FromQuery] long studentId)
         {
             try
             {
-                var grade = _dbContext.Grades.Select(grade => new GradeDto
-                {
-                    Id = grade.Id,
-                    SubjectName = grade.SubjectName,
-                    score = grade.score,
-                    StudentId = grade.StudentId,
-                    SubjectId = grade.SubjectId,
+                var grades = _dbContext.Grades
+                    .Where(x => x.StudentId == studentId)
+                    .Select(x => new GradeDto
+                    {
+                        Id = x.Id,
+                        SubjectName = x.Lookup != null ? x.Lookup.Name : null,
+                        StudentName = x.Student != null ? x.Student.Name : null,
+                        score = x.score,
+                        StudentId = x.StudentId,
+                        SubjectId = x.SubjectId
+                    })
+                    .ToList();
 
+                if (!grades.Any())
+                    return NotFound($"No grades found for student with ID {studentId}");
 
-                }).FirstOrDefault(x => x.Id == Id);
-
-
-                return Ok(grade);
+                return Ok(grades);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
+
 
         [HttpPost("Add")]
 

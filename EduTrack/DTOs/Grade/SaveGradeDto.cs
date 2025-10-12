@@ -1,5 +1,5 @@
 ﻿using EduTrack.DTOs.Attendance;
-using EduTrack.DTOs.Grrades;
+using EduTrack.DTOs.Grade;
 
 namespace EduTrack.DTOs.Grrade
 {
