@@ -10,6 +10,7 @@ namespace EduTrack.DTOs.Grade
         public string? StudentName { get; set; }
         public long? score { get; set; }
         public long? SubjectId { get; set; }
+        public long? GradeMonth { get; set; }
 
     }
 }

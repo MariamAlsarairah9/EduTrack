@@ -4,6 +4,7 @@ using EduTrack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EduTrack.Migrations
 {
     [DbContext(typeof(ETDbContext))]
-    partial class HrDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251012190946_seeding-grades-table")]
+    partial class seedinggradestable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -80,9 +83,6 @@ namespace EduTrack.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long?>("GradeMonth")
-                        .HasColumnType("bigint");
-
                     b.Property<long>("StudentId")
                         .HasColumnType("bigint");
 
@@ -97,8 +97,6 @@ namespace EduTrack.Migrations
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("GradeMonth");
 
                     b.HasIndex("StudentId");
 
@@ -535,10 +533,6 @@ namespace EduTrack.Migrations
 
             modelBuilder.Entity("EduTrack.Model.Grade", b =>
                 {
-                    b.HasOne("EduTrack.Model.Lookup", "Lookup1")
-                        .WithMany()
-                        .HasForeignKey("GradeMonth");
-
                     b.HasOne("EduTrack.Model.Student", "Student")
                         .WithMany()
                         .HasForeignKey("StudentId")
@@ -550,8 +544,6 @@ namespace EduTrack.Migrations
                         .HasForeignKey("SubjectId");
 
                     b.Navigation("Lookup");
-
-                    b.Navigation("Lookup1");
 
                     b.Navigation("Student");
                 });

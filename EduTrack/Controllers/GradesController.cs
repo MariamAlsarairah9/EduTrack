@@ -29,6 +29,7 @@ namespace EduTrack.Controllers
                 var data = from grade in _dbContext.Grades
                            from student in _dbContext.Students.Where(x => x.Id == grade.StudentId) //Join
                            from lookup in _dbContext.Lookups.Where(x => x.Id == grade.SubjectId)// Join
+                           from lookup2 in _dbContext.Lookups.Where(x => x.Id == grade.GradeMonth).DefaultIfEmpty()// Left Join
                            where (filterDto.Id == null || grade.Id == filterDto.Id) &&
                                  (filterDto.SubjectName == null || grade.SubjectName.ToUpper().Contains(filterDto.SubjectName.ToUpper()))
                            orderby grade.Id
@@ -38,7 +39,9 @@ namespace EduTrack.Controllers
                                score = grade.score,
                                StudentId = grade.StudentId, // Or student.Id
                                SubjectId = grade.SubjectId,
-                               StudentName = student.Name
+                               StudentName = student.Name,
+                               GradeMonth = grade.GradeMonth,
+
 
                            };
 
@@ -65,6 +68,7 @@ namespace EduTrack.Controllers
         //            score = grade.score,
         //            StudentId = grade.StudentId,
         //            SubjectId = grade.SubjectId,
+        //            GradeMonth = x.GradeMonth,
 
 
         //        }).FirstOrDefault(x => x.Id == Id);
@@ -91,7 +95,8 @@ namespace EduTrack.Controllers
                         StudentName = x.Student != null ? x.Student.Name : null,
                         score = x.score,
                         StudentId = x.StudentId,
-                        SubjectId = x.SubjectId
+                        SubjectId = x.SubjectId,
+                        GradeMonth = x.GradeMonth,
                     })
                     .ToList();
 
@@ -131,6 +136,7 @@ namespace EduTrack.Controllers
                       score= gradedto.score,
                       SubjectId=gradedto.SubjectId,
                       StudentId=gradedto.StudentId,
+                      GradeMonth=gradedto.GradeMonth,
                       
                     };
                     _dbContext.Grades.Add(grade);
@@ -160,6 +166,7 @@ namespace EduTrack.Controllers
                 grade.SubjectName = gradeDto.SubjectName;
                 grade.StudentId = gradeDto.StudentId;
                 grade.SubjectId = gradeDto.SubjectId;
+                grade.GradeMonth = gradeDto.GradeMonth;
 
 
 
