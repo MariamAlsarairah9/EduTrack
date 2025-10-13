@@ -46,10 +46,22 @@ namespace EduTrack
                 new Lookup { Id = 23, MajorCode = 3, MinorCode = 3, Name = "3" },
                 new Lookup { Id = 24, MajorCode = 3, MinorCode = 4, Name = "4" },
                 new Lookup { Id = 25, MajorCode = 3, MinorCode = 5, Name = "5" },
-                new Lookup { Id = 26, MajorCode = 3, MinorCode = 6, Name = "6" }
+                new Lookup { Id = 26, MajorCode = 3, MinorCode = 6, Name = "6" },
 
+                // MonthGrade (Major Code =4 )
+                new Lookup { Id = 27, MajorCode = 4, MinorCode = 0, Name = "MonthGrade" },
+                new Lookup { Id = 28, MajorCode = 4, MinorCode = 1, Name = "FirstTerm" },
+                new Lookup { Id = 29, MajorCode = 4, MinorCode = 2, Name = "SecondTerm" },
+                new Lookup { Id = 30, MajorCode = 4, MinorCode = 3, Name = "ThirdTerm" },
+                new Lookup { Id = 31, MajorCode = 4, MinorCode = 4, Name = "FinalGrade" }
 
                 );
+
+            //BCrypt.Net.BCrypt.HashPassword("Admin@123") ==> $2a$11$sKaR6ftORxHrM1mQCeg2LOyZCYf5y0mxnp119IcJplnwbGWHBNspO
+            modelBuilder.Entity<User>().HasData(
+                new User { Id = 1, UserName = "Admin", HashedPassword = "$2a$11$sKaR6ftORxHrM1mQCeg2LOyZCYf5y0mxnp119IcJplnwbGWHBNspO", IsAdmin = true }
+                 );
+                
         }
 
 
@@ -64,6 +76,8 @@ namespace EduTrack
         public DbSet<Parent> Parents { get; set; }
         public DbSet<Grade> Grades { get; set; }
         public DbSet<StudentSAssignments> StudentSAssignments { get; set; }
+        public DbSet<User> Users { get; set; }
+
 
 
 

@@ -2,11 +2,13 @@
 using EduTrack.DTOs.Student;
 using EduTrack.Migrations;
 using EduTrack.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EduTrack.Controllers
 {
+    [Authorize(Roles = "Teacher")]
     [Route("api/[controller]")]
     [ApiController]
     public class AssignmentsController : ControllerBase

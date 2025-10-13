@@ -6,6 +6,7 @@ import { TeacherGrade } from './components/teacher-grade/teacher-grade';
 import { Parent } from './components/parent/parent';
 import { ParentAttendance } from './components/parent-attendance/parent-attendance';
 import { ParentGrade } from './components/parent-grade/parent-grade';
+import { Login } from './components/login/login';
 export const routes: Routes = [
 
   { path: "", redirectTo: '/teacher', pathMatch: 'full' },
@@ -13,6 +14,7 @@ export const routes: Routes = [
   { path: 'teacherAttendance', component: TeacherAttendance },
   { path: 'teacherassignment', component: TeacherAssignment },
   { path: 'teacherGrade', component: TeacherGrade },
+ { path: 'login', component: Login },
 
 
   { path: 'parent', component: Parent },
@@ -24,3 +26,4 @@ export const routes: Routes = [
 
 
 ];
+

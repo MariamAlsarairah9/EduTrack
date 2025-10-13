@@ -19,6 +19,9 @@ namespace EduTrack.Model
         public long? SubjectId { get; set; }
         public Lookup? Lookup { get; set; }  //Navigation Propertey
 
+        [ForeignKey("Lookup1")]
+        public long? GradeMonth { get; set; }
+        public Lookup? Lookup1 { get; set; }  //Navigation Propertey
 
     }
 }

@@ -4,6 +4,7 @@ using EduTrack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EduTrack.Migrations
 {
     [DbContext(typeof(ETDbContext))]
-    partial class HrDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251011224134_deleting_studentid_property_parent_model")]
+    partial class deleting_studentid_property_parent_model
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -80,25 +83,21 @@ namespace EduTrack.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long?>("GradeMonth")
-                        .HasColumnType("bigint");
-
                     b.Property<long>("StudentId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("SubjectId")
+                    b.Property<long>("SubjectId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("SubjectName")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<long?>("score")
+                    b.Property<long>("score")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("GradeMonth");
 
                     b.HasIndex("StudentId");
 
@@ -311,41 +310,6 @@ namespace EduTrack.Migrations
                             MajorCode = 3,
                             MinorCode = 6,
                             Name = "6"
-                        },
-                        new
-                        {
-                            Id = 27L,
-                            MajorCode = 4,
-                            MinorCode = 0,
-                            Name = "MonthGrade"
-                        },
-                        new
-                        {
-                            Id = 28L,
-                            MajorCode = 4,
-                            MinorCode = 1,
-                            Name = "FirstTerm"
-                        },
-                        new
-                        {
-                            Id = 29L,
-                            MajorCode = 4,
-                            MinorCode = 2,
-                            Name = "SecondTerm"
-                        },
-                        new
-                        {
-                            Id = 30L,
-                            MajorCode = 4,
-                            MinorCode = 3,
-                            Name = "ThirdTerm"
-                        },
-                        new
-                        {
-                            Id = 31L,
-                            MajorCode = 4,
-                            MinorCode = 4,
-                            Name = "FinalGrade"
                         });
                 });
 
@@ -535,10 +499,6 @@ namespace EduTrack.Migrations
 
             modelBuilder.Entity("EduTrack.Model.Grade", b =>
                 {
-                    b.HasOne("EduTrack.Model.Lookup", "Lookup1")
-                        .WithMany()
-                        .HasForeignKey("GradeMonth");
-
                     b.HasOne("EduTrack.Model.Student", "Student")
                         .WithMany()
                         .HasForeignKey("StudentId")
@@ -547,11 +507,11 @@ namespace EduTrack.Migrations
 
                     b.HasOne("EduTrack.Model.Lookup", "Lookup")
                         .WithMany()
-                        .HasForeignKey("SubjectId");
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Lookup");
-
-                    b.Navigation("Lookup1");
 
                     b.Navigation("Student");
                 });

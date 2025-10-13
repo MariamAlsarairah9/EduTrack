@@ -1,11 +1,13 @@
 ﻿using EduTrack.DTOs.Attendance;
 using EduTrack.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace EduTrack.Controllers
 {
+    [Authorize(Roles = "Teacher")]
     [Route("api/[controller]")]
     [ApiController]
     public class AttendancesController : ControllerBase

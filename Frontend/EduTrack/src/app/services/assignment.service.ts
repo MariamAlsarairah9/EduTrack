@@ -1,6 +1,7 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { Assignment } from '../interfaces/assignment-interfaces';
 
 
 
@@ -18,7 +19,7 @@ export class AssignmentService {
   }
 
 
-  add(data: any) {
-    return this._http.post<any[]>(this.apiUrl + '/newassignment', data);
+  add(payload:any) {
+    return this._http.post(this.apiUrl + '/Add', payload);
   }
 }

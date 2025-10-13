@@ -4,6 +4,7 @@ using EduTrack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EduTrack.Migrations
 {
     [DbContext(typeof(ETDbContext))]
-    partial class HrDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251010010122_seeding_admin_user")]
+    partial class seeding_admin_user
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -80,25 +83,21 @@ namespace EduTrack.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long?>("GradeMonth")
-                        .HasColumnType("bigint");
-
                     b.Property<long>("StudentId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("SubjectId")
+                    b.Property<long>("SubjectId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("SubjectName")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<long?>("score")
+                    b.Property<long>("score")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("GradeMonth");
 
                     b.HasIndex("StudentId");
 
@@ -311,41 +310,6 @@ namespace EduTrack.Migrations
                             MajorCode = 3,
                             MinorCode = 6,
                             Name = "6"
-                        },
-                        new
-                        {
-                            Id = 27L,
-                            MajorCode = 4,
-                            MinorCode = 0,
-                            Name = "MonthGrade"
-                        },
-                        new
-                        {
-                            Id = 28L,
-                            MajorCode = 4,
-                            MinorCode = 1,
-                            Name = "FirstTerm"
-                        },
-                        new
-                        {
-                            Id = 29L,
-                            MajorCode = 4,
-                            MinorCode = 2,
-                            Name = "SecondTerm"
-                        },
-                        new
-                        {
-                            Id = 30L,
-                            MajorCode = 4,
-                            MinorCode = 3,
-                            Name = "ThirdTerm"
-                        },
-                        new
-                        {
-                            Id = 31L,
-                            MajorCode = 4,
-                            MinorCode = 4,
-                            Name = "FinalGrade"
                         });
                 });
 
@@ -369,6 +333,9 @@ namespace EduTrack.Migrations
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("StudentId")
+                        .HasColumnType("bigint");
 
                     b.Property<long?>("UserId")
                         .HasColumnType("bigint");
@@ -459,7 +426,7 @@ namespace EduTrack.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("EndDate")
+                    b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
@@ -470,7 +437,7 @@ namespace EduTrack.Migrations
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("StartDate")
+                    b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
                     b.Property<long?>("UserId")
@@ -502,12 +469,7 @@ namespace EduTrack.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("UserTypeId")
-                        .HasColumnType("bigint");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserTypeId");
 
                     b.ToTable("Users");
 
@@ -517,8 +479,7 @@ namespace EduTrack.Migrations
                             Id = 1L,
                             HashedPassword = "$2a$11$sKaR6ftORxHrM1mQCeg2LOyZCYf5y0mxnp119IcJplnwbGWHBNspO",
                             IsAdmin = true,
-                            UserName = "Admin",
-                            UserTypeId = 0L
+                            UserName = "Admin"
                         });
                 });
 
@@ -535,10 +496,6 @@ namespace EduTrack.Migrations
 
             modelBuilder.Entity("EduTrack.Model.Grade", b =>
                 {
-                    b.HasOne("EduTrack.Model.Lookup", "Lookup1")
-                        .WithMany()
-                        .HasForeignKey("GradeMonth");
-
                     b.HasOne("EduTrack.Model.Student", "Student")
                         .WithMany()
                         .HasForeignKey("StudentId")
@@ -547,11 +504,11 @@ namespace EduTrack.Migrations
 
                     b.HasOne("EduTrack.Model.Lookup", "Lookup")
                         .WithMany()
-                        .HasForeignKey("SubjectId");
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Lookup");
-
-                    b.Navigation("Lookup1");
 
                     b.Navigation("Student");
                 });
@@ -620,17 +577,6 @@ namespace EduTrack.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("EduTrack.Model.User", b =>
-                {
-                    b.HasOne("EduTrack.Model.Lookup", "Lookup")
-                        .WithMany()
-                        .HasForeignKey("UserTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Lookup");
                 });
 #pragma warning restore 612, 618
         }

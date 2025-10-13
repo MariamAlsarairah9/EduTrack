@@ -2,12 +2,14 @@
 using EduTrack.DTOs.Teacher;
 using EduTrack.DTOs.TeacherDto;
 using EduTrack.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace EduTrack.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class TeachersController : ControllerBase
@@ -78,7 +80,32 @@ namespace EduTrack.Controllers
         {
             try
             {
-               
+                // 🔍 نجيب Lookup الخاص بالـ "Teacher"
+                var teacherLookup = _dbContext.Lookups
+                    .FirstOrDefault(x => x.Name.ToLower() == "teacher");
+
+                if (teacherLookup == null)
+                    return BadRequest("Lookup for 'Teacher' not found in Lookups table.");
+
+
+                var user = new User()
+                {
+                    Id = 0,
+                    UserName = $"{teacherDto.Name}_ET", // Mariam --> Mariam_HR
+                    HashedPassword = BCrypt.Net.BCrypt.HashPassword($"{teacherDto.Name}@123"), // Mariam --> Mariam@123
+                    IsAdmin = false,
+                    UserTypeId = teacherLookup.Id,
+                };
+
+
+                var _user = _dbContext.Users.FirstOrDefault(x => x.UserName.ToUpper() == user.UserName.ToUpper());
+                if (_user != null)
+                {
+                    return BadRequest("Cannot Add this Teacher : The Username Already Exist . Please Select Another Name");
+                }
+                _dbContext.Users.Add(user);
+
+
                 var teacher = new Teacher()
                 {
                     Id = 0,
@@ -87,7 +114,8 @@ namespace EduTrack.Controllers
                     Email = teacherDto.Email,
                     StartDate = teacherDto.StartDate,
                     EndDate = teacherDto.EndDate,
-                   
+                    User = user,
+
                 };
                 _dbContext.Teachers.Add(teacher);
                 _dbContext.SaveChanges(); 
@@ -98,6 +126,7 @@ namespace EduTrack.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
+                //return BadRequest(ex.InnerException?.Message ?? ex.Message);
             }
         }
         [HttpPut("Update")]

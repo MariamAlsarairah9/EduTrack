@@ -1,11 +1,14 @@
 ﻿using EduTrack.DTOs.Parent;
 using EduTrack.DTOs.Student;
+using EduTrack.DTOs.Teacher;
 using EduTrack.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EduTrack.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class ParentsController : ControllerBase
@@ -31,7 +34,6 @@ namespace EduTrack.Controllers
                                Name = parent.Name,
                                Email = parent.Email,
                                Phone = parent.Phone,
-                               StudentId = parent.StudentId
 
 
                            };
@@ -58,7 +60,6 @@ namespace EduTrack.Controllers
                     Name = parent.Name,
                     Email = parent.Email,
                     Phone = parent.Phone,
-                    StudentId = parent.StudentId
 
                 }).FirstOrDefault(x => x.Id == Id);
 
@@ -77,6 +78,31 @@ namespace EduTrack.Controllers
         {
             try
             {
+                // 🔍 نجيب Lookup الخاص بالـ "Parent"
+                var parentLookup = _dbContext.Lookups
+                    .FirstOrDefault(x => x.Name.ToLower() == "Parent");
+
+                if (parentLookup == null)
+                    return BadRequest("Lookup for 'Parent' not found in Lookups table.");
+
+
+                var user = new User()
+                {
+                    Id = 0,
+                    UserName = $"{parentDto.Name}_ET", // Mariam --> Mariam_HR
+                    HashedPassword = BCrypt.Net.BCrypt.HashPassword($"{parentDto.Name}@123"), // Mariam --> Mariam@123
+                    IsAdmin = false,
+                    UserTypeId = parentLookup.Id,
+                };
+
+
+                var _user = _dbContext.Users.FirstOrDefault(x => x.UserName.ToUpper() == user.UserName.ToUpper());
+                if (_user != null)
+                {
+                    return BadRequest("Cannot Add this Parent : The Username Already Exist . Please Select Another Name");
+                }
+                _dbContext.Users.Add(user);
+
 
                 var parent = new Parent()
                 {
@@ -84,7 +110,6 @@ namespace EduTrack.Controllers
                     Name = parentDto.Name,
                     Email = parentDto.Email,
                     Phone = parentDto.Phone,
-                    StudentId = parentDto.StudentId
 
                 };
                 _dbContext.Parents.Add(parent);
@@ -111,7 +136,6 @@ namespace EduTrack.Controllers
                 parent.Name = parentDto.Name;
                 parent.Email = parentDto.Email;
                 parent.Phone = parentDto.Phone;
-                parent.StudentId = parentDto.StudentId;
 
 
 
