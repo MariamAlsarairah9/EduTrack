@@ -3,7 +3,8 @@ import { GradeService } from '../../services/grade.service';
 import { GradeInterface } from '../../interfaces/grade-interface';
 import { StudentInterface } from '../../interfaces/student-interface';
 import { StudentService } from '../../services/student.service';
-
+import { ParentInterface } from '../../interfaces/parent-interface';
+import { ParentService } from '../../services/parent.service';
 @Component({
   selector: 'app-parent-grade',
   imports: [],
@@ -16,6 +17,8 @@ export class ParentGrade {
 
   grades: GradeInterface[] = []
   studentInfo?: StudentInterface;
+  parent: ParentInterface | null = null;
+
 
 
   StudentGradesColumns: string[] = [
@@ -31,16 +34,14 @@ export class ParentGrade {
 
 
   constructor(private _gradeSrvice: GradeService,
-    private _StudentService: StudentService
+    private _StudentService: StudentService,
+    private _ParentService: ParentService
   ) { }
 
 
 
   ngOnInit() {
-
-    this.loadGrades(13);
-    this.loadStudent(13);
-
+    this.parentinfo(1)
   }
 
 
@@ -72,5 +73,23 @@ export class ParentGrade {
       }
     });
   }
+  parentinfo(id: number) {
+
+    this._ParentService.GetParent(id).subscribe({
+      next: (res: any) => {
+
+        this.parent = res;
+        this.loadGrades(res.studentId);
+        this.loadStudent(res.studentId);
+      },
+      error: err => {// failed request | 400 , 500
+        console.log(err.error.message ?? err.error ?? "Unexpected Error");
+      }
+
+
+
+    })
+  }
+
 
 }
