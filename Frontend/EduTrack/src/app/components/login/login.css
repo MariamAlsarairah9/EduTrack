@@ -1,41 +1,4 @@
-/* .main{
-    height :100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 
-}
-.form{
-    margin: 0px;
-    height: 70vh;
-    border: 13px;
-}
- .header{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 1rem;
-    font-weight: 500;  
-    margin: 2rem 0;
- }
- .form-label{
-    font-weight: 500;
-
- }
- .btn{
-   width :100% 
- }
-
-.logo-left {
-  position: absolute;
-  left: 0rem;          
-  top: 50%;
-  transform: translateY(-80%);
-  width: 80px;          
-  height: 60px;
-  object-fit: contain;
-}
- */
 body {
 
   background-color: #fff !important;

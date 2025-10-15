@@ -30,6 +30,16 @@ export class TeacherService {
 GetAll() {
    return this._http.get(this.apiUrl + "/GetAll");
 }
+
+
+add(teacher:any){
+
+   return this._http.post(this.apiUrl + "/Add" ,teacher);
+
+
+}
+
+
 }
 
 

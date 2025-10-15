@@ -17,7 +17,6 @@ export const routes: Routes = [
   { path: 'teacherAttendance', component: TeacherAttendance },
   { path: 'teacherAssignment', component: TeacherAssignment },
   { path: 'teacherGrade', component: TeacherGrade },
-  { path: 'login', component: Login },
   { path: 'addStu', component: TeacherAddStu },
 
 
@@ -28,6 +27,7 @@ export const routes: Routes = [
 
 
   { path: 'admin', component: AdminHome },
+  { path: 'login', component: Login },
 
 
 

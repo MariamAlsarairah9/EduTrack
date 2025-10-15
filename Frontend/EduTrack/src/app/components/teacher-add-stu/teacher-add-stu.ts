@@ -20,7 +20,7 @@ export class TeacherAddStu {
   constructor(private _lookupService: LookupService,
     private _ParentService: ParentService,
     private _TeacherService: TeacherService,
-    private _StudentService:StudentService
+    private _StudentService: StudentService
   ) { }
 
   gradeLevel: ListInterface[] = []
@@ -124,31 +124,31 @@ export class TeacherAddStu {
 
 
 
-addStudent() {
-  if (this.SaveStudentForm.invalid) {
-    this.SaveStudentForm.markAllAsTouched();
-    return;
-  }
-
-  let student = {
-    name: this.SaveStudentForm.value.Name,
-    gradeLevelId: this.SaveStudentForm.value.GradeLevelId,
-    classId: this.SaveStudentForm.value.ClassId,
-    parentId: this.SaveStudentForm.value.ParentId,
-    teacherId: this.SaveStudentForm.value.TeacherId
-  };
-
-  this._StudentService.add(student).subscribe({
-    next: (res: any) => {
-      alert('Student added successfully!');
-      this.SaveStudentForm.reset();
-    },
-    error: err => {
-      console.error(err);
-      alert('Error adding student');
+  addStudent() {
+    if (this.SaveStudentForm.invalid) {
+      this.SaveStudentForm.markAllAsTouched();
+      return;
     }
-  });
-}
+
+    let student = {
+      name: this.SaveStudentForm.value.Name,
+      gradeLevelId: this.SaveStudentForm.value.GradeLevelId,
+      classId: this.SaveStudentForm.value.ClassId,
+      parentId: this.SaveStudentForm.value.ParentId,
+      teacherId: this.SaveStudentForm.value.TeacherId
+    };
+
+    this._StudentService.add(student).subscribe({
+      next: (res: any) => {
+        alert('Student added successfully!');
+        this.SaveStudentForm.reset();
+      },
+      error: err => {
+        console.error(err);
+        alert('Error adding student');
+      }
+    });
+  }
 
 
 }

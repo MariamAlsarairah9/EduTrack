@@ -169,7 +169,7 @@ export class TeacherAttendance {
 
   }
 
-  paginationconfig = { itemsPerPage: 7, currentPage: 1 };
+  paginationconfig = { itemsPerPage: 5, currentPage: 1 };
   changePage(pageNumber: number) {
     this.paginationconfig.currentPage = pageNumber;
   }

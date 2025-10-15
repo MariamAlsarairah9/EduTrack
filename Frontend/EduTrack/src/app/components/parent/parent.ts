@@ -2,10 +2,11 @@ import { Component, inject } from '@angular/core';
 import { ParentService } from '../../services/parent.service';
 import { ParentInterface } from '../../interfaces/parent-interface';
 import { AuthService } from '../../services/auth.service';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-parent',
-  imports: [],
+  imports: [RouterLink,RouterOutlet ,RouterLinkActive],
   templateUrl: './parent.html',
   styleUrl: './parent.css'
 })

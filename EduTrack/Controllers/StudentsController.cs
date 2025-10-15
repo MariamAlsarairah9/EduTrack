@@ -114,6 +114,13 @@ namespace EduTrack.Controllers
                 };
                 _dbContext.Students.Add(student);
                 _dbContext.SaveChanges();
+                var parent = _dbContext.Parents.FirstOrDefault(p => p.Id == student.ParentId);
+                if (parent != null)
+                {
+                    parent.StudentId = student.Id;
+                    _dbContext.SaveChanges();
+                }
+
                 return Ok();
 
 
