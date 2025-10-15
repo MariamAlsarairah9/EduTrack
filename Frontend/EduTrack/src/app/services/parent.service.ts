@@ -11,9 +11,14 @@ export class ParentService {
   constructor(private _http : HttpClient) { }
 
 
-  GetParent(ParentId: number) {
-    let params = new HttpParams();
-    params = params.set("Id", ParentId.toString());
-    return this._http.get(this.apiUrl + "/GetById" , {params})
-  }
+  // GetParent(ParentId: number) {
+  //   let params = new HttpParams();
+  //   params = params.set("Id", ParentId.toString());
+  //   return this._http.get(this.apiUrl + "/GetById" , {params})
+  // }
+  GetParentByUserId(userId: number) {
+  let params = new HttpParams().set("userId", userId.toString());
+  return this._http.get(this.apiUrl + "/GetByUserId", { params });
+}
+
 }

@@ -7,19 +7,22 @@ import { Parent } from './components/parent/parent';
 import { ParentAttendance } from './components/parent-attendance/parent-attendance';
 import { ParentGrade } from './components/parent-grade/parent-grade';
 import { Login } from './components/login/login';
+import { ParentAssignment } from './components/parent-assignment/parent-assignment';
 export const routes: Routes = [
 
-  { path: "", redirectTo: '/teacher', pathMatch: 'full' },
+{ path: "", redirectTo: '/login', pathMatch: 'full' },
   { path: 'teacher', component: Teacher },
   { path: 'teacherAttendance', component: TeacherAttendance },
-  { path: 'teacherassignment', component: TeacherAssignment },
+  { path: 'teacherAssignment', component: TeacherAssignment },
   { path: 'teacherGrade', component: TeacherGrade },
- { path: 'login', component: Login },
+  { path: 'login', component: Login },
 
 
   { path: 'parent', component: Parent },
   { path: 'parentAttendance', component: ParentAttendance },
   { path: 'parentGrade', component: ParentGrade },
+  { path: 'parenAssignment', component: ParentAssignment },
+
 
 
 

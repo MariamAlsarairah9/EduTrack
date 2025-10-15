@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EduTrack.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class ParentsController : ControllerBase
@@ -34,7 +34,7 @@ namespace EduTrack.Controllers
                                Name = parent.Name,
                                Email = parent.Email,
                                Phone = parent.Phone,
-
+                               StudentId = parent.StudentId
 
                            };
 
@@ -60,6 +60,7 @@ namespace EduTrack.Controllers
                     Name = parent.Name,
                     Email = parent.Email,
                     Phone = parent.Phone,
+                    StudentId=parent.StudentId
 
                 }).FirstOrDefault(x => x.Id == Id);
 
@@ -71,6 +72,24 @@ namespace EduTrack.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpGet("GetByUserId")]
+        public IActionResult GetByUserId(int userId)
+        {
+            try
+            {
+                var parent = _dbContext.Parents.FirstOrDefault(p => p.UserId == userId);
+
+                if (parent == null)
+                    return NoContent(); // 204
+
+                return Ok(parent);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
 
         [HttpPost("Add")]
 
@@ -110,7 +129,8 @@ namespace EduTrack.Controllers
                     Name = parentDto.Name,
                     Email = parentDto.Email,
                     Phone = parentDto.Phone,
-
+                    StudentId=parentDto.StudentId,
+                    User = user
                 };
                 _dbContext.Parents.Add(parent);
                 _dbContext.SaveChanges();

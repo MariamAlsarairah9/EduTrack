@@ -9,7 +9,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace EduTrack.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class TeachersController : ControllerBase
@@ -51,28 +51,47 @@ namespace EduTrack.Controllers
         }
 
 
-        [HttpGet("GetById")]
-        public IActionResult GetById([FromQuery] long Id)
-        {   
+        //[HttpGet("GetById")]
+        //public IActionResult GetById([FromQuery] long Id)
+        //{   
+        //    try
+        //    {
+        //        var teacher = _dbContext.Teachers.Select(teacher => new TeacherDto
+        //        {
+        //            Id = teacher.Id,
+        //            Name = teacher.Name,
+        //            Email = teacher.Email,
+        //            StartDate = teacher.StartDate,
+        //            Phone = teacher.Phone,
+        //        }).FirstOrDefault(x => x.Id == Id);
+
+
+        //        return Ok(teacher);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
+        [HttpGet("GetByUserId")]
+        public IActionResult GetByUserId(int userId)
+        {
             try
             {
-                var teacher = _dbContext.Teachers.Select(teacher => new TeacherDto
-                {
-                    Id = teacher.Id,
-                    Name = teacher.Name,
-                    Email = teacher.Email,
-                    StartDate = teacher.StartDate,
-                    Phone = teacher.Phone,
-                }).FirstOrDefault(x => x.Id == Id);
-                                                    
+                var teacher = _dbContext.Teachers
+                    .FirstOrDefault(t => t.UserId == userId);
+
+                if (teacher == null)
+                    return NoContent(); // 204
 
                 return Ok(teacher);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { message = ex.Message });
             }
         }
+
 
         [HttpPost("Add")]
  

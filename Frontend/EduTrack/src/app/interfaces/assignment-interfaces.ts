@@ -1,9 +1,13 @@
 export interface Assignment {
   id: number;
-  subject: string;
   description: string;
   dueDateSub: Date;
-  //studentId?: number;
-classId: number;
+  subjectName?: string; // الاسم
+  class?: string; // الاسم
+  gradeLevel?: string; // الاسم
+
+  subjectId: number;
   gradeLevelId: number;
+  classId: number;
+
 }

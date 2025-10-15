@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EduTrack.Model
 {
@@ -6,11 +7,23 @@ namespace EduTrack.Model
     {
         [Key]
         public long Id { get; set; }
-        [MaxLength(50)]
-        public string Subject { get; set; }
-        [MaxLength(50)]
-        public string Description { get; set; }
+       
+        public string? Description { get; set; }
         public DateTime DueDateSub { get; set; }
-        public long StudentId { get; set; }
+
+        [ForeignKey("LookupSubject")]
+        public long? SubjectId { get; set; }
+        public Lookup? LookupSubject { get; set; }
+
+        // 🔹 الصف (Grade)
+        [ForeignKey("LookupGrade")]
+        public long? GradeLevelId { get; set; }
+        public Lookup? LookupGrade { get; set; }
+
+        // 🔹 الشعبة (Class)
+        [ForeignKey("LookupClass")]
+        public long? ClassId { get; set; }
+        public Lookup? LookupClass { get; set; }
+
     }
 }

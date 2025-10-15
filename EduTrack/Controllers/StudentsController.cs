@@ -12,7 +12,7 @@ using System.Security.Claims;
 
 namespace EduTrack.Controllers
 {
-    [Authorize(Roles = "Teacher,Admin")] //Authentication //Authorization
+    //[Authorize(Roles = "Teacher,Admin")] //Authentication //Authorization
     [Route("api/[controller]")]
     [ApiController]
     public class StudentsController : ControllerBase
@@ -118,10 +118,10 @@ namespace EduTrack.Controllers
 
 
             }
-            catch (Exception ex)
+            catch (Exception ex)    
             {
-                return BadRequest(ex.Message);
-                //return BadRequest(ex.InnerException?.Message ?? ex.Message);
+                //return BadRequest(ex.Message);
+                return BadRequest(ex.InnerException?.Message ?? ex.Message);
             }
         }
         [HttpPut("Update")]

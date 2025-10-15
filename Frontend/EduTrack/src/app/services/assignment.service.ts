@@ -11,15 +11,26 @@ import { Assignment } from '../interfaces/assignment-interfaces';
 export class AssignmentService {
   apiUrl: string = 'https://localhost:44303/api/Assignments';
 
-  constructor(private _http: HttpClient) {}
+  constructor(private _http: HttpClient) { }
 
 
   getAll() {
-    return this._http.get<any[]>(this.apiUrl + '/GetAll');
+    return this._http.get(this.apiUrl + '/GetAll');
   }
 
 
-  add(payload:any) {
+  add(payload: any) {
     return this._http.post(this.apiUrl + '/Add', payload);
   }
+
+
+  getAssignmentsByStudentId(studentId: number) {
+    let params = new HttpParams();
+    params = params.set("studentId", studentId.toString());
+    return this._http.get(this.apiUrl + "/GetByStudentId", { params });
+  }
+
+
+
+
 }

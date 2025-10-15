@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace EduTrack.Controllers
 {
-    [Authorize(Roles = "Teacher")]
+    //[Authorize(Roles = "Teacher")]
     [Route("api/[controller]")]
     [ApiController]
     public class AttendancesController : ControllerBase

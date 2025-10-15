@@ -14,11 +14,20 @@ export class TeacherService {
   constructor(private _http : HttpClient) { }
 
 
-  GetTeacher(TeacherId: number) {
-    let params = new HttpParams();
-    params = params.set("Id", TeacherId.toString());
-    return this._http.get(this.apiUrl + "/GetById" , {params})
+  // GetTeacher(TeacherId: number) {
+  //   let params = new HttpParams();
+  //   params = params.set("Id", TeacherId.toString());
+  //   return this._http.get(this.apiUrl + "/GetById" , {params})
+  // }
+
+  // ✅ الطريقة الجديدة: تجيب المعلم بناءً على الـ UserId
+  GetTeacherByUserId(userId: number) {
+     let params = new HttpParams();
+    params = params.set("userId", userId.toString());
+    return this._http.get(this.apiUrl + "/GetByUserId",{params});
   }
+
+
 }
 
 

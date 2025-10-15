@@ -41,7 +41,7 @@ namespace EduTrack.Controllers
 
                 var token = GenerateJwToken(user);
 
-                return Ok(token);
+                return Ok(new { token = token });
             }
 
             catch (Exception ex)

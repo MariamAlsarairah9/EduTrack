@@ -10,3 +10,8 @@ flex-grow: 1;
 align-items: flex-end;
 
 }
+td,th{
+
+text-align: center;
+
+}

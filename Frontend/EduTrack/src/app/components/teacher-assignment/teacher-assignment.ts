@@ -46,75 +46,94 @@ export class TeacherAssignment {
 
 
 
-  Assignmentform = new FormGroup({
-    Subject: new FormControl(null, [Validators.required]),
-    Description: new FormControl(null, [Validators.required]),
-    DueDateSub: new FormControl(null),
-    classId: new FormControl(null, [Validators.required]),     
-    gradeLevelId: new FormControl(null, [Validators.required]),
-    studentId: new FormControl(null, [Validators.required])    
-  });
+Assignmentform = new FormGroup({
+  subjectId: new FormControl(null, [Validators.required]),
+  description: new FormControl(null, [Validators.required]),
+  dueDateSub: new FormControl(null),
+  classId: new FormControl(null, [Validators.required]),     
+  gradeLevelId: new FormControl(null, [Validators.required]),
+});
+
 
   assighnmentTableColumns: string[] = ['#', 'Subject', 'Description', 'Due Date', 'Class', 'GradeLevel'];
 
   
-  Subjectlist = [
-    { Id: null, name: 'Select Grade Level' },
-    { Id: 1, name: 'math' },
-    { Id: 2, name: 'Arabic'}
-  ];
-
-  classList = [
-    { Id: null, name: 'Select Class' },
-    { Id: 1, name: 'Class A' },
-    { Id: 2, name: 'Class B' }
-  ];
-
-  gradeLevelList = [
-    { Id: null, name: 'Select Grade Level' },
-    { Id: 1, name: 'Grade 1' },
-    { Id: 2, name: 'Grade 2' }
-  ];
-
+ 
  
   ngOnInit(): void{
     this.loadassignment();
-    this.loadGradeLevel();
-    this.loadClass();
-    this.loadSubject();
+   this.loadGradeLevel();
+    this.loadClass() ;
+    this.loadSubject()
   }
   
 
-  loadassignment(){
-    this.teacherassignment = [];
+ loadassignment(){
+  this.teacherassignment = [];
 
-    this._assignmentService.getAll().subscribe({
-      next: (res: any) => { 
-        if ( res.length > 0) {
-          res.forEach((x: any) => {
-            let assignments : Assignment ={
-              id: x.id ,
-              subject: x.subject ,
-              description: x.description,
-              dueDateSub: x.dueDateSub,
-              classId:x.class,
-              gradeLevelId: x.gradelevel,
-             // StudentId: x.StudentId  ,
-            };
+  this._assignmentService.getAll().subscribe({
+    next: (res: any) => { 
+      if (res.length > 0) {
+        res.forEach((x: any) => {
+          let assignments: Assignment = {
+            id: x.id,
+            subjectId: x.subjectId, // إذا حاب تحفظ الـ Id
+            subjectName: x.subjectName, // للاسم اللي يظهر
+            description: x.description,
+            dueDateSub: x.dueDateSub,
+            classId: x.classId,
+            class: x.class, // الاسم للشعبه
+            gradeLevelId: x.gradeLevelId,
+            gradeLevel: x.gradeLevel, // الاسم للصف
+          };
 
-            this.teacherassignment.push(assignments);
-          });
-        }
-      },
-      error: (err)  => { 
-        console.log(err?.error?.message ?? err?.error ??
-           'Unexpected error');
+          this.teacherassignment.push(assignments);
+        });
       }
-    });
-  }
+    },
+    error: (err) => { 
+      console.log(err?.error?.message ?? err?.error ?? 'Unexpected error');
+    }
+  });
+}
 
 
-  loadGradeLevel() {
+
+
+
+saveassignment() {
+  let newassignment: Assignment = {
+    id: 0,
+    subjectId: Number(this.Assignmentform.value.subjectId),
+    description: this.Assignmentform.value.description!,
+    dueDateSub: this.Assignmentform.value.dueDateSub
+      ? new Date(this.Assignmentform.value.dueDateSub)
+      : new Date(),
+    classId: Number(this.Assignmentform.value.classId ?? 0),
+    gradeLevelId: Number(this.Assignmentform.value.gradeLevelId ?? 0),
+  };
+
+  let payload = {
+    description: newassignment.description,
+    dueDateSub: newassignment.dueDateSub,
+    subjectId: newassignment.subjectId,
+    classId: newassignment.classId,
+    gradeLevelId: newassignment.gradeLevelId
+  };
+
+  this._assignmentService.add(payload).subscribe({
+    next: _ => {
+      this.loadassignment();          // إعادة تحميل القائمة
+      this.Assignmentform.reset();    // إعادة تعيين الفورم
+    },
+    error: err => {
+      console.log(err?.error?.message ?? err?.error ?? 'Unexpected error');
+    }
+  });
+}
+
+
+loadGradeLevel() {
     this.gradeLevel = [{ Id: null, Name: "Select GradeLevel" }]
     this._lookupService.getByMajorCode(LookupsMajorCodes.gradeLevels).subscribe({
       next: (res: any) => { // succesful request 
@@ -172,40 +191,7 @@ export class TeacherAssignment {
     })
 
   }
-saveassignment() {
-  let newassignment: Assignment = {
-    id: 0,
-    subject: this.Assignmentform.value.Subject!, 
-    description: this.Assignmentform.value.Description!,
-    dueDateSub: this.Assignmentform.value.DueDateSub
-      ? new Date(this.Assignmentform.value.DueDateSub)
-      : new Date(),
-    classId: Number(this.Assignmentform.value.classId ?? 0),
-    gradeLevelId: Number(this.Assignmentform.value.gradeLevelId ?? 0),
-  };
 
-  let payload = {
-  
-      Id: newassignment.id,
-      Subject: newassignment.subject,
-      Description: newassignment.description,
-      DueDateSub: new Date(newassignment.dueDateSub),
-      //studentId: Number(this.Assignmentform.value.studentId ?? 0), 
-    ClassId: newassignment.classId,
-    GradeLevelId: newassignment.gradeLevelId
-  };
-
-  this._assignmentService.add(payload).subscribe({
-    next: _ => {
-      this.loadassignment();
- 
-      this.Assignmentform.reset();
-    },
-    error: err => {
-      console.log(err?.error?.message ?? err?.error ?? 'Unexpected error');
-    }
-  });
-}
 
 
 }

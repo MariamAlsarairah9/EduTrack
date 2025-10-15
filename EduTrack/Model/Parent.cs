@@ -12,7 +12,7 @@ namespace EduTrack.Model
         public string Email { get; set; }
         public string Phone { get; set; }
 
-        //public long StudentId { get; set; } //No Need!!!!!!!!
+        public long StudentId { get; set; } 
 
         [ForeignKey("User")]
         public long? UserId { get; set; }

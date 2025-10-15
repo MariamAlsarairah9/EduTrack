@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container">
   <div class="card mt-2">
     <div class="card-header table-header">
       <div class="table-title">
@@ -22,11 +22,11 @@
           @for (item of teacherassignment; track item; let i = $index) {
             <tr>
               <td>{{ i + 1 }}</td>
-              <td>{{ item.subject }}</td>
+              <td>{{ item.subjectName }}</td>
               <td>{{ item.description }}</td>
               <td>{{ item.dueDateSub | date: 'EEE MMM d yyyy' }}</td>
-             <td>{{ item.classId }}</td>
-               <td>{{ item.gradeLevelId }}</td>
+             <td>{{ item.class }}</td>
+               <td>{{ item.gradeLevel }}</td>
 
               
             </tr>
@@ -46,26 +46,25 @@
         <div class="modal-body">
           <form [formGroup]="Assignmentform">
             <div class="row">
-              <div class="col-lg-4 col-md-4 col-sm-12 mb-2">
-                <label for="subject" class="form-label">Subject</label>
-                <select id="subject" class="form-control" formControlName="Subject">
-                  @for (item of Subjectlist; track item ){
-                   <option [value]="item.name">{{ item.name }}</option>
+               <div class="col-lg-4 col-md-4 col-sm-12 mb-2">
+                <label for="class" class="form-label">subject</label>
+                <select id="class" class="form-select" formControlName="subjectId">
+                  @for (item of subject; track item) {
+                    <option [value]="item.Id">{{ item.Name }}</option>
                   }
                 </select>
-
               </div>
 
               <div class="col-lg-4 col-md-4 col-sm-12 mb-2">
                 <label for="dueDate" class="form-label">Due Date</label>
-                <input type="date" id="dueDate" class="form-control" formControlName="DueDateSub">
+                <input type="date" id="dueDate" class="form-control" formControlName="dueDateSub">
               </div>
 
               <div class="col-lg-4 col-md-4 col-sm-12 mb-2">
                 <label for="class" class="form-label">Class</label>
                 <select id="class" class="form-select" formControlName="classId">
-                  @for (item of classList; track item) {
-                    <option [value]="item.Id">{{ item.name }}</option>
+                  @for (item of class; track item) {
+                    <option [value]="item.Id">{{ item.Name }}</option>
                   }
                 </select>
               </div>
@@ -73,15 +72,15 @@
               <div class="col-lg-4 col-md-4 col-sm-12 mb-2">
                 <label for="gradeLevel" class="form-label">Grade Level</label>
                 <select id="gradeLevel" class="form-select" formControlName="gradeLevelId">
-                  @for (item of gradeLevelList; track item) {
-                      <option [value]="item.Id">{{ item.name }}</option>
+                  @for (item of gradeLevel; track item) {
+                      <option [value]="item.Id">{{ item.Name }}</option>
                   }
                 </select>
               </div>
 
               <div class="col-12">
                 <label for="description" class="form-label">Description</label>
-                <textarea id="description" rows="1" class="form-control" formControlName="Description" placeholder="Enter description"></textarea>
+                <textarea id="description" rows="1" class="form-control" formControlName="description" placeholder="Enter description"></textarea>
               </div>
             </div>
           </form>
