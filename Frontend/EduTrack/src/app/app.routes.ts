@@ -8,6 +8,7 @@ import { ParentAttendance } from './components/parent-attendance/parent-attendan
 import { ParentGrade } from './components/parent-grade/parent-grade';
 import { Login } from './components/login/login';
 import { ParentAssignment } from './components/parent-assignment/parent-assignment';
+import { AdminHome } from './components/admin-home/admin-home';
 export const routes: Routes = [
 
 { path: "", redirectTo: '/login', pathMatch: 'full' },
@@ -24,6 +25,7 @@ export const routes: Routes = [
   { path: 'parenAssignment', component: ParentAssignment },
 
 
+  { path: 'admin', component: AdminHome },
 
 
 

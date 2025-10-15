@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { ReactiveFormsModule,FormGroup ,FormControl, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-    standalone: true,
+  standalone: true,
 
   imports: [ReactiveFormsModule],
   templateUrl: './login.html',
@@ -13,17 +13,18 @@ import { Router } from '@angular/router';
 })
 export class Login {
 
- showerrormessage: boolean = false
+  showerrormessage: boolean = false
   errormessage: string = ''
-constructor(private _AuthService : AuthService ,
-   private _router: Router
-){}
+  constructor(private _AuthService: AuthService,
+    private _router: Router
+  ) { }
 
- loginForm = new FormGroup({
+  loginForm = new FormGroup({
     Username: new FormControl(null, [Validators.required]),
     Password: new FormControl(null, [Validators.required])
   })
 
+  
   login() {
     let loginObj = {
       UserName: this.loginForm.value.Username,
@@ -33,7 +34,7 @@ constructor(private _AuthService : AuthService ,
     this._AuthService.login(loginObj).subscribe({
 
       next: (res: any) => {
-         localStorage.setItem("token", res.token);
+        localStorage.setItem("token", res.token);
         this.showerrormessage = false;
 
         let role = this._AuthService.getUserRole();
@@ -42,6 +43,8 @@ constructor(private _AuthService : AuthService ,
           this._router.navigate(['/teacher']);
         } else if (role === 'Parent') {
           this._router.navigate(['/parent']);
+        } else if (role === 'Admin') {
+          this._router.navigate(['/admin']); // توجيه للـ Admin
         } else {
           this._router.navigate(['/login']);
         }
@@ -56,5 +59,6 @@ constructor(private _AuthService : AuthService ,
     })
 
   }
- 
+
+
 }

@@ -1,7 +1,5 @@
-
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Assignment } from '../interfaces/assignment-interfaces';
 
 
 
@@ -14,12 +12,12 @@ export class AssignmentService {
   constructor(private _http: HttpClient) { }
 
 
-  getAll() {
+  getAll(){
     return this._http.get(this.apiUrl + '/GetAll');
   }
 
 
-  add(payload: any) {
+  add(payload: any){
     return this._http.post(this.apiUrl + '/Add', payload);
   }
 
@@ -29,8 +27,5 @@ export class AssignmentService {
     params = params.set("studentId", studentId.toString());
     return this._http.get(this.apiUrl + "/GetByStudentId", { params });
   }
-
-
-
 
 }
