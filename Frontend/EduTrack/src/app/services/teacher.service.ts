@@ -27,7 +27,9 @@ export class TeacherService {
     return this._http.get(this.apiUrl + "/GetByUserId",{params});
   }
 
-
+GetAll() {
+   return this._http.get(this.apiUrl + "/GetAll");
+}
 }
 
 

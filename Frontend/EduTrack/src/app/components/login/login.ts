@@ -23,8 +23,8 @@ export class Login {
     Username: new FormControl(null, [Validators.required]),
     Password: new FormControl(null, [Validators.required])
   })
-
   
+
   login() {
     let loginObj = {
       UserName: this.loginForm.value.Username,

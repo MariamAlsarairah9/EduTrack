@@ -1,11 +1,11 @@
 export interface ParentInterface {
 
 
-    id: number;
+    id: number |null;
     name: string;
-    phone: number;
-    email: string;
-    studentId: number;
+    phone: number  |null;
+    email: string  |null;
+    studentId?: number  |null;
 
 
 

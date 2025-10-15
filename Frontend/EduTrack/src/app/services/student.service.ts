@@ -25,5 +25,11 @@ export class StudentService {
     return this._http.get(this.apiUrl + "/GetById", { params });
   }
 
+add(student:any){
 
+    return this._http.post(this.apiUrl + "/Add",  student );
+
+
+
+}
 }

@@ -20,5 +20,8 @@ export class ParentService {
   let params = new HttpParams().set("userId", userId.toString());
   return this._http.get(this.apiUrl + "/GetByUserId", { params });
 }
+GetAll() {
+   return this._http.get(this.apiUrl + "/GetAll");
+}
 
 }

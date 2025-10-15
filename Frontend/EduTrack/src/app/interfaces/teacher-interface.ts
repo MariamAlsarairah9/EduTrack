@@ -1,9 +1,9 @@
 export interface TeacherInterface {
- id: number;
+ id: number |null;
     name: string;
-    phone: number;
-    startDate?: Date;
-    email: string;
+    phone: number |null;
+    startDate?: Date |null;
+    email: string |null;
 
 
 }
