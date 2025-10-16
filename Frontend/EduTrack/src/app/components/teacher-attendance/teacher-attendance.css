@@ -5,21 +5,27 @@
     border-radius: 0;
     /* height: 70%; */
     align-content: center;
-    border-radius:15px ;
+    border-radius: 15px;
 }
-.card-header{
+
+.card-header {
     background-color: white;
 }
-td,th{
 
-text-align: center;
+td,
+th {
+
+    text-align: center;
 
 }
+
 @media screen and (max-width: 800px) {
-.btn {
+    .btn {
         width: 100%;
+        margin-bottom: 20px;
 
-}
+
+    }
 
 
 }

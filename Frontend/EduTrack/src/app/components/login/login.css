@@ -26,3 +26,26 @@ h4,
 h6 {
   text-align: center;
 }
+.btn{
+color: #fff;
+background-color: rgb(64 136 206);
+
+}
+
+
+@media screen and (max-width: 800px){
+
+.con{
+flex-direction: column;
+
+}
+
+.info {
+  width: 80%;
+}
+
+.img {
+  display: none;
+}
+}
+  

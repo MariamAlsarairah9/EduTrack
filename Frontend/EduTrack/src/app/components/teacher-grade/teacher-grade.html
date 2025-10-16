@@ -76,9 +76,9 @@
             </div>
         </div>
 
-        <div class="card-body">
+        <div class="card-body ">
             <div>
-                <table class="table table-striped">
+                <table class="table table-striped ">
                     <thead>
                         <tr>
                             @for (col of StudentTableColumns; track col) {
@@ -95,7 +95,8 @@
                             <td>{{stu.name}}</td>
                             <td>{{stu.gradeLevel}}</td>
                             <td>{{stu.class}}</td>
-                            <td> <input type="number" class="form-control score-input" [(ngModel)]="stu.grade"></td>
+                            <td> <input type="number" class="input form-control score-input" [(ngModel)]="stu.grade">
+                            </td>
 
 
                         </tr>
@@ -107,12 +108,14 @@
                 </table>
 
                 <div class="text-end">
-                    <button type="button" class="btn  mt-4" (click)="addGrades()" >
+                    <button type="button" class="btn  mt-4" (click)="addGrades()">
                         <span> submit</span>
                     </button>
                 </div>
 
-                <pagination-controls class="text-center" (pageChange)="changePage($event)"></pagination-controls>
+
+                <pagination-controls class="text-center " (pageChange)="changePage($event)"></pagination-controls>
+
 
             </div>
         </div>

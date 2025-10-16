@@ -23,6 +23,10 @@ width: auto;
 
 
 }
+
+.input{
+    width: 100%;
+}
 .card-header{
     display: flex;
     justify-content: space-between;
@@ -30,9 +34,9 @@ width: auto;
 @media screen and (max-width: 800px) {
 .btn {
         width: 100%;
+        margin-bottom: 20px;
 
 }
-
 
 }
 
