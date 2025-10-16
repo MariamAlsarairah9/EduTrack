@@ -92,9 +92,6 @@ export class TeacherAttendance {
 
   }
 
-
-
-
   loadGradeLevel() {
     this.gradeLevel = [{ Id: null, Name: "Select GradeLevel" }]
     this._lookupService.getByMajorCode(LookupsMajorCodes.gradeLevels).subscribe({

@@ -1,3 +1,4 @@
+
 .pp {
 
     display: flex;
@@ -5,14 +6,20 @@
     align-items: center;
     flex-direction: column;
 
+
 }
 
 .teacher-header {
     width: 70%;
+    height: 170px;
     border-radius: 30px;
     box-shadow: 3px 3px 6px #888888;
     background-color: #ffffff;
     padding: 0 0 0 25px;
+   box-shadow: 0 4px 25px rgb(185, 210, 245);
+
+
+    margin: 15px;
 }
 
 .profile-img {
@@ -25,6 +32,7 @@
 
 .teacher-img {
     width: 40%;
+
     display: flex;
     justify-content: center;
 
@@ -32,16 +40,24 @@
 
 .teacher-info {
     width: 60%;
-    color: gray;
+    color:  rgb(130, 124, 197);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     font-size: 1.5rem;
+    margin: 15px;
+    font-family: 'Times New Roman', Times, serif;
+
+
+
 }
 
 .teacher-name {
-    font-size: 2.5rem;
-    color: black;
+    font-size: 2rem;
+    color:rgba(30, 48, 80);
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: bold;
+
 
 }
 
@@ -57,17 +73,28 @@
 .btn {
 
     width: 100%;
-    background-color: rgb(171 213 255);
+
+    background-color:rgba(30, 48, 80);
+    color:#ffffff;
     border-radius: 0;
+    font-weight: bold;
     height: 70%;
     align-content: center;
     border-radius: 0 0 15px 15px;
+
+}
+
+.btn:hover {
+    background-color:rgb(64, 87, 128);
 }
 
 .card-title {
 
     height: 30%;
     align-content: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: bold;
+
 }
 
 
@@ -75,11 +102,16 @@
     margin: 15px 55px;
     padding: 0;
     border-radius: 15px;
+box-shadow: 0 4px 25px rgb(185, 210, 245);
+
 }
 
 .img-card {
-    height: 50%;
+    height: 40%;
+    width: 70%;
     border-radius: 15px 15px 0 0;
+
+    margin: 50px;
 }
 
 .card-body {
@@ -89,6 +121,9 @@
     align-items: center;
     flex-direction: column;
     padding: 10px 0 0 0;
+    color:rgba(30, 48, 80);
+    
+
 }
 
 /* .navbar {
@@ -126,6 +161,7 @@ width: auto;
     .teacher-body {
         flex-direction: column;
         align-items: center;
+
     }
 
     .card {

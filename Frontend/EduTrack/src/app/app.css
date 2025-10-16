@@ -2,9 +2,20 @@
 
     height: 7.5REM;
     background-color: #ffffff !important;
+
+box-shadow: 0 4px 25px rgb(185, 210, 245);
+
+
 }
 .logo{
    height: 100px;
    width: auto;
-
+   border-radius: 40%;
 } 
+.btn{
+background-color:rgba(30, 48, 80);;
+
+}
+.btn:hover {
+  background-color:rgb(64, 87, 128);
+}

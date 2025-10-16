@@ -1,6 +1,5 @@
-<div class="min-vh-100  con">
-
-
+<div class="min-vh-100 con">
+  
 
   <div class="img">
     <img src="assets/project-logo.png" alt="Logo" style="width: 100%;">
@@ -11,22 +10,22 @@
 
   <div class="info" [formGroup]="loginForm">
 
-    <h4>EduTrack</h4>
+    <!-- <h4>EduTrack</h4> -->
     <h6 class="h6 ">Login</h6>
-    <div class="mb-3">
+    <div class="mb-3 ">
       <label for="usernameControl" class="form-label">Username</label>
       <input type="text" class="form-control" id="usernameControl" formControlName="Username"
-        placeholder="please Enter username" />
+        placeholder=" Enter username" />
     </div>
 
-    <div class="mb-3">
+    <div class="mb-3 ">
       <label for="passwordControl" class="form-label">Password</label>
       <input type="password" class="form-control" id="passwordControl" formControlName="Password"
-        placeholder="please Enter password" />
+        placeholder=" Enter password" />
     </div>
 
     <div class="d-grid">
-      <button type="submit" class="btn" (click)="login()">Login</button>
+      <button type="submit" class="btn" (click)="login()">Login </button>
     </div>
     @if (showerrormessage){
     <div class="err-message">

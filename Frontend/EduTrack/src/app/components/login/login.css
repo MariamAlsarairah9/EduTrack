@@ -7,6 +7,13 @@ body {
 
 .info {
   width: 40%;
+  height: 75vh;
+  /* border: 1px solid black; */
+ padding: 50px;
+box-shadow: 0 4px 25px rgb(185, 210, 245);
+
+ font-weight:bold;
+
 }
 
 .img {
@@ -22,16 +29,29 @@ body {
   border-radius: 15px
 }
 
-h4,
-h6 {
+
+
+h6{
   text-align: center;
+  font-size:30px ;
+  margin-bottom:40px;
+
+   font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  
 }
 .btn{
 color: #fff;
-background-color: rgb(64 136 206);
+background-color: rgba(41, 107, 172, 0.909);
+width: 50%;
+margin-top: 30px;
+margin-left: 100px;
+
 
 }
-
+.btn:hover{
+ background-color: rgb(82, 150, 219); 
+ transform: scale(1.1);
+}
 
 @media screen and (max-width: 800px){
 
@@ -49,3 +69,8 @@ flex-direction: column;
 }
 }
   
+.form-control:focus {
+  border-color: rgb(97, 131, 190); 
+  box-shadow: 0 0 5px rgb(100, 138, 203);
+  outline: none; 
+}
