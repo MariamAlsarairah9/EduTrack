@@ -92,6 +92,13 @@ namespace EduTrack.Controllers
                     if (!studentExists)
                         return BadRequest($"StudentId {attendanceDto.StudentId} does not exist.");
 
+                    bool alreadyAbsent = _dbContext.Attendances.Any(a =>
+                      a.StudentId == attendanceDto.StudentId &&
+                      a.DayAbsent.Date == attendanceDto.DayAbsent.Date);
+
+                    if (alreadyAbsent)
+                        return BadRequest($"StudentId {attendanceDto.StudentId} is already marked absent for {attendanceDto.DayAbsent:yyyy-MM-dd}");
+
                     var attendance = new Attendance()
                     {
                         Id = 0, // ⚠️ Id = 0 لأن EF سيولّد Identity تلقائياً
