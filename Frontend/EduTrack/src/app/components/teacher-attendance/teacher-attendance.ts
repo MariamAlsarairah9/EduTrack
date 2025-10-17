@@ -133,38 +133,41 @@ export class TeacherAttendance {
 
 
 
-  addAttendance() {
-    let absents: AttendanceInterface[] = this.students.filter(stu => stu.isAbsent) // رجع بس الغايبين
-      .map(stu => ({
-        id: 0,
-        studentId: stu.id,
-        dayAbsent: new Date()
-      }));
+ addAttendance() {
+  let absents: AttendanceInterface[] = this.students
+    .filter(stu => stu.isAbsent) // الغائبين فقط
+    .map(stu => ({
+      id: 0,
+      studentId: stu.id,
+      dayAbsent: new Date()
+    }));
 
-    const payload = { attendanceDto: absents };
+  const payload = { attendanceDto: absents };
 
-
-
-    this._attendanceServices.add(payload).subscribe({
-
-      next: (res: any) => {
-        this.students.forEach(stu => stu.isAbsent = false)
-        alert('Attendance saved')
-      },
-
-      error: err => {// failed request | 400 , 500
-
-        console.log(err.error.message ?? err.error ?? "Unexpected Error")
-
-        alert('something is wrong')
-
+  this._attendanceServices.add(payload).subscribe({
+    next: (res: any) => {
+      this.students.forEach(stu => stu.isAbsent = false)
+      alert('Attendance saved');
+    },
+    error: err => {
+      // ⚠️ هنا نتحقق من رسالة الـ backend
+      if (err.error?.includes('already marked absent')) {
+        // نجيب الـ StudentId من الرسالة
+        const match = err.error.match(/StudentId (\d+)/);
+        if (match) {
+          const studentId = +match[1];
+          const student = this.students.find(s => s.id === studentId);
+          if (student) {
+            alert(`${student.name} is already marked absent for today!`);
+            student.isAbsent = false; // نلغي الـ checkbox
+          }
+        }
+      } else {
+        alert('Something went wrong!');
       }
-
-    })
-
-
-
-  }
+    }
+  });
+ }
 
   paginationconfig = { itemsPerPage: 5, currentPage: 1 };
   changePage(pageNumber: number) {

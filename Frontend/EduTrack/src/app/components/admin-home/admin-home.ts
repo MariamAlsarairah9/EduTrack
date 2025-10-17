@@ -20,9 +20,9 @@ export class AdminHome {
 
 
   SaveUserForm: FormGroup = new FormGroup({
-    Name: new FormControl(null, [Validators.required]),
-    Email: new FormControl(null, [Validators.required]),
-    Phone: new FormControl(null, [Validators.required]),
+    name : new FormControl(null, Validators.required),
+    email : new FormControl(null, [Validators.required, Validators.email]),
+    phone : new FormControl(null, [Validators.required, Validators.minLength(9), Validators.maxLength(10)]),
 
   })
 
@@ -37,9 +37,9 @@ export class AdminHome {
     }
 
     let teacher = {
-      name: this.SaveUserForm.value.Name,
-      email: this.SaveUserForm.value.Email,
-      phone: this.SaveUserForm.value.Phone,
+      name: this.SaveUserForm.value.name,
+      email: this.SaveUserForm.value.email,
+      phone: this.SaveUserForm.value.phone,
 
     };
 
@@ -65,9 +65,9 @@ export class AdminHome {
     }
 
     let parent = {
-      name: this.SaveUserForm.value.Name,
-      email: this.SaveUserForm.value.Email,
-      phone: this.SaveUserForm.value.Phone,
+      name: this.SaveUserForm.value.name,
+      email: this.SaveUserForm.value.email,
+      phone: this.SaveUserForm.value.phone,
 
     };
 
