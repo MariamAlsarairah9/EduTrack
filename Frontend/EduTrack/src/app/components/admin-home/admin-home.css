@@ -54,3 +54,13 @@ font-weight: 600;
   box-shadow: 0 0 5px rgb(100, 138, 203);
   outline: none; 
 }
+
+ .required-input-warning{
+      border-color: #d10000;
+   }
+
+   .invalid-input-message{
+    font-size: 0.9rem;
+    padding: 1%;
+    color: #d10000;
+   }
