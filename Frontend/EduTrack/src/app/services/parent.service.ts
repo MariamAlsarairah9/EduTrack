@@ -13,17 +13,23 @@ export class ParentService {
 
 
   GetParentByUserId(userId: number) {
+    let token = localStorage.getItem('token');
+    let headers = { 'Authorization': `Bearer ${token}` };
     let params = new HttpParams().set("userId", userId.toString());
-    return this._http.get(this.apiUrl + "/GetByUserId", { params });
+    return this._http.get(this.apiUrl + "/GetByUserId", { params, headers });
   }
 
   GetAll() {
-    return this._http.get(this.apiUrl + "/GetAll");
+    let token = localStorage.getItem('token');
+    let headers = { 'Authorization': `Bearer ${token}` };
+    return this._http.get(this.apiUrl + "/GetAll", { headers });
   }
-  
+
   add(parent: any) {
 
-    return this._http.post(this.apiUrl + "/Add", parent);
+    let token = localStorage.getItem('token');
+    let headers = { 'Authorization': `Bearer ${token}` };
+    return this._http.post(this.apiUrl + "/Add", parent, { headers });
 
 
   }

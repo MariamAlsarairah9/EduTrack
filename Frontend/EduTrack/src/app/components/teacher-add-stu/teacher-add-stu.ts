@@ -142,6 +142,7 @@ export class TeacherAddStu {
       next: (res: any) => {
         alert('Student added successfully!');
         this.SaveStudentForm.reset();
+        this.loadParents()
       },
       error: err => {
         console.error(err);

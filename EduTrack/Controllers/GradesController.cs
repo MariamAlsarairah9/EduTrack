@@ -10,7 +10,7 @@ using System;
 
 namespace EduTrack.Controllers
 {
-    //[Authorize(Roles = "Teacher")]
+    [Authorize(Roles = "Teacher,Parent")]
     [Route("api/[controller]")]
     [ApiController]
     public class GradesController : ControllerBase

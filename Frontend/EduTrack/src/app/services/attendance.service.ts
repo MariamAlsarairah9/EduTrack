@@ -17,17 +17,15 @@ export class AttendanceService {
   GetByStudentId(studentId: number) {
     let params = new HttpParams();
     params = params.set("studentId", studentId.toString());
-    return this._http.get(this.apiUrl + "/GetByStudentId", {params});
+    let token = localStorage.getItem('token');
+    let headers = { 'Authorization': `Bearer ${token}` };
+    return this._http.get(this.apiUrl + "/GetByStudentId", { params,headers });
   }
+
   add(Attendance: any) {
-
-    // let formData = new FormData();
-    // formData.set("Id", student.id.toString());
-    // formData.set("DayAbsent", student.dayAbsent.toString());
-    // formData.set("StudentId", student.studentId.toString());
-
-    return this._http.post(this.apiUrl + "/Add", Attendance);
-
+    let token = localStorage.getItem('token');
+    let headers = { 'Authorization': `Bearer ${token}` };
+    return this._http.post(this.apiUrl + "/Add", Attendance ,{headers});
   }
 
 

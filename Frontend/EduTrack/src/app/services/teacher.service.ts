@@ -11,7 +11,7 @@ export class TeacherService {
   apiUrl: string = "https://localhost:44303/api/Teachers"
 
 
-  constructor(private _http : HttpClient) { }
+  constructor(private _http: HttpClient) { }
 
 
   // GetTeacher(TeacherId: number) {
@@ -22,22 +22,27 @@ export class TeacherService {
 
   // ✅ الطريقة الجديدة: تجيب المعلم بناءً على الـ UserId
   GetTeacherByUserId(userId: number) {
-     let params = new HttpParams();
+    let params = new HttpParams();
     params = params.set("userId", userId.toString());
-    return this._http.get(this.apiUrl + "/GetByUserId",{params});
+    let token = localStorage.getItem('token');
+    let headers = { 'Authorization': `Bearer ${token}` };
+    return this._http.get(this.apiUrl + "/GetByUserId", { params, headers });
   }
 
-GetAll() {
-   return this._http.get(this.apiUrl + "/GetAll");
-}
+  GetAll() {
+    let token = localStorage.getItem('token');
+    let headers = { 'Authorization': `Bearer ${token}` };
+    return this._http.get(this.apiUrl + "/GetAll", { headers });
+  }
 
 
-add(teacher:any){
+  add(teacher: any) {
 
-   return this._http.post(this.apiUrl + "/Add" ,teacher);
+    let token = localStorage.getItem('token');
+    let headers = { 'Authorization': `Bearer ${token}` };
+    return this._http.post(this.apiUrl + "/Add", teacher, { headers });
 
-
-}
+  }
 
 
 }

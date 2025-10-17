@@ -56,7 +56,7 @@ export class TeacherAssignment {
 
 
   assighnmentTableColumns: string[] = ['#', 'Subject', 'Description', 'Due Date', 'Class', 'GradeLevel'];
-
+  
 
 
 

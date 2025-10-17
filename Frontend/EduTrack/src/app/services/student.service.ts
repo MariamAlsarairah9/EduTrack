@@ -15,21 +15,26 @@ export class StudentService {
     let params = new HttpParams();
     params = params.set("GradeLevelId", searchObj.GradeLevelId ?? "");
     params = params.set("ClassId", searchObj.ClassId ?? "");
-
-    return this._http.get(this.apiUrl + "/GetAll", { params });
+    let token = localStorage.getItem('token');
+    let headers = { 'Authorization': `Bearer ${token}` };
+    return this._http.get(this.apiUrl + "/GetAll", { params, headers });
   }
 
   GetById(Id: number) {
     let params = new HttpParams();
     params = params.set("Id", Id.toString());
-    return this._http.get(this.apiUrl + "/GetById", { params });
+    let token = localStorage.getItem('token');
+    let headers = { 'Authorization': `Bearer ${token}` };
+    return this._http.get(this.apiUrl + "/GetById", { params, headers });
   }
 
-add(student:any){
+  add(student: any) {
 
-    return this._http.post(this.apiUrl + "/Add",  student );
+    let token = localStorage.getItem('token');
+    let headers = { 'Authorization': `Bearer ${token}` };
+    return this._http.post(this.apiUrl + "/Add", student, { headers });
 
 
 
-}
+  }
 }

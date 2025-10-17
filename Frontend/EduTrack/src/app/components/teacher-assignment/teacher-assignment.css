@@ -1,6 +1,7 @@
 .table-header {
   display: flex;
   align-items: center;
+  background-color: #ffffff;
 }
 .table-title {
 flex-grow: 1;

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EduTrack.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Teacher,Parent")]
     [Route("api/[controller]")]
     [ApiController]
     public class ParentsController : ControllerBase
@@ -26,7 +26,9 @@ namespace EduTrack.Controllers
             {
                 var data = from parent in _dbContext.Parents
                            where (filterDto.Id == null || parent.Id == filterDto.Id) &&
-                                 (filterDto.Name == null || parent.Name.ToUpper().Contains(filterDto.Name.ToUpper()))
+                                 (filterDto.Name == null || parent.Name.ToUpper().Contains(filterDto.Name.ToUpper()))&&
+                                 (parent.StudentId == 0 || parent.StudentId == null) // ✅ فقط اللي ما عندهم طالب
+
                            orderby parent.Id
                            select new ParentDto
                            {
@@ -90,7 +92,7 @@ namespace EduTrack.Controllers
             }
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpPost("Add")]
 
         public IActionResult Add([FromBody] SaveParentDto parentDto)

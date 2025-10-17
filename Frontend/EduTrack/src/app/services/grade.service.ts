@@ -13,17 +13,22 @@ export class GradeService {
 
 
   add(payload: any) {
-    return this._http.post(this.apiUrl + "/Add", payload);
+
+    let token = localStorage.getItem('token');
+    let headers = { 'Authorization': `Bearer ${token}` };
+
+    return this._http.post(this.apiUrl + "/Add", payload, { headers });
 
   }
 
 
 
   GetByStudentId(studentId: number) {
-
+    let token = localStorage.getItem('token');
+    let headers = { 'Authorization': `Bearer ${token}` };
     let params = new HttpParams();
     params = params.set("studentId", studentId.toString());
-    return this._http.get(this.apiUrl + "/GetByStudentId", { params });
+    return this._http.get(this.apiUrl + "/GetByStudentId", { params, headers });
 
 
   }

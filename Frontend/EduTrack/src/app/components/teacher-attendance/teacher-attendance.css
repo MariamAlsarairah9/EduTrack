@@ -61,7 +61,7 @@ th {
 .card .card-body .row > [class*="col-"] {
   display: flex;
   flex-direction: column;   
-  gap: .25rem;             
+  gap: .25rem;       
 }
 .row{
     font-weight: bold;

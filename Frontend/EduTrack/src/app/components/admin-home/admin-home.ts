@@ -52,10 +52,11 @@ export class AdminHome {
         console.error(err);
         alert('Error adding Teacher');
       }
+
     });
   }
 
-  
+
   addParent() {
 
     if (this.SaveUserForm.invalid) {

@@ -13,7 +13,7 @@
                     <div class="col-lg-6  col-sm-12">
                         <label for="Grade Level" class="form-label">Grade Level</label>
                         <select class="form-select" aria-label="Default select example" id="Grade Level"
-                            formControlName="GradeLevelId">
+                            formControlName="GradeLevelId" >
                             @for (item of gradeLevel; track item) {
 
                             <option [ngValue]="item.Id">{{ item.Name }}</option>
@@ -62,7 +62,10 @@
                 student
             </h5>
             <div class="col-lg-4  " [formGroup]="subform">
-                <select class="form-select" aria-label="Default select example" id="Class" formControlName="subjectId">
+                <select class="form-select" aria-label="Default select example" id="Class" formControlName="subjectId" 
+                [class.invalid-input]="
+                 subform.get('subjectId')?.invalid && subform.get('subjectId')?.touched
+                ">
                     @for (item of subject; track item) {
 
                     <option [ngValue]="item.Id">{{ item.Name }}</option>

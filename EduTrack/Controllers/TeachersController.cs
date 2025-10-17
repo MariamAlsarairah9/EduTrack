@@ -9,7 +9,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace EduTrack.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Teacher,Parent")]
     [Route("api/[controller]")]
     [ApiController]
     public class TeachersController : ControllerBase
@@ -92,7 +92,7 @@ namespace EduTrack.Controllers
             }
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpPost("Add")]
  
         public IActionResult Add([FromBody] SaveTeacherDto teacherDto)

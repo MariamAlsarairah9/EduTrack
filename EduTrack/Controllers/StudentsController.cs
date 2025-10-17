@@ -12,7 +12,7 @@ using System.Security.Claims;
 
 namespace EduTrack.Controllers
 {
-    //[Authorize(Roles = "Teacher,Admin")] //Authentication //Authorization
+    [Authorize(Roles = "Teacher,Parent")]
     [Route("api/[controller]")]
     [ApiController]
     public class StudentsController : ControllerBase
@@ -93,7 +93,7 @@ namespace EduTrack.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
+        [Authorize(Roles = "Teacher")]
         [HttpPost("Add")]
 
         public IActionResult Add([FromBody] SaveStudentDto studentDto)

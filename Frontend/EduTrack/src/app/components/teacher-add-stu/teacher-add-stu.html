@@ -69,7 +69,7 @@
 
                 </div>
                 <div class="text-end">
-                    <button type="button" class="btn  mt-4" (click)="addStudent()">
+                    <button type="button" class="btn  mt-4" [disabled]="!SaveStudentForm.valid" (click)="addStudent() ">
                         <span> Add  <i class="fa-solid fa-plus" style="color: #ffffff;"></i></span>
                     </button>
                 </div>

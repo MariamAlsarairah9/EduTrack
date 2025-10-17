@@ -12,20 +12,27 @@ export class AssignmentService {
   constructor(private _http: HttpClient) { }
 
 
-  getAll(){
-    return this._http.get(this.apiUrl + '/GetAll');
+  getAll() {
+
+    let token = localStorage.getItem('token');
+    let headers = { 'Authorization': `Bearer ${token}` };
+    return this._http.get(this.apiUrl + '/GetAll', { headers });
   }
 
 
-  add(payload: any){
-    return this._http.post(this.apiUrl + '/Add', payload);
+  add(payload: any) {
+    let token = localStorage.getItem('token');
+    let headers = { 'Authorization': `Bearer ${token}` };
+    return this._http.post(this.apiUrl + '/Add', payload, { headers });
   }
 
 
   getAssignmentsByStudentId(studentId: number) {
     let params = new HttpParams();
     params = params.set("studentId", studentId.toString());
-    return this._http.get(this.apiUrl + "/GetByStudentId", { params });
+    let token = localStorage.getItem('token');
+    let headers = { 'Authorization': `Bearer ${token}` };
+    return this._http.get(this.apiUrl + "/GetByStudentId", { params, headers });
   }
 
 }

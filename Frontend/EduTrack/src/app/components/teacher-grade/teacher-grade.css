@@ -30,7 +30,7 @@ width: auto;
 }
 
 .input{
-    width: 100%;
+    width: 50%;
 }
 .card-header{
     display: flex;
@@ -42,7 +42,9 @@ width: auto;
         margin-bottom: 20px;
 
 }
-
+.input{
+    width: 100%;
+}
 }
 .text-center{
     color: rgb(3, 3, 14);
