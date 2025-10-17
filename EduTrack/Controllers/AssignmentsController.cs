@@ -119,7 +119,7 @@ namespace EduTrack.Controllers
             }
         }
 
-
+        [Authorize(Roles = "Teacher")]
         [HttpPost("Add")]
         public IActionResult Add([FromBody] SaveAssignmentDto assignmentDto)
         {

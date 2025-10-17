@@ -25,7 +25,6 @@ namespace EduTrack.Controllers
 
 
 
-
         [HttpGet("GetAll")]
         public IActionResult GetAll([FromQuery] FilterStudentsDto filterDto)
         {
@@ -66,7 +65,7 @@ namespace EduTrack.Controllers
 
         }
 
-        //[Authorize(Roles = "Parent")]
+        [Authorize(Roles = "Parent")]
         [HttpGet("GetById")]
         public IActionResult GetById([FromQuery] long Id)
         {
@@ -93,9 +92,10 @@ namespace EduTrack.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
         [Authorize(Roles = "Teacher")]
         [HttpPost("Add")]
-
         public IActionResult Add([FromBody] SaveStudentDto studentDto)
         {
             try
@@ -131,6 +131,8 @@ namespace EduTrack.Controllers
                 return BadRequest(ex.InnerException?.Message ?? ex.Message);
             }
         }
+
+
         [HttpPut("Update")]
         public IActionResult Update(SaveStudentDto studentDto)
         {
@@ -158,6 +160,7 @@ namespace EduTrack.Controllers
             }
 
         }
+
 
         [HttpDelete("Delete")]
         public IActionResult Delete(long Id)
