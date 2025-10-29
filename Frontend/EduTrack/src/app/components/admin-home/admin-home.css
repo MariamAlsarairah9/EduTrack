@@ -1,66 +1,47 @@
-
-
-
-.card-header h4 {
-font-weight: 600;
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
+.card {
+  margin: 30px;
+  border-radius: 5%;
+
+}
+
+.card-body {
+  padding: 0;
+  text-align: center;
+
+}
+
+.btn {
+  width: 100%;
+  height: 40vh;
+  background-color: rgba(30, 48, 80);
+  color: #ffffff;
+  border-radius: 5%;
+  align-content: center;
+}
+
+.btn:hover {
+  background-color: rgb(64, 87, 128);
+}
 
 .form-control:focus {
-  border-color: #6c757d;
-  box-shadow: 0 0 0 0.15rem rgba(108, 117, 125, 0.25);
-}
-
-.btn-secondary {
-  background-color: #6c757d; 
-
-}
-
-.btn-secondary:hover {
-  background-color: #5c636a;
-}
-.admin{
-  
-
-    font-size: 2rem;
-    color:rgba(30, 48, 80);
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-weight: bold;
-
-
-
-}
-.row{
-  font-weight: bold;
-   color:rgba(30, 48, 80);
-}
-.btn{
-    
-
-    background-color:rgba(30, 48, 80);
-    color:#ffffff;
-    border-radius: 0;
-    font-weight: bold;
-    height: 70%;
-    align-content: center;
-    border-radius: 0 0 15px 15px;
-    margin-left: 30px;
-}
-.btn:hover{
-  background-color:rgb(64, 87, 128);
-}
-.form-control:focus {
-  border-color: rgb(97, 131, 190); 
+  border-color: rgb(97, 131, 190);
   box-shadow: 0 0 5px rgb(100, 138, 203);
-  outline: none; 
+  outline: none;
 }
 
- .required-input-warning{
-      border-color: #d10000;
-   }
+.required-input-warning {
+  border-color: #d10000;
+}
 
-   .invalid-input-message{
-    font-size: 0.9rem;
-    padding: 1%;
-    color: #d10000;
-   }
+.invalid-input-message {
+  font-size: 0.9rem;
+  padding: 1%;
+  color: #d10000;
+}

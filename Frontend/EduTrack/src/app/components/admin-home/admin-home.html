@@ -1,96 +1,18 @@
 <div class="container">
-  <div class="card shadow-sm  rounded-4">
-    <div class="card-header text-center bg-light rounded-top-4">
-      <h4 class="admin">Admin</h4>
-    </div>
-    <div class="card-body" >
-      <form [formGroup]="SaveUserForm" >
-        <div class="row">
-          <div class="col-6 mb-3">
-            <label for="name" class="form-label">Name</label>
-            <input type="text" class="form-control rounded-3" id="name" placeholder="Enter name" formControlName="name" 
-            [class.required-input-warning]="SaveUserForm.get('name')?.invalid  && SaveUserForm.get('name')?.touched" />
-
-            @if(SaveUserForm.get('name')?.invalid  && SaveUserForm.get('name')?.touched){
-                      @if(SaveUserForm.get('name')?.errors?.['required']){
-                        <div class="invalid-input-message">
-                        * Name is required
-                        </div>
-
-                      }
-                    }
-          
-          </div>
-
-          <div class="col-6 mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control rounded-3" id="email" placeholder="Enter email" formControlName="email"
-            [class.required-input-warning]="SaveUserForm.get('email')?.invalid  && SaveUserForm.get('email')?.touched" />
-
-            @if(SaveUserForm.get('email')?.invalid  && SaveUserForm.get('email')?.touched){
-                      @if(SaveUserForm.get('email')?.errors?.['required']){
-                        <div class="invalid-input-message">
-                        * Email is required
-                        </div>
-
-                      }
-
-                      @if(SaveUserForm.get('email')?.errors?.['email']){
-                       <div class="invalid-input-message">
-                        * Invalid Email
-                        </div>
-
-
-                      }
-                    }
-
-
-
-          </div>
-          <div class="  col-6 mb-3">
-            <label for="phone" class="form-label">Phone</label>
-            <input type="tel" class="form-control rounded-3" id="phone" placeholder="Enter phone" formControlName="phone" 
-            [class.required-input-warning]="SaveUserForm.get('phone')?.invalid  && SaveUserForm.get('phone')?.touched">/>
-
-             @if(SaveUserForm.get('phone')?.invalid  && SaveUserForm.get('phone')?.touched){
-                      @if(SaveUserForm.get('phone')?.errors?.['required']){
-                        <div class="invalid-input-message">
-                        * Phone is required
-                        </div>
-                      }
-                       @else if (SaveUserForm.get('phone')?.errors?.['minlength']) {
-                        <div class="invalid-input-message">
-                        * Phone number must be at least 9 digits
-                        </div>
-                      }
-
-                      @else if (SaveUserForm.get('phone')?.errors?.['maxlength']) {
-                        <div class="invalid-input-message">
-                        * Phone number must be more than 10 digits
-                        </div>
-                      }
-
-                    }
-
-
-          </div>
-        </div>
-
-
-        <div class="d-flex flex-wrap gap-2 justify-content-center">
-          <button type="button" class="btn btn-secondary rounded-5 px-4" [disabled]="!SaveUserForm.valid" (click)="addParent()">
-            Add as Parent
-          </button>
-          <button type="button" class="btn btn-secondary rounded-5 px-4" [disabled]="!SaveUserForm.valid" (click)="addTeacher()">
-            Add as Teacher
-          </button>
-        </div>
-      </form>
+    <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <a href="#" class="btn btn-primary" routerLink="/adminParent" routerLinkActive="active">Parent</a>
     </div>
   </div>
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <a href="#" class="btn btn-primary" routerLink="/adminTeacher" routerLinkActive="active">Teacher</a>
+    </div>
+  </div>
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <a href="#" class="btn btn-primary" routerLink="/adminStudent" routerLinkActive="active">Student</a>
+    </div>
+  </div>
+
 </div>
-
-
-    
-        
-       

@@ -53,7 +53,7 @@ namespace EduTrack.Migrations
 
                     b.HasIndex("SubjectId");
 
-                    b.ToTable("Assignments");
+                    b.ToTable("Assignments", (string)null);
                 });
 
             modelBuilder.Entity("EduTrack.Model.Attendance", b =>
@@ -74,7 +74,7 @@ namespace EduTrack.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("Attendances");
+                    b.ToTable("Attendances", (string)null);
                 });
 
             modelBuilder.Entity("EduTrack.Model.Grade", b =>
@@ -109,7 +109,7 @@ namespace EduTrack.Migrations
 
                     b.HasIndex("SubjectId");
 
-                    b.ToTable("Grades");
+                    b.ToTable("Grades", (string)null);
                 });
 
             modelBuilder.Entity("EduTrack.Model.Lookup", b =>
@@ -132,7 +132,7 @@ namespace EduTrack.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Lookups");
+                    b.ToTable("Lookups", (string)null);
 
                     b.HasData(
                         new
@@ -385,7 +385,7 @@ namespace EduTrack.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Parents");
+                    b.ToTable("Parents", (string)null);
                 });
 
             modelBuilder.Entity("EduTrack.Model.Student", b =>
@@ -429,7 +429,7 @@ namespace EduTrack.Migrations
 
                     b.HasIndex("TeacherId");
 
-                    b.ToTable("Students");
+                    b.ToTable("Students", (string)null);
                 });
 
             modelBuilder.Entity("EduTrack.Model.StudentSAssignments", b =>
@@ -452,7 +452,7 @@ namespace EduTrack.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("StudentSAssignments");
+                    b.ToTable("StudentSAssignments", (string)null);
                 });
 
             modelBuilder.Entity("EduTrack.Model.Teacher", b =>
@@ -488,7 +488,7 @@ namespace EduTrack.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Teachers");
+                    b.ToTable("Teachers", (string)null);
                 });
 
             modelBuilder.Entity("EduTrack.Model.User", b =>
@@ -517,7 +517,7 @@ namespace EduTrack.Migrations
 
                     b.HasIndex("UserTypeId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
 
                     b.HasData(
                         new

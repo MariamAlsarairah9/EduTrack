@@ -12,7 +12,7 @@ using System.Security.Claims;
 
 namespace EduTrack.Controllers
 {
-    [Authorize(Roles = "Teacher,Parent")]
+    [Authorize(Roles = "Teacher,Parent,Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class StudentsController : ControllerBase
@@ -45,13 +45,17 @@ namespace EduTrack.Controllers
                            {
                                Id = student.Id,
                                Name = student.Name,
-                               GradeLevel = lookup.Name,
+                               GradeLevel = lookup.Name,    
                                Class = lookup1.Name,
                                TeacherId = student.TeacherId,
+                               TeacherName= teacher.Name,
                                ParentId = student.ParentId,
                                //AssignmentId = studentSassignments.AssignmentId
                                GradeLevelId = student.GradeLevelId,
                                ClassId = student.ClassId,
+                               ParentName=parent.Name
+                               
+
 
                            };
 
@@ -94,7 +98,7 @@ namespace EduTrack.Controllers
         }
 
 
-        [Authorize(Roles = "Teacher")]
+        [Authorize(Roles = "Admin")]
         [HttpPost("Add")]
         public IActionResult Add([FromBody] SaveStudentDto studentDto)
         {
@@ -149,15 +153,20 @@ namespace EduTrack.Controllers
                 student.GradeLevelId = studentDto.GradeLevelId;
                 student.ClassId = studentDto.ClassId;
 
-
-
                 _dbContext.SaveChanges();
+                var parent = _dbContext.Parents.FirstOrDefault(p => p.Id == student.ParentId);
+                if (parent != null)
+                {
+                    parent.StudentId = student.Id;
+                    _dbContext.SaveChanges();
+                }
                 return Ok();
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ex.InnerException?.Message ?? ex.Message);
             }
+
 
         }
 
@@ -175,6 +184,12 @@ namespace EduTrack.Controllers
                 }
                 _dbContext.Students.Remove(student);
                 _dbContext.SaveChanges();
+                var parent = _dbContext.Parents.FirstOrDefault(p => p.Id == student.ParentId);
+                if (parent != null)
+                {
+                    parent.StudentId = 0;
+                    _dbContext.SaveChanges();
+                }
                 return Ok();
             }
             catch (Exception ex)

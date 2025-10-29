@@ -33,6 +33,7 @@ export class AuthService {
       const role = payload['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']
         || payload['role']
         || payload['Role'];
+    // console.log('User Role from token:', role); 
 
       return role || null;
     } catch (e) {
@@ -42,20 +43,20 @@ export class AuthService {
   }
 
 
-getUserId(): number | null {
-  let token = localStorage.getItem('token');
-  if (!token) return null;
+  getUserId(): number | null {
+    let token = localStorage.getItem('token');
+    if (!token) return null;
 
-  try {
-    let payload = JSON.parse(atob(token.split('.')[1]));
-    // لاحظ إن الـ NameIdentifier عندك من namespace xmlsoap
-    let idStr = payload["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
-    return idStr ? +idStr : null;
-  } catch (e) {
-    console.error('Invalid token', e);
-    return null;
+    try {
+      let payload = JSON.parse(atob(token.split('.')[1]));
+      // لاحظ إن الـ NameIdentifier عندك من namespace xmlsoap
+      let idStr = payload["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
+      return idStr ? +idStr : null;
+    } catch (e) {
+      console.error('Invalid token', e);
+      return null;
+    }
   }
-}
 
 
   isParent(): boolean {
@@ -64,6 +65,9 @@ getUserId(): number | null {
 
   isTeacher(): boolean {
     return this.getUserRole() === 'Teacher';
+  }
+  isAdmin(): boolean {
+    return this.getUserRole() === 'Admin';
   }
   logout() {
     localStorage.removeItem('token');

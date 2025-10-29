@@ -33,24 +33,17 @@ export class ParentAttendance {
   }
 
   loadAttendance(id: number) {
-  this._AttendanceService.GetByStudentId(id).subscribe({
-    next: (res: any) => {
-      // ⚠️ إزالة الغيابات المكررة لنفس اليوم
-      const uniqueDates = new Set<string>();
-      this.attendances = res.filter((a: AttendanceInterface) => {
-        const dateStr = new Date(a.dayAbsent).toDateString(); // نص اليوم فقط بدون الوقت
-        if (uniqueDates.has(dateStr)) {
-          return false; // تجاهل المكرر
-        } else {
-          uniqueDates.add(dateStr);
-          return true; // احتفظ بالغياب
-        }
-      });
-    },
-    error: err => {
-      console.log(err.error.message ?? err.error ?? "Unexpected Error");
-    }
-  });
+     this._AttendanceService.GetByStudentId(id).subscribe({
+      next: (res: any) => {
+
+        this.attendances = res;
+      },
+      error: err => {// failed request | 400 , 500
+        console.log(err.error.message ?? err.error ?? "Unexpected Error");
+      }
+
+    });
+ 
 }
   
   // parentinfo(id: number) {

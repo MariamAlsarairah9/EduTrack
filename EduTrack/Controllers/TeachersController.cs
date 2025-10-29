@@ -148,6 +148,8 @@ namespace EduTrack.Controllers
                 //return BadRequest(ex.InnerException?.Message ?? ex.Message);
             }
         }
+
+
         [HttpPut("Update")]
         public IActionResult Update(SaveTeacherDto teacherDto)
         {
@@ -160,8 +162,8 @@ namespace EduTrack.Controllers
                 teacher.Name = teacherDto.Name;
                 teacher.Phone = teacherDto.Phone;
                 teacher.Email = teacherDto.Email;
-                teacher.StartDate = teacherDto.StartDate;
-                teacher.EndDate = teacherDto.EndDate;
+                //teacher.StartDate = teacherDto.StartDate;
+                //teacher.EndDate = teacherDto.EndDate;
 
                 _dbContext.SaveChanges();
                 return Ok();

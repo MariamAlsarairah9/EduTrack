@@ -80,7 +80,10 @@ export class TeacherGrade {
               class: x.class,
               gradeLevel: x.gradeLevel,
               gradeLevelId: x.gradeLevelId,
-              classId: x.classId
+              classId: x.classId,
+              teacherId: x.teacherId,
+              parentId :x.ParentId
+
 
             };
             this.students.push(student);
@@ -184,7 +187,7 @@ export class TeacherGrade {
         score: Number(stu.grade)
       }));
 
-    let payload = { gradeDto: grades };
+    let payload =  grades ;
     if (!grades.length) {
       alert('No grades to submit');
       return;

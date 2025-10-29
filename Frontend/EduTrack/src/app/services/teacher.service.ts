@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { TeacherInterface } from '../interfaces/teacher-interface';
 
 
 
@@ -43,8 +44,23 @@ export class TeacherService {
     return this._http.post(this.apiUrl + "/Add", teacher, { headers });
 
   }
+  update(teacher: TeacherInterface) {
+    let token = localStorage.getItem('token');
+    let headers = { 'Authorization': `Bearer ${token}` };
+
+    return this._http.put(this.apiUrl + "/Update", teacher, { headers });
 
 
+  }
+  delete(id: number) {
+    let params = new HttpParams();
+    params = params.set("Id", id);
+    let token = localStorage.getItem('token');
+    let headers = { 'Authorization': `Bearer ${token}` };
+    return this._http.delete(this.apiUrl + "/Delete", { params, headers });
+
+
+  }
 }
 
 

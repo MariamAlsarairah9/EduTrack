@@ -10,24 +10,32 @@ import { Login } from './components/login/login';
 import { ParentAssignment } from './components/parent-assignment/parent-assignment';
 import { AdminHome } from './components/admin-home/admin-home';
 import { TeacherAddStu } from './components/teacher-add-stu/teacher-add-stu';
+import { AdminTeacher } from './components/admin-teacher/admin-teacher';
+import { AdminParent } from './components/admin-parent/admin-parent';
+import { AdminStudent } from './components/admin-student/admin-student';
+import { authGuard } from './guards/auth-guard';
 export const routes: Routes = [
 
-{ path: "", redirectTo: '/login', pathMatch: 'full' },
-  { path: 'teacher', component: Teacher },
-  { path: 'teacherAttendance', component: TeacherAttendance },
-  { path: 'teacherAssignment', component: TeacherAssignment },
-  { path: 'teacherGrade', component: TeacherGrade },
-  { path: 'addStu', component: TeacherAddStu },
+    { path: '', redirectTo: '/login', pathMatch: 'full' },
 
+    { path: 'teacher', component: Teacher, canActivate: [authGuard] },
+    { path: 'teacherAttendance', component: TeacherAttendance, canActivate: [authGuard] },
+    { path: 'teacherAssignment', component: TeacherAssignment, canActivate: [authGuard] },
+    { path: 'teacherGrade', component: TeacherGrade, canActivate: [authGuard] },
+    { path: 'addStu', component: TeacherAddStu, canActivate: [authGuard] },
 
-  { path: 'parent', component: Parent },
-  { path: 'parentAttendance', component: ParentAttendance },
-  { path: 'parentGrade', component: ParentGrade },
-  { path: 'parenAssignment', component: ParentAssignment },
+    { path: 'parent', component: Parent, canActivate: [authGuard] },
+    { path: 'parentAttendance', component: ParentAttendance, canActivate: [authGuard] },
+    { path: 'parentGrade', component: ParentGrade, canActivate: [authGuard] },
+    { path: 'parenAssignment', component: ParentAssignment, canActivate: [authGuard] },
 
+    { path: 'admin', component: AdminHome, canActivate: [authGuard] },
+    { path: 'adminTeacher', component: AdminTeacher, canActivate: [authGuard] },
+    { path: 'adminParent', component: AdminParent, canActivate: [authGuard] },
+    { path: 'adminStudent', component: AdminStudent, canActivate: [authGuard] },
 
-  { path: 'admin', component: AdminHome },
-  { path: 'login', component: Login },
+    { path: 'login', component: Login },
+
 
 
 

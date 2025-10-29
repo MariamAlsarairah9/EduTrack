@@ -26,8 +26,8 @@ namespace EduTrack.Controllers
             {
                 var data = from parent in _dbContext.Parents
                            where (filterDto.Id == null || parent.Id == filterDto.Id) &&
-                                 (filterDto.Name == null || parent.Name.ToUpper().Contains(filterDto.Name.ToUpper()))&&
-                                 (parent.StudentId == 0 || parent.StudentId == null) // ✅ فقط اللي ما عندهم طالب
+                                 (filterDto.Name == null || parent.Name.ToUpper().Contains(filterDto.Name.ToUpper()))
+                               &&  (parent.StudentId == 0 || parent.StudentId == null) // ✅ فقط اللي ما عندهم طالب
 
                            orderby parent.Id
                            select new ParentDto
@@ -50,6 +50,36 @@ namespace EduTrack.Controllers
 
         }
 
+        [HttpGet("GetAllParent")]
+        public IActionResult GetAllParent([FromQuery] FilterParentsDto filterDto)
+        {
+            try
+            {
+                var data = from parent in _dbContext.Parents
+                           where (filterDto.Id == null || parent.Id == filterDto.Id) &&
+                                 (filterDto.Name == null || parent.Name.ToUpper().Contains(filterDto.Name.ToUpper())) 
+
+                           orderby parent.Id
+                           select new ParentDto
+                           {
+                               Id = parent.Id,
+                               Name = parent.Name,
+                               Email = parent.Email,
+                               Phone = parent.Phone,
+                               StudentId = parent.StudentId,
+                               
+
+                           };
+
+
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
 
         [HttpGet("GetById")]
         public IActionResult GetById([FromQuery] long Id)

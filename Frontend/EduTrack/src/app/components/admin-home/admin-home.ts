@@ -4,10 +4,11 @@ import { ParentService } from '../../services/parent.service';
 import { TeacherService } from '../../services/teacher.service';
 import { ParentInterface } from '../../interfaces/parent-interface';
 import { TeacherInterface } from '../../interfaces/teacher-interface';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-admin-home',
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule ,RouterLink,RouterLinkActive],
   templateUrl: './admin-home.html',
   styleUrl: './admin-home.css'
 })

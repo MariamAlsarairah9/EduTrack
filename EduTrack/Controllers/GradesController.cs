@@ -114,32 +114,33 @@ namespace EduTrack.Controllers
         [Authorize(Roles = "Teacher")]
         [HttpPost("Add")]
 
-        public IActionResult Add([FromBody] SaveGradeDto gradesDto)
+        public IActionResult Add([FromBody] List<SaveGradeDto> gradesDto)
         {
             try
             {
 
-                if (gradesDto.GradeDto == null || !gradesDto.GradeDto.Any())
+                if (gradesDto == null)
                 {
                     return BadRequest("grad list is required.");
                 }
-                foreach (var gradedto in gradesDto.GradeDto)
+                foreach (var item in gradesDto)
                 {
                     // ⚠️ إضافة check على StudentId للتأكد أن الطالب موجود
-                    var studentExists = _dbContext.Students.Any(s => s.Id == gradedto.StudentId);
+                    var studentExists = _dbContext.Students.Any(s => s.Id == item.StudentId);
                     if (!studentExists)
-                        return BadRequest($"StudentId {gradedto.StudentId} does not exist.");
+                        return BadRequest($"StudentId {item.StudentId} does not exist.");
+                    else {
+                        var grade = new Grade()
+                        {
+                            score = item.score,
+                            SubjectId = item.SubjectId,
+                            StudentId = item.StudentId,
+                            GradeMonth = item.GradeMonth,
 
-                    var grade = new Grade()
-                    {
-                        Id = 0, // ⚠️ Id = 0 لأن EF سيولّد Identity تلقائياً
-                      score= gradedto.score,
-                      SubjectId=gradedto.SubjectId,
-                      StudentId=gradedto.StudentId,
-                      GradeMonth=gradedto.GradeMonth,
-                      
-                    };
-                    _dbContext.Grades.Add(grade);
+                        };
+                        _dbContext.Grades.Add(grade);
+                    }
+                     
                 }
                 _dbContext.SaveChanges();
                 return Ok();
