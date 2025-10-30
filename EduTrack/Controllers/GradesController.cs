@@ -125,23 +125,38 @@ namespace EduTrack.Controllers
                 }
                 foreach (var item in gradesDto)
                 {
-                    // ⚠️ إضافة check على StudentId للتأكد أن الطالب موجود
+                    // تأكد أن الطالب موجود
                     var studentExists = _dbContext.Students.Any(s => s.Id == item.StudentId);
                     if (!studentExists)
                         return BadRequest($"StudentId {item.StudentId} does not exist.");
-                    else {
+
+                    // 🔍 فحص هل الدرجة موجودة من قبل لنفس الطالب + نفس المادة + نفس الشهر
+                    var existingGrade = _dbContext.Grades
+                        .FirstOrDefault(g => g.StudentId == item.StudentId
+                                          && g.SubjectId == item.SubjectId
+                                          && g.GradeMonth == item.GradeMonth);
+
+                    if (existingGrade != null)
+                    {
+                        // ✅ تحديث الدرجة بدل الإضافة
+                        existingGrade.score = item.score;
+                    }
+                    else
+                    {
+                        // ➕ إنشاء سجل جديد إذا غير موجود
                         var grade = new Grade()
                         {
                             score = item.score,
                             SubjectId = item.SubjectId,
                             StudentId = item.StudentId,
                             GradeMonth = item.GradeMonth,
-
                         };
+
                         _dbContext.Grades.Add(grade);
                     }
-                     
-                }
+                
+
+            }
                 _dbContext.SaveChanges();
                 return Ok();
              
