@@ -43,9 +43,9 @@ The system provides different roles for **Admin**, **Teacher**, and **Parent**, 
 - **Professional project structure**:  
   - DTOs  
   - Services  
-  - Repositories (optional)  
+  - Repositories 
   - Controllers  
-  - AutoMapper
+
 
 ---
 
