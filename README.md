@@ -56,10 +56,9 @@ The system provides different roles for **Admin**, **Teacher**, and **Parent**, 
 | ASP.NET Core Web API | Backend development |
 | Entity Framework Core | ORM for database |
 | SQL Server | Database |
-| AutoMapper | Mapping Models ↔ DTOs |
 | JWT Authentication | Login & role-based authorization |
 | Swagger / Postman | API testing |
-| (Optional) Angular / React | Frontend |
+|  Angular / React | Frontend |
 
 ---
 
