@@ -9,7 +9,7 @@
 .card {
   margin: 30px;
   border-radius: 15px;
-  width: 20rem;
+  width: 20rem !important;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   transition: transform 0.3s ease;
@@ -58,3 +58,4 @@
   padding: 1%;
   color: #d10000;
 }
+
